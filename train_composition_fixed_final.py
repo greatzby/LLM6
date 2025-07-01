@@ -65,7 +65,6 @@ def evaluate_composition(model, test_file, stages, stoi, itos, device, G,
                 # Token级编码
                 prompt = f"{source} {target} {source}"
                 prompt_tokens = prompt.split()
-                prompt_len = len(prompt_tokens)  # 保存prompt长度
                 
                 prompt_ids = []
                 for token in prompt_tokens:
@@ -88,8 +87,11 @@ def evaluate_composition(model, test_file, stages, stoi, itos, device, G,
                         except:
                             pass
                 
-                # 生成的路径就是完整序列
-                generated_path = all_numbers
+                # 关键修复：路径从第3个位置开始（跳过prompt的3个token）
+                if len(all_numbers) >= 3:
+                    generated_path = all_numbers[2:]  # 从index 2开始
+                else:
+                    generated_path = []
                 
             else:
                 # 字符级编码
@@ -158,10 +160,13 @@ def evaluate_composition(model, test_file, stages, stoi, itos, device, G,
             if success:
                 results[path_type]['correct'] += 1
             
-            # 打印前几个例子
-            if len(test_cases) <= 5 or test_cases.index((source, target, true_path)) < 3:
+            # 打印前几个例子（调试用）
+            if test_cases.index((source, target, true_path)) < 3:
                 status = "✓" if success else "✗"
-                print(f"    {status} {source}→{target}: generated={generated_path}")
+                if is_token_level:
+                    print(f"    {status} {source}→{target}: full_output={all_numbers}, path={generated_path}")
+                else:
+                    print(f"    {status} {source}→{target}: path={generated_path}")
         
         results[path_type]['accuracy'] = results[path_type]['correct'] / results[path_type]['total']
     
