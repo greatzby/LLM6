@@ -532,8 +532,8 @@ class CompositionAnalyzer:
 
 def main():
     """主函数"""
-    checkpoint_dir = "out/composition_20250702_063926"
-    data_dir = "data/simple_graph/composition_90"
+    checkpoint_dir = "out/composition_20250703_004537"
+    data_dir = "data/simple_graph/composition_90_mixed_5"
     
     print("Starting Composition Degradation Analysis...")
     print("="*60)
