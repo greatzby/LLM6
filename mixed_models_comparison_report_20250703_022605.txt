@@ -1,0 +1,44 @@
+================================================================================
+MIXED TRAINING COMPARISON REPORT
+================================================================================
+
+PERFORMANCE SUMMARY:
+--------------------------------------------------------------------------------
+Model           Initial S1->S3  Peak S1->S3     Final S1->S3    Stability      
+--------------------------------------------------------------------------------
+Original        80.00%          80.00%          32.00%          0.1054         
+5% Mixed        80.00%          84.00%          84.00%          0.0160         
+10% Mixed       92.00%          92.00%          90.00%          0.0098         
+
+================================================================================
+DETAILED ANALYSIS:
+================================================================================
+
+ORIGINAL MODEL:
+----------------------------------------
+Best Performance: 80.00% at iteration 5000
+Worst Performance: 32.00% at iteration 50000
+Performance Range: 48.00%
+
+Failure Analysis at iteration 50000:
+  invalid: 7
+  wrong: 3
+
+5% MIXED MODEL:
+----------------------------------------
+Best Performance: 84.00% at iteration 35000
+Worst Performance: 62.00% at iteration 15000
+Performance Range: 22.00%
+
+Failure Analysis at iteration 50000:
+  invalid: 8
+
+10% MIXED MODEL:
+----------------------------------------
+Best Performance: 92.00% at iteration 5000
+Worst Performance: 80.00% at iteration 20000
+Performance Range: 12.00%
+
+Failure Analysis at iteration 50000:
+  invalid: 3
+  wrong: 2
