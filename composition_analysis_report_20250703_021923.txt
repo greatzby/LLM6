@@ -1,0 +1,188 @@
+============================================================
+COMPOSITION ABILITY DEGRADATION ANALYSIS
+============================================================
+
+SUMMARY:
+----------------------------------------
+Best S1->S3 Performance: 94.00% at iteration 5000
+Worst S1->S3 Performance: 80.00% at iteration 20000
+Performance Drop: 14.00%
+
+DETAILED RESULTS:
+----------------------------------------
+
+Iteration 5000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 94.00% (47/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_22->37: 1
+    invalid_edge_28->80: 1
+    invalid_edge_2->9: 1
+
+  Example Failures:
+    1. 22→84: Generated: [22, 37, 84], True: [22, 49, 84]..., Error: invalid_edge_22->37
+    2. 28→80: Generated: [28, 80], True: [28, 39, 80]..., Error: invalid_edge_28->80
+    3. 2→84: Generated: [2, 9, 37, 84], True: [2, 49, 84]..., Error: invalid_edge_2->9
+
+Iteration 10000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 86.00% (43/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_10->31: 1
+    invalid_edge_14->31: 1
+    invalid_edge_22->37: 1
+    invalid_edge_28->80: 1
+    invalid_edge_2->31: 1
+    invalid_edge_28->60: 1
+    invalid_edge_28->89: 1
+
+  Example Failures:
+    1. 10→68: Generated: [10, 31, 68], True: [10, 43, 68]..., Error: invalid_edge_10->31
+    2. 14→68: Generated: [14, 31, 68], True: [14, 38, 68]..., Error: invalid_edge_14->31
+    3. 22→84: Generated: [22, 37, 84], True: [22, 49, 84]..., Error: invalid_edge_22->37
+
+Iteration 15000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 86.00% (43/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_45->58: 1
+    invalid_edge_22->37: 1
+    invalid_edge_58->81: 1
+    invalid_edge_28->80: 1
+    invalid_edge_2->31: 1
+    invalid_edge_20->39: 1
+    invalid_edge_28->89: 1
+
+  Example Failures:
+    1. 14→67: Generated: [14, 45, 58, 67], True: [14, 54, 67]..., Error: invalid_edge_45->58
+    2. 22→84: Generated: [22, 37, 84], True: [22, 49, 84]..., Error: invalid_edge_22->37
+    3. 27→81: Generated: [27, 58, 81], True: [27, 37, 81]..., Error: invalid_edge_58->81
+
+Iteration 20000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 80.00% (40/50)
+
+  S1->S3 Failure Analysis:
+    wrong_target: 3
+    invalid_edge_14->31: 1
+    invalid_edge_14->32: 1
+    invalid_edge_22->37: 1
+    invalid_edge_28->80: 1
+    invalid_edge_2->31: 1
+    invalid_edge_20->39: 1
+    invalid_edge_28->89: 1
+
+  Example Failures:
+    1. 10→68: Generated: [10, 22, 88], True: [10, 43, 68]..., Error: wrong_target
+    2. 14→68: Generated: [14, 31, 68], True: [14, 38, 68]..., Error: invalid_edge_14->31
+    3. 14→67: Generated: [14, 32, 67], True: [14, 54, 67]..., Error: invalid_edge_14->32
+
+Iteration 25000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 88.00% (44/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_14->31: 1
+    invalid_edge_22->37: 1
+    wrong_target: 1
+    invalid_edge_28->80: 1
+    invalid_edge_2->31: 1
+    invalid_edge_28->89: 1
+
+  Example Failures:
+    1. 14→68: Generated: [14, 31, 68], True: [14, 38, 68]..., Error: invalid_edge_14->31
+    2. 22→84: Generated: [22, 37, 84], True: [22, 49, 84]..., Error: invalid_edge_22->37
+    3. 27→81: Generated: [27, 76], True: [27, 37, 81]..., Error: wrong_target
+
+Iteration 30000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 90.00% (45/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_14->31: 1
+    wrong_target: 1
+    too_short: 1
+    invalid_edge_2->31: 1
+    invalid_edge_28->89: 1
+
+  Example Failures:
+    1. 14→68: Generated: [14, 31, 68], True: [14, 38, 68]..., Error: invalid_edge_14->31
+    2. 27→81: Generated: [27, 76], True: [27, 37, 81]..., Error: wrong_target
+    3. 28→80: Generated: [28], True: [28, 39, 80]..., Error: too_short
+
+Iteration 35000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 90.00% (45/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_14->31: 1
+    wrong_target: 1
+    invalid_edge_28->80: 1
+    invalid_edge_2->31: 1
+    invalid_edge_28->89: 1
+
+  Example Failures:
+    1. 14→68: Generated: [14, 31, 68], True: [14, 38, 68]..., Error: invalid_edge_14->31
+    2. 27→81: Generated: [27, 76], True: [27, 37, 81]..., Error: wrong_target
+    3. 28→80: Generated: [28, 80], True: [28, 39, 80]..., Error: invalid_edge_28->80
+
+Iteration 40000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 90.00% (45/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_10->8: 1
+    invalid_edge_17->35: 1
+    invalid_edge_14->31: 1
+    wrong_target: 1
+    invalid_edge_28->89: 1
+
+  Example Failures:
+    1. 10→74: Generated: [10, 8, 39, 74], True: [10, 48, 74]..., Error: invalid_edge_10->8
+    2. 17→77: Generated: [17, 35, 77], True: [17, 34, 77]..., Error: invalid_edge_17->35
+    3. 14→68: Generated: [14, 31, 68], True: [14, 38, 68]..., Error: invalid_edge_14->31
+
+Iteration 45000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 88.00% (44/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_10->65: 1
+    invalid_edge_17->33: 1
+    invalid_edge_10->68: 1
+    wrong_target: 1
+    invalid_edge_29->4: 1
+    invalid_edge_28->89: 1
+
+  Example Failures:
+    1. 10→74: Generated: [10, 65, 74], True: [10, 48, 74]..., Error: invalid_edge_10->65
+    2. 17→77: Generated: [17, 33, 66, 77], True: [17, 34, 77]..., Error: invalid_edge_17->33
+    3. 10→68: Generated: [10, 68], True: [10, 43, 68]..., Error: invalid_edge_10->68
+
+Iteration 50000:
+  S1->S2: 100.00% (50/50)
+  S2->S3: 100.00% (50/50)
+  S1->S3: 92.00% (46/50)
+
+  S1->S3 Failure Analysis:
+    invalid_edge_10->65: 1
+    invalid_edge_17->35: 1
+    invalid_edge_16->18: 1
+    wrong_target: 1
+
+  Example Failures:
+    1. 10→74: Generated: [10, 65, 74], True: [10, 48, 74]..., Error: invalid_edge_10->65
+    2. 17→77: Generated: [17, 35, 77], True: [17, 34, 77]..., Error: invalid_edge_17->35
+    3. 16→74: Generated: [16, 18, 74], True: [16, 47, 74]..., Error: invalid_edge_16->18
