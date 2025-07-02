@@ -5,6 +5,7 @@ from analyze_composition_degradation import CompositionAnalyzer
 import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
+from collections import defaultdict
 
 def compare_three_models():
     """对比分析原始、5%混合、10%混合三个模型"""
