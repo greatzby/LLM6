@@ -1,0 +1,21 @@
+CKA-Performance Correlation Analysis
+============================================================
+
+original:
+------------------------------
+  CKA-Success Correlation: nan
+  Average Drift Rate: 0.018
+  Final Success Rate: 0.000
+
+5% mixed:
+------------------------------
+  CKA-Success Correlation: nan
+  Average Drift Rate: 0.016
+  Final Success Rate: 0.000
+
+10% mixed:
+------------------------------
+  CKA-Success Correlation: nan
+  Average Drift Rate: 0.012
+  Final Success Rate: 0.000
+

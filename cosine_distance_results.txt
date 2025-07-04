@@ -1,0 +1,39 @@
+Cosine Distance Analysis Results
+============================================================
+
+original:
+------------------------------
+Initial (5k):
+  cos(S2,S1): -0.228
+  cos(S2,S3): -0.783
+  Bias: 0.361
+Final (50k):
+  cos(S2,S1): 0.398
+  cos(S2,S3): -0.355
+  Bias: 0.312
+Bias Change: -0.050
+
+5% mixed:
+------------------------------
+Initial (5k):
+  cos(S2,S1): -0.269
+  cos(S2,S3): -0.635
+  Bias: 0.408
+Final (50k):
+  cos(S2,S1): 0.397
+  cos(S2,S3): -0.357
+  Bias: 0.312
+Bias Change: -0.097
+
+10% mixed:
+------------------------------
+Initial (5k):
+  cos(S2,S1): -0.293
+  cos(S2,S3): -0.588
+  Bias: 0.426
+Final (50k):
+  cos(S2,S1): 0.309
+  cos(S2,S3): -0.384
+  Bias: 0.327
+Bias Change: -0.100
+
