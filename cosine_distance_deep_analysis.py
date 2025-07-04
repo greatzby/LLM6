@@ -51,7 +51,8 @@ class CosineDistanceAnalyzer:
                     h = block(h)
                 h = model.transformer.ln_f(h)
                 
-                embeddings.append(h.squeeze(0))
+                # 确保是1D张量 - 修复在这里！
+                embeddings.append(h.squeeze())  # 移除所有大小为1的维度
         
         return torch.stack(embeddings)
     
@@ -69,19 +70,17 @@ class CosineDistanceAnalyzer:
         s2_centroid = s2_embeddings.mean(dim=0)
         s3_centroid = s3_embeddings.mean(dim=0)
         
-        # 计算余弦相似度
-        cos_s2_s1 = F.cosine_similarity(s2_centroid.unsqueeze(0), 
-                                       s1_centroid.unsqueeze(0)).item()
-        cos_s2_s3 = F.cosine_similarity(s2_centroid.unsqueeze(0), 
-                                       s3_centroid.unsqueeze(0)).item()
+        # 计算余弦相似度 - 修复在这里！
+        cos_s2_s1 = F.cosine_similarity(s2_centroid, s1_centroid, dim=0).item()
+        cos_s2_s3 = F.cosine_similarity(s2_centroid, s3_centroid, dim=0).item()
         
         # 计算每个S2节点的偏向
         s2_biases = []
         s2_bias_details = {}
         
         for idx, s2_emb in enumerate(s2_embeddings):
-            cos_to_s1 = F.cosine_similarity(s2_emb.unsqueeze(0), s1_centroid.unsqueeze(0)).item()
-            cos_to_s3 = F.cosine_similarity(s2_emb.unsqueeze(0), s3_centroid.unsqueeze(0)).item()
+            cos_to_s1 = F.cosine_similarity(s2_emb, s1_centroid, dim=0).item()
+            cos_to_s3 = F.cosine_similarity(s2_emb, s3_centroid, dim=0).item()
             bias = (cos_to_s3 - cos_to_s1 + 1) / 2  # 归一化到[0,1]
             s2_biases.append(bias)
             s2_bias_details[S2[idx]] = {
