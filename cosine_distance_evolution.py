@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 # cosine_distance_evolution.py
+
 import torch
 import torch.nn.functional as F
 import numpy as np
@@ -77,6 +79,7 @@ class CosineDistanceAnalyzer:
     
     def analyze_all_models(self):
         """分析所有模型"""
+        # 模型配置 - 修正了10% mixed的路径
         model_configs = {
             'original': {
                 'checkpoint_dir': 'out/composition_20250702_063926',
@@ -87,7 +90,7 @@ class CosineDistanceAnalyzer:
                 'data_dir': 'data/simple_graph/composition_90_mixed_5'
             },
             '10% mixed': {
-                'checkpoint_dir': 'out/composition_20250703_011304',
+                'checkpoint_dir': 'out/composition_20250703_011304',  # 已修正！
                 'data_dir': 'data/simple_graph/composition_90_mixed_10'
             }
         }
@@ -201,7 +204,7 @@ class CosineDistanceAnalyzer:
                 
                 f.write("\n")
 
-def run_cosine_analysis():
+def main():
     analyzer = CosineDistanceAnalyzer()
     analyzer.analyze_all_models()
     analyzer.plot_results()
@@ -210,4 +213,4 @@ def run_cosine_analysis():
     print("  - cosine_distance_results.txt")
 
 if __name__ == "__main__":
-    run_cosine_analysis()
+    main()

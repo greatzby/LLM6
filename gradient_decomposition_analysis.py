@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 # gradient_decomposition_analysis.py
+
 import torch
 import torch.nn as nn
 import numpy as np
@@ -11,9 +13,8 @@ import networkx as nx
 from model import GPTConfig, GPT
 
 class GradientDecompositionAnalyzer:
-    def __init__(self, model_config, device='cuda:0'):
+    def __init__(self, device='cuda:0'):
         self.device = device
-        self.model_config = model_config
         self.gradient_history = defaultdict(lambda: defaultdict(list))
         
     def load_model(self, checkpoint_path):
@@ -175,11 +176,11 @@ class GradientDecompositionAnalyzer:
         plt.savefig('gradient_decomposition_analysis.png', dpi=300, bbox_inches='tight')
         plt.close()
 
-def run_gradient_analysis():
-    """运行梯度分析"""
-    analyzer = GradientDecompositionAnalyzer({})
+def main():
+    """主函数"""
+    analyzer = GradientDecompositionAnalyzer()
     
-    # 模型配置
+    # 模型配置 - 修正了10% mixed的路径
     model_configs = {
         'original': {
             'checkpoint_dir': 'out/composition_20250702_063926',
@@ -190,7 +191,7 @@ def run_gradient_analysis():
             'data_dir': 'data/simple_graph/composition_90_mixed_5'
         },
         '10% mixed': {
-            'checkpoint_dir': 'out/composition_20250703_011304',  # 注意：这里可能需要修正
+            'checkpoint_dir': 'out/composition_20250703_011304',  # 已修正！
             'data_dir': 'data/simple_graph/composition_90_mixed_10'
         }
     }
@@ -229,4 +230,4 @@ def run_gradient_analysis():
     print("\nAnalysis complete! Results saved to gradient_decomposition_analysis.png")
 
 if __name__ == "__main__":
-    run_gradient_analysis()
+    main()
