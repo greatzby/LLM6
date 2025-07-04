@@ -1,0 +1,48 @@
+Gradient Response Analysis Results
+============================================================
+
+original:
+------------------------------
+Initial (5000k):
+  S2→S1 response: 0.0145
+  S2→S3 response: 0.0000
+  Bias ratio: 0.00
+
+Final (50000k):
+  S2→S1 response: 0.0000
+  S2→S3 response: 0.0000
+  Bias ratio: 0.00
+
+Changes:
+  Bias ratio change: 0.00
+
+5% mixed:
+------------------------------
+Initial (5000k):
+  S2→S1 response: 0.0001
+  S2→S3 response: 0.0000
+  Bias ratio: 0.01
+
+Final (50000k):
+  S2→S1 response: 0.0000
+  S2→S3 response: 0.0000
+  Bias ratio: 0.05
+
+Changes:
+  Bias ratio change: 0.05
+
+10% mixed:
+------------------------------
+Initial (5000k):
+  S2→S1 response: 0.0002
+  S2→S3 response: 0.0000
+  Bias ratio: 0.00
+
+Final (50000k):
+  S2→S1 response: 0.0000
+  S2→S3 response: 0.0000
+  Bias ratio: 0.13
+
+Changes:
+  Bias ratio change: 0.13
+

@@ -1,0 +1,54 @@
+Deep Cosine Distance Analysis Results
+============================================================
+
+original:
+------------------------------
+Initial (5000k):
+  cos(S2,S1): -0.609
+  cos(S2,S3): 0.390
+  Mean Bias: 0.960
+  S3-biased ratio: 100.00%
+
+Final (50000k):
+  cos(S2,S1): -0.874
+  cos(S2,S3): 0.970
+  Mean Bias: 1.381
+  S3-biased ratio: 100.00%
+
+Bias Change: 0.421
+S3-biased Change: 0.0%
+
+5% mixed:
+------------------------------
+Initial (5000k):
+  cos(S2,S1): -0.238
+  cos(S2,S3): 0.985
+  Mean Bias: 1.078
+  S3-biased ratio: 100.00%
+
+Final (50000k):
+  cos(S2,S1): -0.715
+  cos(S2,S3): 0.989
+  Mean Bias: 1.318
+  S3-biased ratio: 100.00%
+
+Bias Change: 0.240
+S3-biased Change: 0.0%
+
+10% mixed:
+------------------------------
+Initial (5000k):
+  cos(S2,S1): -0.099
+  cos(S2,S3): 0.995
+  Mean Bias: 1.019
+  S3-biased ratio: 100.00%
+
+Final (50000k):
+  cos(S2,S1): -0.514
+  cos(S2,S3): 0.987
+  Mean Bias: 1.212
+  S3-biased ratio: 100.00%
+
+Bias Change: 0.193
+S3-biased Change: 0.0%
+
