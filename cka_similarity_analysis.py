@@ -51,11 +51,23 @@ class CKASimilarityAnalyzer:
         representations = []
         with torch.no_grad():
             for node in S2:
-                # 获取节点嵌入
-                node_id = node + 2  # 偏移
-                node_tensor = torch.tensor([node_id], device=self.device)
-                embedding = model.transformer.wte(node_tensor)
-                representations.append(embedding.squeeze(0).cpu().numpy())
+                # 构造输入序列
+                node_id = node + 2
+                input_ids = torch.tensor([[node_id]], device=self.device)
+                
+                # 获取深层表示
+                tok_emb = model.transformer.wte(input_ids)
+                pos = torch.zeros(1, 1, dtype=torch.long, device=self.device)
+                pos_emb = model.transformer.wpe(pos)
+                x = model.transformer.drop(tok_emb + pos_emb)
+                
+                # 通过所有transformer层
+                for block in model.transformer.h:
+                    x = block(x)
+                x = model.transformer.ln_f(x)
+                
+                # 使用最后一层的输出作为表示
+                representations.append(x.squeeze().cpu().numpy())
         
         return np.array(representations)
     
