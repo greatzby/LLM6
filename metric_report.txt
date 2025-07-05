@@ -1,0 +1,11 @@
+Metric Evaluation Report
+========================================
+
+BRC_star_adapted:
+  AUC = 0.538
+  Threshold ≈ 0.4950
+
+collapse_score:
+  AUC = 0.505
+  Threshold ≈ 1.0982
+
