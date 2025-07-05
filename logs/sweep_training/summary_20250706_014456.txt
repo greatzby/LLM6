@@ -1,0 +1,19 @@
+Sweep Summary
+============================================================
+Total Time: 4.6 hours
+Tasks: 12/12
+Failed: 0
+
+Results:
+Mix 10%, Seed 42: SUCCESS (22.9 min)
+Mix 10%, Seed 123: SUCCESS (23.0 min)
+Mix 10%, Seed 456: SUCCESS (23.1 min)
+Mix 12%, Seed 42: SUCCESS (23.5 min)
+Mix 12%, Seed 123: SUCCESS (23.1 min)
+Mix 12%, Seed 456: SUCCESS (22.8 min)
+Mix 15%, Seed 42: SUCCESS (23.1 min)
+Mix 15%, Seed 123: SUCCESS (23.2 min)
+Mix 15%, Seed 456: SUCCESS (22.6 min)
+Mix 20%, Seed 42: SUCCESS (23.3 min)
+Mix 20%, Seed 123: SUCCESS (23.3 min)
+Mix 20%, Seed 456: SUCCESS (23.3 min)
