@@ -20,7 +20,7 @@ def load_and_merge_data():
     """加载并合并数据"""
     print("加载数据...")
     success_df = pd.read_csv('success_log.csv')
-    collapse_df = pd.read_csv('collapse_metrics.csv')
+    collapse_df = pd.read_csv('collapse_metrics_updated.csv')
     
     # 合并数据
     df = pd.merge(success_df, collapse_df, on=['ratio', 'seed', 'iter'])
