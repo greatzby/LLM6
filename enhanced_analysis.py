@@ -129,16 +129,14 @@ plt.ylim(0, 1)
 # 3.4 低混合比例区域的细节
 plt.subplot(2, 3, 4)
 low_ratio = stable[stable['ratio'] <= 6]
-colors = plt.cm.viridis(low_ratio['ratio'] / 6)
-plt.scatter(low_ratio['effective_rank'], low_ratio['success'], 
-           c=colors, alpha=0.6, s=20)
+scatter = plt.scatter(low_ratio['effective_rank'], low_ratio['success'], 
+                     c=low_ratio['ratio'], cmap='viridis', alpha=0.6, s=20)
 plt.axvline(66.3, color='red', linestyle='--', alpha=0.7)
 plt.axhline(0.8, color='orange', linestyle='--', alpha=0.7)
 plt.xlabel('Effective Rank')
 plt.ylabel('Success Rate')
 plt.title('Low Ratio Region (≤6%)')
-sm = plt.cm.ScalarMappable(cmap='viridis', norm=plt.Normalize(vmin=0, vmax=6))
-plt.colorbar(sm, label='Ratio (%)')
+plt.colorbar(scatter, label='Ratio (%)')  # 直接用scatter对象
 
 # 3.5 时间演化：选几个代表性案例
 plt.subplot(2, 3, 5)
