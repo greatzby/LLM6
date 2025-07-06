@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 
 # 加载数据
-df = pd.read_csv('collapse_metrics.csv')
+df = pd.read_csv('collapse_metrics_updated.csv')
 success_df = pd.read_csv('success_log.csv')
 merged = pd.merge(df, success_df, on=['ratio', 'seed', 'iter'])
 stable = merged[merged['iter'] >= 10000]
