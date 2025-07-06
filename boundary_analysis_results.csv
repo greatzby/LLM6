@@ -1,0 +1,5 @@
+Zone,Ratio_Only_AUC,Combined_AUC,Improvement
+Low (0-2%),,,
+Critical (2-11%),0.5991673398371963,0.6291223927587564,0.029955052921560088
+Safe (11%+),,,
+Full Data,0.836,0.839,0.003
