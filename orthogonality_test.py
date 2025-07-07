@@ -4,6 +4,18 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
+
+def partial_correlation(data, x, y, z):
+    """计算x和y的偏相关，控制z"""
+    from sklearn.linear_model import LinearRegression
+    reg_xz = LinearRegression().fit(data[[z]], data[x])
+    reg_yz = LinearRegression().fit(data[[z]], data[y])
+    
+    residual_x = data[x] - reg_xz.predict(data[[z]])
+    residual_y = data[y] - reg_yz.predict(data[[z]])
+    
+    return np.corrcoef(residual_x, residual_y)[0, 1]
+
 print("=== ER-Ratio正交性验证 ===\n")
 
 # 加载数据
@@ -141,6 +153,15 @@ ax.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.savefig('orthogonality_analysis.png', dpi=300)
 print("\n已保存: orthogonality_analysis.png")
+
+analysis_data = merged[['ratio', 'iter', 'effective_rank']].copy()
+scaler = StandardScaler()
+analysis_data[['ratio_scaled', 'iter_scaled', 'er_scaled']] = scaler.fit_transform(
+    analysis_data[['ratio', 'iter', 'effective_rank']]
+)
+
+partial_corr = partial_correlation(analysis_data, 'ratio_scaled', 'er_scaled', 'iter_scaled')
+print(f"\n偏相关性 (控制iteration): {partial_corr:.3f}")
 
 # 最终判断
 print("\n=== 独立性判断 ===")

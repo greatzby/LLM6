@@ -119,10 +119,12 @@ print("\n2. ER-Ratio独立性统计检验")
 print("-" * 50)
 
 # 2.1 整体相关性
+# 2.1 整体相关性
 overall_corr = merged.groupby(['ratio', 'iter'])['effective_rank'].mean().reset_index()
-correlation = overall_corr.groupby('ratio')['effective_rank'].mean().corr(
-    overall_corr.groupby('ratio')['effective_rank'].mean().index
-)
+
+# 修正：计算ratio值和平均ER之间的相关性
+ratio_er_mean = overall_corr.groupby('ratio')['effective_rank'].mean().reset_index()
+correlation = np.corrcoef(ratio_er_mean['ratio'], ratio_er_mean['effective_rank'])[0, 1]
 print(f"整体相关性 (Pearson): {correlation:.3f}")
 
 # 2.2 偏相关分析（控制iteration）
