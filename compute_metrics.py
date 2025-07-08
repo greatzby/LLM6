@@ -17,7 +17,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 CKPT_GLOB = "out/composition_mix*/ckpt_mix*_seed*_iter*.pt"
-OUT_CSV   = "collapse_metrics_100k.csv"
+OUT_CSV   = "collapse_metrics_0mix.csv"
 PAT       = re.compile(r"ckpt_mix(\d+)_seed(\d+)_iter(\d+)\.pt")
 
 def svd_direction_diversity(W: torch.Tensor) -> float:
