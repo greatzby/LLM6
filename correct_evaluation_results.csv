@@ -1,0 +1,21 @@
+accuracy,correct,total,errors,error_examples,ratio,seed,iteration
+0.38,19,50,"{'other': 26, 'skip_s2': 5}","{'skip_s2': [{'source': 17, 'target': 77, 'generated': [17, 77], 'true_path': [17, 34, 77]}, {'source': 27, 'target': 75, 'generated': [27, 75], 'true_path': [27, 35, 75]}, {'source': 29, 'target': 80, 'generated': [29, 80], 'true_path': [29, 35, 80]}]}",0,123,50000
+0.3,15,50,"{'skip_s2': 13, 'other': 22}","{'skip_s2': [{'source': 22, 'target': 86, 'generated': [22, 86], 'true_path': [22, 35, 86]}, {'source': 6, 'target': 75, 'generated': [6, 75], 'true_path': [6, 38, 75]}, {'source': 13, 'target': 87, 'generated': [13, 87], 'true_path': [13, 30, 87]}]}",0,42,50000
+0.3,15,50,"{'skip_s2': 13, 'other': 22}","{'skip_s2': [{'source': 22, 'target': 86, 'generated': [22, 86], 'true_path': [22, 35, 86]}, {'source': 6, 'target': 75, 'generated': [6, 75], 'true_path': [6, 38, 75]}, {'source': 13, 'target': 87, 'generated': [13, 87], 'true_path': [13, 30, 87]}]}",0,42,50000
+0.32,16,50,"{'skip_s2': 12, 'other': 22}","{'skip_s2': [{'source': 22, 'target': 86, 'generated': [22, 86], 'true_path': [22, 35, 86]}, {'source': 6, 'target': 75, 'generated': [6, 75], 'true_path': [6, 38, 75]}, {'source': 13, 'target': 87, 'generated': [13, 87], 'true_path': [13, 30, 87]}]}",0,42,50000
+0.4,20,50,"{'other': 24, 'skip_s2': 6}","{'skip_s2': [{'source': 13, 'target': 87, 'generated': [13, 87], 'true_path': [13, 30, 87]}, {'source': 16, 'target': 81, 'generated': [16, 81], 'true_path': [16, 30, 81]}, {'source': 27, 'target': 89, 'generated': [27, 89], 'true_path': [27, 35, 89]}]}",0,456,50000
+0.8,40,50,{'other': 10},{},10,123,50000
+0.9,45,50,{'other': 5},{},10,42,50000
+0.88,44,50,{'other': 6},{},10,42,50000
+0.8,40,50,"{'other': 9, 'skip_s2': 1}","{'skip_s2': [{'source': 13, 'target': 87, 'generated': [13, 87], 'true_path': [13, 30, 87]}]}",10,456,50000
+0.82,41,50,"{'other': 8, 'skip_s2': 1}","{'skip_s2': [{'source': 1, 'target': 82, 'generated': [1, 82], 'true_path': [1, 51, 82]}]}",12,123,50000
+0.92,46,50,{'other': 4},{},12,42,50000
+0.92,46,50,"{'skip_s2': 2, 'other': 2}","{'skip_s2': [{'source': 1, 'target': 82, 'generated': [1, 82], 'true_path': [1, 51, 82]}, {'source': 13, 'target': 62, 'generated': [13, 62], 'true_path': [13, 39, 62]}]}",12,456,50000
+0.96,48,50,"{'skip_s2': 1, 'other': 1}","{'skip_s2': [{'source': 9, 'target': 79, 'generated': [9, 79], 'true_path': [9, 50, 79]}]}",15,123,50000
+0.88,44,50,{'other': 6},{},15,42,50000
+0.94,47,50,"{'other': 2, 'skip_s2': 1}","{'skip_s2': [{'source': 13, 'target': 88, 'generated': [13, 88], 'true_path': [13, 31, 49, 88]}]}",15,456,50000
+0.58,29,50,"{'skip_s2': 10, 'other': 10, 'too_short': 1}","{'skip_s2': [{'source': 22, 'target': 86, 'generated': [22, 86], 'true_path': [22, 35, 86]}, {'source': 29, 'target': 71, 'generated': [29, 71], 'true_path': [29, 35, 71]}, {'source': 3, 'target': 77, 'generated': [3, 77], 'true_path': [3, 34, 77]}]}",1,123,50000
+0.54,27,50,"{'skip_s2': 6, 'other': 17}","{'skip_s2': [{'source': 6, 'target': 75, 'generated': [6, 75], 'true_path': [6, 38, 75]}, {'source': 3, 'target': 77, 'generated': [3, 77], 'true_path': [3, 34, 77]}, {'source': 13, 'target': 87, 'generated': [13, 87], 'true_path': [13, 30, 87]}]}",1,42,50000
+0.62,31,50,"{'other': 14, 'skip_s2': 5}","{'skip_s2': [{'source': 13, 'target': 87, 'generated': [13, 87], 'true_path': [13, 30, 87]}, {'source': 27, 'target': 89, 'generated': [27, 89], 'true_path': [27, 35, 89]}, {'source': 27, 'target': 75, 'generated': [27, 75], 'true_path': [27, 35, 75]}]}",1,456,50000
+0.92,46,50,"{'other': 3, 'skip_s2': 1}","{'skip_s2': [{'source': 14, 'target': 67, 'generated': [14, 67], 'true_path': [14, 54, 67]}]}",20,123,50000
+0.84,42,50,{'other': 8},{},20,42,50000
