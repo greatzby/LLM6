@@ -1,0 +1,44 @@
+{
+  "info": {
+    "ratio": 0,
+    "seed": 42,
+    "iteration": 50000
+  },
+  "accuracy": 0.05,
+  "error_rates": {
+    "skip_s2": 0.12,
+    "wrong_s2": 0.3333333333333333,
+    "stuck_s2": 0.15333333333333332,
+    "wrong_s3": 0.07,
+    "incomplete": 0.0033333333333333335,
+    "invalid": 0.27
+  },
+  "examples": {
+    "skip_s2": [
+      {
+        "s1": 16,
+        "s3": 89,
+        "generated": [
+          16,
+          89
+        ]
+      },
+      {
+        "s1": 15,
+        "s3": 88,
+        "generated": [
+          15,
+          88
+        ]
+      },
+      {
+        "s1": 16,
+        "s3": 80,
+        "generated": [
+          16,
+          80
+        ]
+      }
+    ]
+  }
+}
