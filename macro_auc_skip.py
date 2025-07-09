@@ -8,7 +8,7 @@ df = pd.read_csv("collapse_metrics.csv") \
         .merge(pd.read_csv("success_log.csv"),
                on=["ratio","seed","iter"])
 X = df[["WRC_star","effective_rank","direction_diversity"]].values
-y = (df["success"]<=0.6).astype(int).values
+y = (df["success"]<=0.7).astype(int).values
 groups = (df["ratio"].astype(str)+"-"+df["seed"].astype(str)).values
 logo = LeaveOneGroupOut(); aucs=[]
 for tr,te in logo.split(X,y,groups):

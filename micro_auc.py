@@ -7,7 +7,7 @@ df = pd.read_csv("collapse_metrics.csv") \
         .merge(pd.read_csv("success_log.csv"),
                on=["ratio","seed","iter"])
 X = df[["WRC_star","effective_rank","direction_diversity"]].values
-y = (df["success"]<=0.6).astype(int).values
+y = (df["success"]<=0.7).astype(int).values
 prob = LogisticRegression(class_weight="balanced",
                           max_iter=1000) \
           .fit(StandardScaler().fit_transform(X), y) \
