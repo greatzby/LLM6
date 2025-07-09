@@ -8,7 +8,7 @@ from sklearn.metrics import roc_auc_score
 parser = argparse.ArgumentParser()
 parser.add_argument("-m", "--metric", default="collapse_metrics.csv")
 parser.add_argument("-p", "--perf",   default="success_log.csv")
-parser.add_argument("--thr", type=float, default=0.6,   # 建议 0.8
+parser.add_argument("--thr", type=float, default=0.7,   # 建议 0.8
                     help="success <= thr → fail")
 args = parser.parse_args()
 
