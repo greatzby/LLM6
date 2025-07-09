@@ -15,7 +15,7 @@ import networkx as nx
 import pickle
 from tqdm import tqdm
 from collections import defaultdict
-
+import os
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def load_test_data_correctly(data_dir='data/simple_graph/composition_90'):
