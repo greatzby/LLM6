@@ -1,1 +1,8 @@
-Performance file not provided → 只生成描述性统计
+LogReg  AUC = 0.8168
+DecTree AUC = 0.6734
+LogReg coef (standardized):
+  effective_rank: +2.678
+  row_norm_std: +7.257
+  WRC_star: -1.004
+  direction_diversity: +2.686
+  token_spread: -1.662
