@@ -1,0 +1,4 @@
+Mean AUC = 0.7636
+  seed 42: AUC 0.8640
+  seed 123: AUC 0.7109
+  seed 456: AUC 0.7160
