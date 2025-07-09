@@ -203,7 +203,7 @@ def main():
     results = []
     
     # 评估每个checkpoint
-    for ckpt_path in tqdm(checkpoints[:20], desc="Evaluating"):  # 限制数量
+    for ckpt_path in tqdm(checkpoints[:], desc="Evaluating"):  # 限制数量
         # 提取信息
         filename = Path(ckpt_path).name
         match = re.search(r'ckpt_mix(\d+)_seed(\d+)_iter(\d+)\.pt', filename)
