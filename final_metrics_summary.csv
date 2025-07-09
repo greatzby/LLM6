@@ -1,0 +1,6 @@
+,effective_rank,effective_rank,direction_diversity,direction_diversity,S1_S3_sim,S1_S3_sim,bridge_score,bridge_score,composite_risk,composite_risk
+,mean,std,mean,std,mean,std,mean,std,mean,std
+ratio,,,,,,,,,,
+0,62.304,0.14,0.652,0.005,0.058,0.003,-0.016,0.019,2.827,0.584
+5,62.239,0.061,0.607,0.004,0.122,0.006,-0.016,0.014,2.742,0.414
+10,64.606,0.058,0.627,0.004,0.095,0.005,-0.016,0.01,2.703,0.285
