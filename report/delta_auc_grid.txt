@@ -1,0 +1,17 @@
+window_iter = 1000
+Δsuccess_thr = 0.02
+
+k =  5   AUC = 0.5259
+k = 10   AUC = 0.5263
+k = 15   AUC = 0.5266
+k = 20   AUC = 0.5269
+k = 25   AUC = 0.5275
+k = 30   AUC = 0.5281
+k = 35   AUC = 0.5286
+k = 40   AUC = 0.5293
+k = 45   AUC = 0.5297
+k = 50   AUC = 0.5302
+k = 55   AUC = 0.5308
+k = 60   AUC = 0.5310
+
+BEST k = 60,  AUC = 0.5310
