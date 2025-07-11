@@ -197,6 +197,7 @@ def print_detailed_metrics(metrics, name=""):
     """打印详细的度量结果"""
     print(f"\n=== {name} ===")
     print(f"ER: {metrics['er1']:.2f} vs {metrics['er2']:.2f} (diff: {metrics['er_diff']:.2f})")
+    print(f"    Row similarity: {metrics['row_similarity']:.4f}")
     print(f"Column Space:")
     print(f"  - Similarity: {metrics['col_similarity']:.4f}")
     print(f"  - Coverage (2 in 1): {metrics['coverage_2in1']:.4f}")
@@ -292,7 +293,9 @@ def run_forgetting_analysis():
                 metrics = compute_similarity_metrics_enhanced(W_initial, W)
                 
                 print(f"\n  iter {initial_iter} → {iter}:")
+                print(f"    Row similarity: {metrics['row_similarity']:.4f}")
                 print(f"    Col similarity: {metrics['col_similarity']:.4f}")
+                
                 print(f"    Coverage (old in new): {metrics['coverage_1in2']:.4f}")
                 print(f"    Effective new dims: {metrics['effective_new_dims']}")
                 print(f"    ER: {metrics['er1']:.1f} → {metrics['er2']:.1f}")
