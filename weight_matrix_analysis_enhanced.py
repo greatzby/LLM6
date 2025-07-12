@@ -108,13 +108,15 @@ def compute_similarity_metrics_enhanced(W1, W2, top_k=20):
     U_diff = U2 - U2_proj_U1
     row_diff_frobenius = np.linalg.norm(U_diff, 'fro')
     row_diff_rank = np.linalg.matrix_rank(U_diff, tol=0.1)
-    
+    _, S_diff, _ = svd(U_diff, full_matrices=False)
+    print(f"  row S_diff[25:31] = {S_diff[25:31]}") 
     # 列空间差异（更重要！）
     V2_proj_V1 = V1 @ (V1.T @ V2)
     V_diff = V2 - V2_proj_V1
     col_diff_frobenius = np.linalg.norm(V_diff, 'fro')
     col_diff_rank = np.linalg.matrix_rank(V_diff, tol=0.1)
-    
+    _, S_diff, _ = svd(V_diff, full_matrices=False)
+    print(f"  col S_diff[25:31] = {S_diff[25:31]}") 
     # 差异的奇异值
     try:
         _, S_diff, _ = svd(V_diff, full_matrices=False)
