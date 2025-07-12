@@ -1,0 +1,116 @@
+[
+  {
+    "mix_ratio": 0,
+    "seed": 42,
+    "weight_name": "lm_head.weight",
+    "weight_shape": [
+      92,
+      120
+    ],
+    "rotated_dims": 28,
+    "energy_concentration_20": 0.8272497057914734,
+    "active_dims_01": 92,
+    "active_dims_change": 0,
+    "avg_alignment_10": 0.30511265993118286,
+    "relative_change": 1.7081950827380024,
+    "er_init": 72,
+    "er_final": 64,
+    "er_change": -8,
+    "gradient_alignment": 0.6540966629981995
+  },
+  {
+    "mix_ratio": 0,
+    "seed": 123,
+    "weight_name": "lm_head.weight",
+    "weight_shape": [
+      92,
+      120
+    ],
+    "rotated_dims": 28,
+    "energy_concentration_20": 0.8006170392036438,
+    "active_dims_01": 91,
+    "active_dims_change": -1,
+    "avg_alignment_10": 0.35896456241607666,
+    "relative_change": 1.519986761719206,
+    "er_init": 72,
+    "er_final": 67,
+    "er_change": -5,
+    "gradient_alignment": 0.6513416171073914
+  },
+  {
+    "mix_ratio": 0,
+    "seed": 456,
+    "weight_name": "lm_head.weight",
+    "weight_shape": [
+      92,
+      120
+    ],
+    "rotated_dims": 28,
+    "energy_concentration_20": 0.7977380752563477,
+    "active_dims_01": 92,
+    "active_dims_change": 0,
+    "avg_alignment_10": 0.3388480842113495,
+    "relative_change": 1.477651116899004,
+    "er_init": 72,
+    "er_final": 66,
+    "er_change": -6,
+    "gradient_alignment": 0.5719018578529358
+  },
+  {
+    "mix_ratio": 20,
+    "seed": 42,
+    "weight_name": "lm_head.weight",
+    "weight_shape": [
+      92,
+      120
+    ],
+    "rotated_dims": 28,
+    "energy_concentration_20": 0.7461991906166077,
+    "active_dims_01": 92,
+    "active_dims_change": 0,
+    "avg_alignment_10": 0.2948346734046936,
+    "relative_change": 1.3651180227473996,
+    "er_init": 74,
+    "er_final": 71,
+    "er_change": -3,
+    "gradient_alignment": 0.5500745177268982
+  },
+  {
+    "mix_ratio": 20,
+    "seed": 123,
+    "weight_name": "lm_head.weight",
+    "weight_shape": [
+      92,
+      120
+    ],
+    "rotated_dims": 28,
+    "energy_concentration_20": 0.7555355429649353,
+    "active_dims_01": 92,
+    "active_dims_change": 0,
+    "avg_alignment_10": 0.37218302488327026,
+    "relative_change": 1.4250624559574046,
+    "er_init": 73,
+    "er_final": 69,
+    "er_change": -4,
+    "gradient_alignment": 0.5682978630065918
+  },
+  {
+    "mix_ratio": 20,
+    "seed": 456,
+    "weight_name": "lm_head.weight",
+    "weight_shape": [
+      92,
+      120
+    ],
+    "rotated_dims": 28,
+    "energy_concentration_20": 0.7588114142417908,
+    "active_dims_01": 92,
+    "active_dims_change": 0,
+    "avg_alignment_10": 0.2896157503128052,
+    "relative_change": 1.3661435390895764,
+    "er_init": 74,
+    "er_final": 71,
+    "er_change": -3,
+    "gradient_alignment": 0.5496089458465576
+  }
+]

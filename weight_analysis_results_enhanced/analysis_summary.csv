@@ -1,7 +1,7 @@
 analysis,condition,col_similarity_mean,col_similarity_std,grassmann_distance_mean,n_comparisons,effective_new_dims_mean,effective_new_dims_std,coverage_1in2_mean,er_diff_mean
 stability,"20% mix, ER≈68.5",1.0000005,6.8825514e-08,5.458381652832031,3,,,,
-stability,"20% mix, ER≈74.5",1.0000004,9.733398e-08,5.4555182456970215,3,,,,
 stability,"0% mix, ER≈67.5",1.0000004,6.8825514e-08,5.393409729003906,3,,,,
+stability,"20% mix, ER≈74.5",1.0000004,9.733398e-08,5.4555182456970215,3,,,,
 stability,"0% mix, ER≈72.5",1.0000004,6.8825514e-08,5.48851203918457,3,,,,
 mixed_effect,Initial,1.0000005,1.5389853e-07,,3,28.0,0.0,0.9009586933601792,-0.2603963315486908
 mixed_effect,Middle,1.0000005,6.8825514e-08,,3,28.0,0.0,0.8817683335298522,-0.44981130957603455
