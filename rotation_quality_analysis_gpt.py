@@ -497,7 +497,7 @@ class RotationQualityAnalyzer:
         print("\nVisualization saved as 'rotation_quality_analysis_gpt.png'")
         plt.close()
 
-# 运行分析的主函数
+## 在main函数中，修改JSON保存部分：
 def main():
     analyzer = RotationQualityAnalyzer()
     
@@ -513,8 +513,17 @@ def main():
             # 转换numpy数组为列表以便JSON序列化
             json_results = []
             for r in results:
-                json_r = {k: v.tolist() if isinstance(v, np.ndarray) else v 
-                         for k, v in r.items() if k not in ['S_init', 'S_final', 'S_diff']}
+                json_r = {}
+                for k, v in r.items():
+                    if k not in ['S_init', 'S_final', 'S_diff']:
+                        if isinstance(v, np.ndarray):
+                            json_r[k] = v.tolist()
+                        elif isinstance(v, (np.float32, np.float64)):
+                            json_r[k] = float(v)
+                        elif isinstance(v, (np.int32, np.int64)):
+                            json_r[k] = int(v)
+                        else:
+                            json_r[k] = v
                 json_results.append(json_r)
             json.dump(json_results, f, indent=2)
         
