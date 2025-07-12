@@ -1,0 +1,5438 @@
+{
+  "dimension_changes": {
+    "mix0_seed42": {
+      "3000": [
+        {
+          "cos_similarity": 0.9999999942741081,
+          "angle_degrees": 0.006131393677462982,
+          "norm_ratio": 0.9999999924330378,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999944602889,
+          "angle_degrees": 0.006030886983781886,
+          "norm_ratio": 0.9999999925570766,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999944489133,
+          "angle_degrees": 0.006037075896447725,
+          "norm_ratio": 0.9999999925494386,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999947111458,
+          "angle_degrees": 0.005892755604973843,
+          "norm_ratio": 0.999999992727549,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999945285624,
+          "angle_degrees": 0.005993608300932337,
+          "norm_ratio": 0.9999999926030834,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999939413405,
+          "angle_degrees": 0.006307044597563729,
+          "norm_ratio": 0.999999992216261,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.999999994769575,
+          "angle_degrees": 0.005860114735940385,
+          "norm_ratio": 0.9999999927678324,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999942510899,
+          "angle_degrees": 0.006143705507990836,
+          "norm_ratio": 0.9999999924178432,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999947142729,
+          "angle_degrees": 0.005891013229012917,
+          "norm_ratio": 0.9999999927296995,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.999999994292983,
+          "angle_degrees": 0.006121279534040802,
+          "norm_ratio": 0.9999999924455201,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999942412019,
+          "angle_degrees": 0.006148986746746988,
+          "norm_ratio": 0.9999999924113256,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999951190567,
+          "angle_degrees": 0.005660952521522061,
+          "norm_ratio": 0.9999999930136253,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999943243738,
+          "angle_degrees": 0.006104421630023197,
+          "norm_ratio": 0.9999999924663249,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999944031351,
+          "angle_degrees": 0.00606191776935432,
+          "norm_ratio": 0.9999999925187802,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999951163537,
+          "angle_degrees": 0.005662519754232966,
+          "norm_ratio": 0.9999999930116913,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999945418638,
+          "angle_degrees": 0.005986318414324847,
+          "norm_ratio": 0.99999999261208,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999943372965,
+          "angle_degrees": 0.006097468182534412,
+          "norm_ratio": 0.9999999924749063,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999947008286,
+          "angle_degrees": 0.00589850042840637,
+          "norm_ratio": 0.9999999927204593,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999939909276,
+          "angle_degrees": 0.006281181559342441,
+          "norm_ratio": 0.9999999922481794,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999943062455,
+          "angle_degrees": 0.006114162794755568,
+          "norm_ratio": 0.999999992454303,
+          "dim_idx": 48
+        }
+      ],
+      "10000": [
+        {
+          "cos_similarity": 0.9999999944885857,
+          "angle_degrees": 0.006015464397703128,
+          "norm_ratio": 1.0389151553022204,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999947928923,
+          "angle_degrees": 0.005847037948444078,
+          "norm_ratio": 1.0638748656241273,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999947848384,
+          "angle_degrees": 0.0058515580402942954,
+          "norm_ratio": 1.0644131012650966,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.999999994948042,
+          "angle_degrees": 0.005759270734240934,
+          "norm_ratio": 1.0468920251216307,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999947337339,
+          "angle_degrees": 0.0058801584631489046,
+          "norm_ratio": 1.0389595540061662,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999941307275,
+          "angle_degrees": 0.0062076863794273554,
+          "norm_ratio": 1.03226750603406,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999951927677,
+          "angle_degrees": 0.005618044617808571,
+          "norm_ratio": 1.0880324927995417,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999944499384,
+          "angle_degrees": 0.006036518464640612,
+          "norm_ratio": 1.0358281485257883,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999951077239,
+          "angle_degrees": 0.005667520655577394,
+          "norm_ratio": 1.080422772641,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999946278015,
+          "angle_degrees": 0.005939004503529753,
+          "norm_ratio": 1.0623242581274372,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999945185166,
+          "angle_degrees": 0.005999108010070076,
+          "norm_ratio": 1.0505911067389864,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999954273924,
+          "angle_degrees": 0.00547923085145587,
+          "norm_ratio": 1.067431029370163,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999947402382,
+          "angle_degrees": 0.005876526118420728,
+          "norm_ratio": 1.0790652480064955,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999947206444,
+          "angle_degrees": 0.005887461620491027,
+          "norm_ratio": 1.0601416790276394,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999954590603,
+          "angle_degrees": 0.00546022450261612,
+          "norm_ratio": 1.075470340393197,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999947414528,
+          "angle_degrees": 0.005875847513633632,
+          "norm_ratio": 1.037955191031885,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947092864,
+          "angle_degrees": 0.005893791371453278,
+          "norm_ratio": 1.0703099346209235,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.999999995126699,
+          "angle_degrees": 0.005656518970531264,
+          "norm_ratio": 1.0873885029065062,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999942843255,
+          "angle_degrees": 0.006125920751334515,
+          "norm_ratio": 1.0513321216500267,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999945995682,
+          "angle_degrees": 0.005954590114895744,
+          "norm_ratio": 1.0543146386578914,
+          "dim_idx": 48
+        }
+      ],
+      "20000": [
+        {
+          "cos_similarity": 0.9999999944574521,
+          "angle_degrees": 0.006032430910278287,
+          "norm_ratio": 1.0330793286656064,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999948552601,
+          "angle_degrees": 0.005811916152885127,
+          "norm_ratio": 1.0767718037696576,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999948625751,
+          "angle_degrees": 0.005807782915548337,
+          "norm_ratio": 1.0805191984032263,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999949176662,
+          "angle_degrees": 0.0057765591154310915,
+          "norm_ratio": 1.0406350321822697,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999946748904,
+          "angle_degrees": 0.005912918660784465,
+          "norm_ratio": 1.0274788512550503,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999941006753,
+          "angle_degrees": 0.006223558562418225,
+          "norm_ratio": 1.0270089451625077,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.999999995337377,
+          "angle_degrees": 0.00553289946670025,
+          "norm_ratio": 1.1217774036570574,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999944394921,
+          "angle_degrees": 0.006042196753073473,
+          "norm_ratio": 1.0338822207304965,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999952373089,
+          "angle_degrees": 0.005591957206260258,
+          "norm_ratio": 1.1098193344171785,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999948049664,
+          "angle_degrees": 0.005840255026811331,
+          "norm_ratio": 1.0985524248003444,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999945852446,
+          "angle_degrees": 0.005962481613983391,
+          "norm_ratio": 1.0635379594643235,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999954292514,
+          "angle_degrees": 0.0054781169027386225,
+          "norm_ratio": 1.067865189264397,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999949057394,
+          "angle_degrees": 0.005783333114826599,
+          "norm_ratio": 1.1141216900811284,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999947624382,
+          "angle_degrees": 0.0058641113981230605,
+          "norm_ratio": 1.0686012301522347,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999955644397,
+          "angle_degrees": 0.005396496154595956,
+          "norm_ratio": 1.1010212211292587,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999946249447,
+          "angle_degrees": 0.005940583414556646,
+          "norm_ratio": 1.01545678263874,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947997062,
+          "angle_degrees": 0.005843210994491543,
+          "norm_ratio": 1.0889199150209359,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999953036528,
+          "angle_degrees": 0.005552872846039931,
+          "norm_ratio": 1.1283602005413516,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.99999999437029,
+          "angle_degrees": 0.0060796789154402885,
+          "norm_ratio": 1.0673857660033919,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999946831966,
+          "angle_degrees": 0.005908305360505254,
+          "norm_ratio": 1.070898047388055,
+          "dim_idx": 48
+        }
+      ],
+      "30000": [
+        {
+          "cos_similarity": 0.9999999943429291,
+          "angle_degrees": 0.006094434898396226,
+          "norm_ratio": 1.0121654290745143,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999948092643,
+          "angle_degrees": 0.005837838680685027,
+          "norm_ratio": 1.0672304154722645,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999948345984,
+          "angle_degrees": 0.0058235750233616886,
+          "norm_ratio": 1.0746670058774521,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999948220742,
+          "angle_degrees": 0.005830630765622393,
+          "norm_ratio": 1.0214233858692676,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999944846019,
+          "angle_degrees": 0.00601763808276493,
+          "norm_ratio": 0.9920294843628042,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999940135524,
+          "angle_degrees": 0.006269345752665395,
+          "norm_ratio": 1.0120625214148233,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999953675496,
+          "angle_degrees": 0.005514968300421935,
+          "norm_ratio": 1.1290838810549457,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999943280102,
+          "angle_degrees": 0.0061024657378967555,
+          "norm_ratio": 1.0135614704464464,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.999999995273807,
+          "angle_degrees": 0.005570489454159524,
+          "norm_ratio": 1.1183899190204296,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999949237892,
+          "angle_degrees": 0.005773078383887562,
+          "norm_ratio": 1.1242671348720648,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999945422253,
+          "angle_degrees": 0.005986120176159757,
+          "norm_ratio": 1.0551549275077372,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999953471838,
+          "angle_degrees": 0.00552707783934989,
+          "norm_ratio": 1.0490298289420832,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999949827741,
+          "angle_degrees": 0.0057394391566705835,
+          "norm_ratio": 1.1312279463202328,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999947107412,
+          "angle_degrees": 0.005892980980694845,
+          "norm_ratio": 1.0581567310076923,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999955917144,
+          "angle_degrees": 0.005379878819162791,
+          "norm_ratio": 1.1078333286738158,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999943533637,
+          "angle_degrees": 0.006088811611429136,
+          "norm_ratio": 0.966617257638146,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947811308,
+          "angle_degrees": 0.005853637680758152,
+          "norm_ratio": 1.085044162673764,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999954284983,
+          "angle_degrees": 0.005478568230604829,
+          "norm_ratio": 1.1591751235090384,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999943319432,
+          "angle_degrees": 0.006100349642174391,
+          "norm_ratio": 1.0601644722386057,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999946895866,
+          "angle_degrees": 0.005904753845005546,
+          "norm_ratio": 1.0721866057446288,
+          "dim_idx": 48
+        }
+      ],
+      "40000": [
+        {
+          "cos_similarity": 0.9999999942210896,
+          "angle_degrees": 0.006159714865515464,
+          "norm_ratio": 0.9908254902345665,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999947594508,
+          "angle_degrees": 0.0058657835387079,
+          "norm_ratio": 1.0570859527329826,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.999999994823582,
+          "angle_degrees": 0.0058297817741570545,
+          "norm_ratio": 1.0723798635230553,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999947074385,
+          "angle_degrees": 0.00589482052583637,
+          "norm_ratio": 0.9992995888929141,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999942744618,
+          "angle_degrees": 0.006131204291070055,
+          "norm_ratio": 0.9556197695902948,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999938440071,
+          "angle_degrees": 0.006357504656232549,
+          "norm_ratio": 0.9841887712614397,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999954053898,
+          "angle_degrees": 0.005492397601945176,
+          "norm_ratio": 1.1383826814125242,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999942430405,
+          "angle_degrees": 0.006148005059464989,
+          "norm_ratio": 0.998601805922169,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999953083513,
+          "angle_degrees": 0.005550094463194246,
+          "norm_ratio": 1.1266245756041617,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999949920911,
+          "angle_degrees": 0.005734107609253389,
+          "norm_ratio": 1.1396007712795089,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999944127301,
+          "angle_degrees": 0.006056719412723127,
+          "norm_ratio": 1.030699781351889,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999952612759,
+          "angle_degrees": 0.005577869398329078,
+          "norm_ratio": 1.0300121597748664,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999949801994,
+          "angle_degrees": 0.00574091163803907,
+          "norm_ratio": 1.1306476942054626,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999946197174,
+          "angle_degrees": 0.005943471333332488,
+          "norm_ratio": 1.0402548311137239,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999955744668,
+          "angle_degrees": 0.005390393005640306,
+          "norm_ratio": 1.103515853216695,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999940995035,
+          "angle_degrees": 0.006224176654794862,
+          "norm_ratio": 0.92503001652587,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947264527,
+          "angle_degrees": 0.005884222032794635,
+          "norm_ratio": 1.0737940301055158,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999955269174,
+          "angle_degrees": 0.0054192737297883735,
+          "norm_ratio": 1.1846800462897542,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999942529851,
+          "angle_degrees": 0.006142692716914899,
+          "norm_ratio": 1.0455988884584613,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999946639493,
+          "angle_degrees": 0.005918989977729995,
+          "norm_ratio": 1.0670352507733012,
+          "dim_idx": 48
+        }
+      ],
+      "50000": [
+        {
+          "cos_similarity": 0.9999999940973295,
+          "angle_degrees": 0.00622532314000383,
+          "norm_ratio": 0.9700510479118909,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999946967925,
+          "angle_degrees": 0.005900746292189116,
+          "norm_ratio": 1.0445962695070152,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999947925015,
+          "angle_degrees": 0.005847257357272295,
+          "norm_ratio": 1.0659794886893574,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999945528322,
+          "angle_degrees": 0.005980300519418231,
+          "norm_ratio": 0.9709365713235419,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999940505981,
+          "angle_degrees": 0.006249917475344924,
+          "norm_ratio": 0.9196617913149472,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999936027514,
+          "angle_degrees": 0.006480883954189551,
+          "norm_ratio": 0.9470726401408793,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999954099176,
+          "angle_degrees": 0.005489690655082079,
+          "norm_ratio": 1.1395057070247496,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999940233508,
+          "angle_degrees": 0.006264212940965848,
+          "norm_ratio": 0.9618951848487148,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999952823135,
+          "angle_degrees": 0.005565474120431771,
+          "norm_ratio": 1.1204066138311066,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999950393741,
+          "angle_degrees": 0.005706973672795424,
+          "norm_ratio": 1.1504631064504858,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999942317643,
+          "angle_degrees": 0.006154023187125935,
+          "norm_ratio": 0.9983638596351829,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999951497082,
+          "angle_degrees": 0.005643149625462219,
+          "norm_ratio": 1.0063195055044365,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999949717955,
+          "angle_degrees": 0.005745715227774689,
+          "norm_ratio": 1.128758035523079,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999944716659,
+          "angle_degrees": 0.006024690927072276,
+          "norm_ratio": 1.0123962635740271,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999954970286,
+          "angle_degrees": 0.005437349216079232,
+          "norm_ratio": 1.0845385717043916,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999937743859,
+          "angle_degrees": 0.006393353679779055,
+          "norm_ratio": 0.8767225276529487,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999946623617,
+          "angle_degrees": 0.005919870441780364,
+          "norm_ratio": 1.0609005713655781,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.999999995618261,
+          "angle_degrees": 0.005363655568875046,
+          "norm_ratio": 1.2093763633874797,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999940654527,
+          "angle_degrees": 0.006242110151811233,
+          "norm_ratio": 1.0125578077817625,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999945588204,
+          "angle_degrees": 0.005977012467389494,
+          "norm_ratio": 1.0464191266335796,
+          "dim_idx": 48
+        }
+      ]
+    },
+    "mix0_seed123": {
+      "3000": [
+        {
+          "cos_similarity": 0.9999999944298837,
+          "angle_degrees": 0.006047414825554833,
+          "norm_ratio": 0.9999999925366789,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999943107469,
+          "angle_degrees": 0.006111745432903069,
+          "norm_ratio": 0.9999999924572863,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.999999994971189,
+          "angle_degrees": 0.005746061748729652,
+          "norm_ratio": 0.9999999929085891,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999946506114,
+          "angle_degrees": 0.0059263828557258496,
+          "norm_ratio": 0.9999999926860486,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.999999994808908,
+          "angle_degrees": 0.0058380390197630755,
+          "norm_ratio": 0.9999999927950767,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999939468731,
+          "angle_degrees": 0.006304164243962013,
+          "norm_ratio": 0.9999999922198157,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999950614432,
+          "angle_degrees": 0.005694264761926727,
+          "norm_ratio": 0.9999999929725136,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999948737212,
+          "angle_degrees": 0.005801479252999027,
+          "norm_ratio": 0.9999999928401963,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999944103527,
+          "angle_degrees": 0.0060580078688867445,
+          "norm_ratio": 0.9999999925236057,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999946027006,
+          "angle_degrees": 0.0059528629600541115,
+          "norm_ratio": 0.9999999926533685,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999945309381,
+          "angle_degrees": 0.005992306910023109,
+          "norm_ratio": 0.9999999926046895,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.999999994194365,
+          "angle_degrees": 0.006173941265170777,
+          "norm_ratio": 0.9999999923805283,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999943859319,
+          "angle_degrees": 0.006071226963801575,
+          "norm_ratio": 0.9999999925072915,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.999999994224181,
+          "angle_degrees": 0.0061580671410039565,
+          "norm_ratio": 0.9999999924001192,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.999999994166689,
+          "angle_degrees": 0.006188639629472834,
+          "norm_ratio": 0.9999999923623886,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.99999999512123,
+          "angle_degrees": 0.005659692099145914,
+          "norm_ratio": 0.9999999930151808,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999942297082,
+          "angle_degrees": 0.006155119914422507,
+          "norm_ratio": 0.9999999924037563,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999946263617,
+          "angle_degrees": 0.0059398003315648965,
+          "norm_ratio": 0.9999999926694897,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999948022646,
+          "angle_degrees": 0.0058417734701137316,
+          "norm_ratio": 0.9999999927904678,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999949137576,
+          "angle_degrees": 0.005778779966735552,
+          "norm_ratio": 0.9999999928682103,
+          "dim_idx": 48
+        }
+      ],
+      "10000": [
+        {
+          "cos_similarity": 0.9999999947818794,
+          "angle_degrees": 0.00585321782666387,
+          "norm_ratio": 1.0674563895300138,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999945019544,
+          "angle_degrees": 0.00600816426884881,
+          "norm_ratio": 1.0347773130388305,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999953893436,
+          "angle_degrees": 0.005501980036202217,
+          "norm_ratio": 1.0906930547425222,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999948308805,
+          "angle_degrees": 0.005825670471440905,
+          "norm_ratio": 1.0348742361091603,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999949969686,
+          "angle_degrees": 0.00573131457401603,
+          "norm_ratio": 1.0375893078166896,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999939867197,
+          "angle_degrees": 0.006283380432941901,
+          "norm_ratio": 1.0066263961147583,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999954750195,
+          "angle_degrees": 0.005450621016894213,
+          "norm_ratio": 1.0913984462276964,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999952636877,
+          "angle_degrees": 0.005576449810639997,
+          "norm_ratio": 1.0823355237268768,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999946975728,
+          "angle_degrees": 0.005900312123925952,
+          "norm_ratio": 1.0541676595911371,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999949046898,
+          "angle_degrees": 0.005783928873696343,
+          "norm_ratio": 1.0592680709739453,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999948796738,
+          "angle_degrees": 0.0057981099086839285,
+          "norm_ratio": 1.0681080873426727,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999943583147,
+          "angle_degrees": 0.0060861417137632315,
+          "norm_ratio": 1.0290604298654886,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.99999999463302,
+          "angle_degrees": 0.005936119262071224,
+          "norm_ratio": 1.0460385811021045,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.999999994336084,
+          "angle_degrees": 0.006098120929879813,
+          "norm_ratio": 1.0197571633929876,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999942369192,
+          "angle_degrees": 0.006151272751620987,
+          "norm_ratio": 1.0121862348759223,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999953886248,
+          "angle_degrees": 0.0055024088732084685,
+          "norm_ratio": 1.0579858609501975,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999943734068,
+          "angle_degrees": 0.0060779957016881304,
+          "norm_ratio": 1.0255391976864774,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999949454772,
+          "angle_degrees": 0.005760732515766813,
+          "norm_ratio": 1.063134636617056,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999949868915,
+          "angle_degrees": 0.00573708364553824,
+          "norm_ratio": 1.0368288533157743,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999952241063,
+          "angle_degrees": 0.005599702512438929,
+          "norm_ratio": 1.064982313853442,
+          "dim_idx": 48
+        }
+      ],
+      "20000": [
+        {
+          "cos_similarity": 0.9999999949088272,
+          "angle_degrees": 0.0057815801414022715,
+          "norm_ratio": 1.0940732827774,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999942804683,
+          "angle_degrees": 0.006127987454881044,
+          "norm_ratio": 0.9947060889563905,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999954514475,
+          "angle_degrees": 0.005464799567292448,
+          "norm_ratio": 1.1055848681591776,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999946585048,
+          "angle_degrees": 0.0059220088699884574,
+          "norm_ratio": 1.001477760676214,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.999999994936389,
+          "angle_degrees": 0.005765909169702859,
+          "norm_ratio": 1.0251758876218213,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999938413694,
+          "angle_degrees": 0.006358866515320687,
+          "norm_ratio": 0.9828689676106962,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999956067375,
+          "angle_degrees": 0.005370703891740771,
+          "norm_ratio": 1.12412055183903,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999954264923,
+          "angle_degrees": 0.005479770082267783,
+          "norm_ratio": 1.1208637083128394,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999947397141,
+          "angle_degrees": 0.0058768188475942715,
+          "norm_ratio": 1.0626128417340783,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999949490204,
+          "angle_degrees": 0.00575871305623544,
+          "norm_ratio": 1.0685648973610602,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.99999999495782,
+          "angle_degrees": 0.005753694562333102,
+          "norm_ratio": 1.0846621381470436,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999943719847,
+          "angle_degrees": 0.006078763740016673,
+          "norm_ratio": 1.0315599223272114,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999946271787,
+          "angle_degrees": 0.005939348767929612,
+          "norm_ratio": 1.0449013582763127,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999941254375,
+          "angle_degrees": 0.006210483251350654,
+          "norm_ratio": 0.9831913216088451,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.99999999410933,
+          "angle_degrees": 0.006218991677540474,
+          "norm_ratio": 0.990262743469304,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999954347876,
+          "angle_degrees": 0.005474798328115642,
+          "norm_ratio": 1.0686840665281865,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999942762346,
+          "angle_degrees": 0.006130255012112558,
+          "norm_ratio": 1.0081286880886742,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999950518568,
+          "angle_degrees": 0.005699788772340288,
+          "norm_ratio": 1.0859908360318709,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.99999999484949,
+          "angle_degrees": 0.005815174461524518,
+          "norm_ratio": 1.0091690486431768,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999951985559,
+          "angle_degrees": 0.0056146613959635145,
+          "norm_ratio": 1.059315128393366,
+          "dim_idx": 48
+        }
+      ],
+      "30000": [
+        {
+          "cos_similarity": 0.9999999949505287,
+          "angle_degrees": 0.005757853144070378,
+          "norm_ratio": 1.1031087806499158,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999939362479,
+          "angle_degrees": 0.0063096947270921,
+          "norm_ratio": 0.938239733130178,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999954553592,
+          "angle_degrees": 0.005462449195259016,
+          "norm_ratio": 1.1065364922239787,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999944074993,
+          "angle_degrees": 0.006059553907264233,
+          "norm_ratio": 0.9565289043853448,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999948428204,
+          "angle_degrees": 0.0058189383675342965,
+          "norm_ratio": 1.0065757695548692,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999937138178,
+          "angle_degrees": 0.006424378413676225,
+          "norm_ratio": 0.9629257604791324,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.999999995658532,
+          "angle_degrees": 0.005338950947016522,
+          "norm_ratio": 1.1375314554887699,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999954728173,
+          "angle_degrees": 0.005451947222248524,
+          "norm_ratio": 1.1323331591320067,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999947770349,
+          "angle_degrees": 0.005855934234817132,
+          "norm_ratio": 1.0702057160882466,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999948836206,
+          "angle_degrees": 0.005795874895173836,
+          "norm_ratio": 1.0549060400390486,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999949490312,
+          "angle_degrees": 0.005758706853884071,
+          "norm_ratio": 1.082774830893043,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999943770399,
+          "angle_degrees": 0.0060760331025046035,
+          "norm_ratio": 1.032487308693742,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999945325981,
+          "angle_degrees": 0.005991397428890727,
+          "norm_ratio": 1.026825571245343,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999937434227,
+          "angle_degrees": 0.006409232647934452,
+          "norm_ratio": 0.9231595132333499,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999939542467,
+          "angle_degrees": 0.006300323401703922,
+          "norm_ratio": 0.9648608762624161,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999954356774,
+          "angle_degrees": 0.0054742647327358125,
+          "norm_ratio": 1.0688923968937298,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999940962868,
+          "angle_degrees": 0.006225872975155535,
+          "norm_ratio": 0.9774004507800987,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999950757932,
+          "angle_degrees": 0.0056859858302656845,
+          "norm_ratio": 1.0912697666900912,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999946478465,
+          "angle_degrees": 0.0059279142209906635,
+          "norm_ratio": 0.9711483982156385,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.999999995121386,
+          "angle_degrees": 0.00565960155685378,
+          "norm_ratio": 1.042558932688182,
+          "dim_idx": 48
+        }
+      ],
+      "40000": [
+        {
+          "cos_similarity": 0.9999999949885425,
+          "angle_degrees": 0.005736138844745336,
+          "norm_ratio": 1.1114762938633056,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999934909186,
+          "angle_degrees": 0.0065372859393780305,
+          "norm_ratio": 0.8740485006552638,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999954673162,
+          "angle_degrees": 0.005455258585897888,
+          "norm_ratio": 1.1094554428621164,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999940732623,
+          "angle_degrees": 0.006238001608184592,
+          "norm_ratio": 0.902585708127665,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999946847321,
+          "angle_degrees": 0.00590745210813308,
+          "norm_ratio": 0.9766379098779636,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999935803618,
+          "angle_degrees": 0.006492215172124782,
+          "norm_ratio": 0.9429077992460188,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999956826534,
+          "angle_degrees": 0.005324098574493054,
+          "norm_ratio": 1.1438869826206977,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.999999995503843,
+          "angle_degrees": 0.005433233433002107,
+          "norm_ratio": 1.140146748641465,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999947463649,
+          "angle_degrees": 0.005873102523310607,
+          "norm_ratio": 1.0639580139034754,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999948116022,
+          "angle_degrees": 0.005836523851193326,
+          "norm_ratio": 1.040263236332923,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999949090475,
+          "angle_degrees": 0.005781455070779986,
+          "norm_ratio": 1.0742708402196772,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999943204972,
+          "angle_degrees": 0.006106505994950465,
+          "norm_ratio": 1.0222083071702546,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999944467055,
+          "angle_degrees": 0.006038276316161886,
+          "norm_ratio": 1.0109436631844562,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.999999993227375,
+          "angle_degrees": 0.006668315594668857,
+          "norm_ratio": 0.8528183275820816,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999937202609,
+          "angle_degrees": 0.006421085156110775,
+          "norm_ratio": 0.9289097992319967,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999953830676,
+          "angle_degrees": 0.005505723383088751,
+          "norm_ratio": 1.0567123978764075,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999938944959,
+          "angle_degrees": 0.006331380206152355,
+          "norm_ratio": 0.9450967500719489,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999951027113,
+          "angle_degrees": 0.005670423336638372,
+          "norm_ratio": 1.0972679755725467,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999944246749,
+          "angle_degrees": 0.0060502417517728216,
+          "norm_ratio": 0.9322748363444029,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999950040112,
+          "angle_degrees": 0.005727279269968928,
+          "norm_ratio": 1.018065203928092,
+          "dim_idx": 48
+        }
+      ],
+      "50000": [
+        {
+          "cos_similarity": 0.9999999950093856,
+          "angle_degrees": 0.005724197855677502,
+          "norm_ratio": 1.1161183779835178,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999928620817,
+          "angle_degrees": 0.00684578752314914,
+          "norm_ratio": 0.7970465540118151,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999954543155,
+          "angle_degrees": 0.005463076411368654,
+          "norm_ratio": 1.106282460926588,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999936549658,
+          "angle_degrees": 0.0064543812203951305,
+          "norm_ratio": 0.8430827247775977,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999945610102,
+          "angle_degrees": 0.005975809621385865,
+          "norm_ratio": 0.9544221066154552,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999935174428,
+          "angle_degrees": 0.0065239527626633305,
+          "norm_ratio": 0.9337559866276293,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999957034493,
+          "angle_degrees": 0.0053112604596940284,
+          "norm_ratio": 1.1494235335021579,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999955706008,
+          "angle_degrees": 0.0053927469378990366,
+          "norm_ratio": 1.1573305685346251,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999947747328,
+          "angle_degrees": 0.005857224670727378,
+          "norm_ratio": 1.06973424184349,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999947712471,
+          "angle_degrees": 0.005859177955318067,
+          "norm_ratio": 1.0322345491217735,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.999999994859314,
+          "angle_degrees": 0.0058096259121035105,
+          "norm_ratio": 1.0638777791128884,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999942369235,
+          "angle_degrees": 0.0061512704408590805,
+          "norm_ratio": 1.007384658294858,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999943148487,
+          "angle_degrees": 0.006109541876314081,
+          "norm_ratio": 0.9874967045067566,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999928020942,
+          "angle_degrees": 0.006874493578987777,
+          "norm_ratio": 0.8024304568148003,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999934813943,
+          "angle_degrees": 0.006542066961069097,
+          "norm_ratio": 0.8948709912554211,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.99999999536482,
+          "angle_degrees": 0.005516592862798067,
+          "norm_ratio": 1.0525524518082403,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999936495736,
+          "angle_degrees": 0.006457123222626983,
+          "norm_ratio": 0.9086463876789322,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999951414952,
+          "angle_degrees": 0.005647925369516103,
+          "norm_ratio": 1.1060271607026886,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999941299015,
+          "angle_degrees": 0.006208123180186179,
+          "norm_ratio": 0.8854596754159928,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999949116442,
+          "angle_degrees": 0.005779980432905385,
+          "norm_ratio": 0.9995846820928841,
+          "dim_idx": 48
+        }
+      ]
+    },
+    "mix0_seed456": {
+      "3000": [
+        {
+          "cos_similarity": 0.9999999939748098,
+          "angle_degrees": 0.006289599794168654,
+          "norm_ratio": 0.99999999223779,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999948291238,
+          "angle_degrees": 0.005826660303497383,
+          "norm_ratio": 0.9999999928091196,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.999999994490473,
+          "angle_degrees": 0.006014434314176814,
+          "norm_ratio": 0.9999999925773814,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999948734593,
+          "angle_degrees": 0.005801627449908153,
+          "norm_ratio": 0.9999999928400136,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999938340531,
+          "angle_degrees": 0.00636264246055585,
+          "norm_ratio": 0.9999999921476459,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999941466966,
+          "angle_degrees": 0.006199235691712389,
+          "norm_ratio": 0.9999999923493117,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999950698593,
+          "angle_degrees": 0.00568941075004289,
+          "norm_ratio": 0.9999999929785041,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999942243873,
+          "angle_degrees": 0.0061579571152520106,
+          "norm_ratio": 0.9999999924002548,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999944525425,
+          "angle_degrees": 0.006035102103941031,
+          "norm_ratio": 0.9999999925518743,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999945177267,
+          "angle_degrees": 0.005999540253174002,
+          "norm_ratio": 0.9999999925957626,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.999999994218384,
+          "angle_degrees": 0.0061611566474904424,
+          "norm_ratio": 0.9999999923963062,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999942589458,
+          "angle_degrees": 0.006139506358145753,
+          "norm_ratio": 0.9999999924230255,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999937957369,
+          "angle_degrees": 0.006382381112660468,
+          "norm_ratio": 0.9999999921232856,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999938290819,
+          "angle_degrees": 0.006365206858730275,
+          "norm_ratio": 0.999999992144481,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999938664962,
+          "angle_degrees": 0.006345881388020713,
+          "norm_ratio": 0.999999992168331,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999940506711,
+          "angle_degrees": 0.006249879162190215,
+          "norm_ratio": 0.9999999922868107,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.999999994328426,
+          "angle_degrees": 0.006102242066769349,
+          "norm_ratio": 0.9999999924690147,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.999999994591266,
+          "angle_degrees": 0.005959165443244822,
+          "norm_ratio": 0.9999999926455905,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999950328391,
+          "angle_degrees": 0.0057107315421661585,
+          "norm_ratio": 0.9999999929521912,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.99999999454007,
+          "angle_degrees": 0.005987302019328292,
+          "norm_ratio": 0.9999999926108663,
+          "dim_idx": 48
+        }
+      ],
+      "10000": [
+        {
+          "cos_similarity": 0.9999999940951785,
+          "angle_degrees": 0.006226457355942962,
+          "norm_ratio": 1.0203848654170224,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.999999995099834,
+          "angle_degrees": 0.005672088899250022,
+          "norm_ratio": 1.055245148691593,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999946779053,
+          "angle_degrees": 0.005911244562794846,
+          "norm_ratio": 1.0352177124364577,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999951511974,
+          "angle_degrees": 0.005642283211240232,
+          "norm_ratio": 1.0572797446993392,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999938360784,
+          "angle_degrees": 0.00636159743696613,
+          "norm_ratio": 1.0003285539681852,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999942513125,
+          "angle_degrees": 0.0061435865636766986,
+          "norm_ratio": 1.0181981540255545,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999954044584,
+          "angle_degrees": 0.0054929542513047136,
+          "norm_ratio": 1.0728095039127035,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.999999994405049,
+          "angle_degrees": 0.006060881208849973,
+          "norm_ratio": 1.0322901364308381,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999947217273,
+          "angle_degrees": 0.005886857765819892,
+          "norm_ratio": 1.050998641697766,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999948368491,
+          "angle_degrees": 0.0058223061749712686,
+          "norm_ratio": 1.0618076549685709,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999944386858,
+          "angle_degrees": 0.006042634780329496,
+          "norm_ratio": 1.039613290524798,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999943895279,
+          "angle_degrees": 0.006069282232802889,
+          "norm_ratio": 1.0232747386513938,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999938213309,
+          "angle_degrees": 0.0063692031340912515,
+          "norm_ratio": 1.0041422915076843,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999938835076,
+          "angle_degrees": 0.0063370750648310695,
+          "norm_ratio": 1.008898148081113,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999939736303,
+          "angle_degrees": 0.0062902153951341164,
+          "norm_ratio": 1.017777563168376,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999941341852,
+          "angle_degrees": 0.0062058575883462115,
+          "norm_ratio": 1.0142374637729894,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999946395777,
+          "angle_degrees": 0.005932491630605987,
+          "norm_ratio": 1.058046142817341,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999948942301,
+          "angle_degrees": 0.005789862506600196,
+          "norm_ratio": 1.0593375699485188,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999953620778,
+          "angle_degrees": 0.005518224410271577,
+          "norm_ratio": 1.0709884138117447,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999947617219,
+          "angle_degrees": 0.005864512387432193,
+          "norm_ratio": 1.0423138109412369,
+          "dim_idx": 48
+        }
+      ],
+      "20000": [
+        {
+          "cos_similarity": 0.9999999940250647,
+          "angle_degrees": 0.006263314720337085,
+          "norm_ratio": 1.0084109419805156,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.999999995076166,
+          "angle_degrees": 0.0056857705825087475,
+          "norm_ratio": 1.0501727222303767,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999945277543,
+          "angle_degrees": 0.005994050851758932,
+          "norm_ratio": 1.006812768946894,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999950849888,
+          "angle_degrees": 0.005680674240196871,
+          "norm_ratio": 1.0430374572541186,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999936274802,
+          "angle_degrees": 0.006468345790916252,
+          "norm_ratio": 0.9675837646682206,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999941843091,
+          "angle_degrees": 0.00617928590200974,
+          "norm_ratio": 1.0064674016168338,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999954626556,
+          "angle_degrees": 0.005458062473806989,
+          "norm_ratio": 1.0865695671891173,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999942965376,
+          "angle_degrees": 0.006119372925388093,
+          "norm_ratio": 1.0126502775185187,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999947902686,
+          "angle_degrees": 0.005848510821660355,
+          "norm_ratio": 1.0648260419273796,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999948112799,
+          "angle_degrees": 0.00583670512769951,
+          "norm_ratio": 1.0565752826869506,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999944534345,
+          "angle_degrees": 0.006034616904648499,
+          "norm_ratio": 1.0423776329606416,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.999999994191531,
+          "angle_degrees": 0.006175448010274621,
+          "norm_ratio": 0.9883937361250182,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999937209749,
+          "angle_degrees": 0.006420720118241714,
+          "norm_ratio": 0.9880933814208195,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999937797095,
+          "angle_degrees": 0.006390619561446352,
+          "norm_ratio": 0.9920626347756226,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999939039869,
+          "angle_degrees": 0.006326457249027802,
+          "norm_ratio": 1.0061500394960887,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999940742462,
+          "angle_degrees": 0.006237483810881762,
+          "norm_ratio": 1.003978414912868,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947500412,
+          "angle_degrees": 0.0058710472838123555,
+          "norm_ratio": 1.080308251503141,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999949639796,
+          "angle_degrees": 0.005750179073937312,
+          "norm_ratio": 1.0740095530175267,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999954401924,
+          "angle_degrees": 0.005471556541838238,
+          "norm_ratio": 1.0893355853617763,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999947153615,
+          "angle_degrees": 0.005890406582846627,
+          "norm_ratio": 1.0331699362034377,
+          "dim_idx": 48
+        }
+      ],
+      "30000": [
+        {
+          "cos_similarity": 0.9999999939513996,
+          "angle_degrees": 0.006301806695911129,
+          "norm_ratio": 0.9961297172678875,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999950180142,
+          "angle_degrees": 0.00571924727772602,
+          "norm_ratio": 1.037914651165854,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999942834932,
+          "angle_degrees": 0.006126366772863479,
+          "norm_ratio": 0.9637925734730002,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999948666504,
+          "angle_degrees": 0.005805478927803521,
+          "norm_ratio": 0.9986735964951374,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999934115311,
+          "angle_degrees": 0.006577030865829467,
+          "norm_ratio": 0.9358694051461753,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999941214863,
+          "angle_degrees": 0.00621257145513543,
+          "norm_ratio": 0.9957114302078206,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999954955963,
+          "angle_degrees": 0.005438213899462261,
+          "norm_ratio": 1.094515720815935,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999940745002,
+          "angle_degrees": 0.006237350118475975,
+          "norm_ratio": 0.9747047673291023,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999948193699,
+          "angle_degrees": 0.005832153214487634,
+          "norm_ratio": 1.070807461985096,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999946879172,
+          "angle_degrees": 0.005905681853365664,
+          "norm_ratio": 1.032038387097078,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999944402199,
+          "angle_degrees": 0.006041801282849385,
+          "norm_ratio": 1.0399000852740194,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999939078796,
+          "angle_degrees": 0.006324436960773952,
+          "norm_ratio": 0.9423737263284544,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999936382139,
+          "angle_degrees": 0.006462895917746099,
+          "norm_ratio": 0.9752391545926059,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999936178292,
+          "angle_degrees": 0.00647324197363848,
+          "norm_ratio": 0.9668995450338361,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999938397938,
+          "angle_degrees": 0.006359679891809545,
+          "norm_ratio": 0.9956653450028263,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999940227746,
+          "angle_degrees": 0.0062645148985025255,
+          "norm_ratio": 0.9953328762737428,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.999999994782437,
+          "angle_degrees": 0.005852905111372175,
+          "norm_ratio": 1.0870158908447611,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999949459797,
+          "angle_degrees": 0.00576044616184948,
+          "norm_ratio": 1.0701844501128657,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999954356247,
+          "angle_degrees": 0.005474296357118342,
+          "norm_ratio": 1.0882455562207987,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999946545904,
+          "angle_degrees": 0.005924178333026425,
+          "norm_ratio": 1.0214240205651735,
+          "dim_idx": 48
+        }
+      ],
+      "40000": [
+        {
+          "cos_similarity": 0.9999999938372308,
+          "angle_degrees": 0.0063610027246041425,
+          "norm_ratio": 0.9776758175996753,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999949497244,
+          "angle_degrees": 0.005758311725017657,
+          "norm_ratio": 1.0238799921573583,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.999999993865897,
+          "angle_degrees": 0.006346191347809975,
+          "norm_ratio": 0.8981797165235201,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.999999994540268,
+          "angle_degrees": 0.00598719348187951,
+          "norm_ratio": 0.9389729579221873,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999931826501,
+          "angle_degrees": 0.006690297390965962,
+          "norm_ratio": 0.9044491599375588,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999940672675,
+          "angle_degrees": 0.006241155667559562,
+          "norm_ratio": 0.9866117109465146,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999954717136,
+          "angle_degrees": 0.005452611741335317,
+          "norm_ratio": 1.0887430766244832,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999937214995,
+          "angle_degrees": 0.006420451903502374,
+          "norm_ratio": 0.919903232831503,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999948101901,
+          "angle_degrees": 0.005837318041626623,
+          "norm_ratio": 1.0689134240633953,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999945168971,
+          "angle_degrees": 0.005999994150849947,
+          "norm_ratio": 0.9998487057183891,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999943494091,
+          "angle_degrees": 0.006090943383921865,
+          "norm_ratio": 1.0231878554721945,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999934806967,
+          "angle_degrees": 0.006542417039268951,
+          "norm_ratio": 0.8806238723995479,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999935541877,
+          "angle_degrees": 0.006505436751699655,
+          "norm_ratio": 0.9625261499852726,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999932914231,
+          "angle_degrees": 0.00663670986629347,
+          "norm_ratio": 0.9198549702491411,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999937503657,
+          "angle_degrees": 0.006405675458132811,
+          "norm_ratio": 0.981418024778573,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999939954027,
+          "angle_degrees": 0.006278842257417853,
+          "norm_ratio": 0.9907956833255408,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947722508,
+          "angle_degrees": 0.005858615603531679,
+          "norm_ratio": 1.0848978874003725,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999948903979,
+          "angle_degrees": 0.005792034901727083,
+          "norm_ratio": 1.0585430917793226,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999954451833,
+          "angle_degrees": 0.005468561300422691,
+          "norm_ratio": 1.0905292907752964,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999945377642,
+          "angle_degrees": 0.005988566156117798,
+          "norm_ratio": 0.9995777995832451,
+          "dim_idx": 48
+        }
+      ],
+      "50000": [
+        {
+          "cos_similarity": 0.9999999936589693,
+          "angle_degrees": 0.0064523446701615535,
+          "norm_ratio": 0.9501909987367616,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999948462012,
+          "angle_degrees": 0.005817030779940616,
+          "norm_ratio": 1.0033135757753089,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999934739385,
+          "angle_degrees": 0.006545807215968557,
+          "norm_ratio": 0.8442346040429165,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999940434464,
+          "angle_degrees": 0.006253672832535236,
+          "norm_ratio": 0.8606554845766295,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999930135589,
+          "angle_degrees": 0.006772759143590386,
+          "norm_ratio": 0.8825589860643532,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999940521762,
+          "angle_degrees": 0.006249088529182068,
+          "norm_ratio": 0.9841083624360375,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999954090318,
+          "angle_degrees": 0.005490220294994455,
+          "norm_ratio": 1.0738781369839598,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999933889793,
+          "angle_degrees": 0.006588277598767431,
+          "norm_ratio": 0.8736340318088317,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999948123199,
+          "angle_degrees": 0.0058361201269950804,
+          "norm_ratio": 1.0693523059988428,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999943208072,
+          "angle_degrees": 0.0061063393531123325,
+          "norm_ratio": 0.965326170098755,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999942597398,
+          "angle_degrees": 0.006139081773225878,
+          "norm_ratio": 1.0072044867887295,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999928867634,
+          "angle_degrees": 0.0068339414923848756,
+          "norm_ratio": 0.8070945196372858,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.999999993458083,
+          "angle_degrees": 0.006553754148406769,
+          "norm_ratio": 0.9483860873241233,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.999999992856279,
+          "angle_degrees": 0.006848569561467246,
+          "norm_ratio": 0.8638240258581414,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999936670825,
+          "angle_degrees": 0.006448215548958752,
+          "norm_ratio": 0.9685115519253804,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999939284415,
+          "angle_degrees": 0.006313754944070425,
+          "norm_ratio": 0.9798685375161514,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947213297,
+          "angle_degrees": 0.005887079467046436,
+          "norm_ratio": 1.0744323001874967,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999947545035,
+          "angle_degrees": 0.005868551639694935,
+          "norm_ratio": 1.0311195675190654,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999954438606,
+          "angle_degrees": 0.005469355211805238,
+          "norm_ratio": 1.0902126328569717,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999943834466,
+          "angle_degrees": 0.0060725706797405046,
+          "norm_ratio": 0.9721139361359422,
+          "dim_idx": 48
+        }
+      ]
+    },
+    "mix20_seed42": {
+      "3000": [
+        {
+          "cos_similarity": 0.9999999946593532,
+          "angle_degrees": 0.005921538531280444,
+          "norm_ratio": 0.9999999926920272,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999945057355,
+          "angle_degrees": 0.006006097962198161,
+          "norm_ratio": 0.9999999925876695,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999942480715,
+          "angle_degrees": 0.00614531811817858,
+          "norm_ratio": 0.9999999924158531,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.999999994878702,
+          "angle_degrees": 0.005798660152267844,
+          "norm_ratio": 0.9999999928436755,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999945187049,
+          "angle_degrees": 0.005999004971839588,
+          "norm_ratio": 0.9999999925964232,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999947376814,
+          "angle_degrees": 0.005877954213547597,
+          "norm_ratio": 0.999999992745816,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999946365606,
+          "angle_degrees": 0.005934160901488199,
+          "norm_ratio": 0.9999999926764495,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999948808349,
+          "angle_degrees": 0.005797452489593366,
+          "norm_ratio": 0.9999999928451659,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999950495972,
+          "angle_degrees": 0.005701090002908575,
+          "norm_ratio": 0.9999999929640901,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999947691386,
+          "angle_degrees": 0.005860359215953871,
+          "norm_ratio": 0.9999999927675306,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999946165246,
+          "angle_degrees": 0.005945234627154745,
+          "norm_ratio": 0.999999992662783,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999948909939,
+          "angle_degrees": 0.005791697109620743,
+          "norm_ratio": 0.9999999928522689,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999946230326,
+          "angle_degrees": 0.005941639980431033,
+          "norm_ratio": 0.9999999926672194,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999947001312,
+          "angle_degrees": 0.005898888514773338,
+          "norm_ratio": 0.9999999927199804,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999951079469,
+          "angle_degrees": 0.005667391460112052,
+          "norm_ratio": 0.9999999930056787,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999948244443,
+          "angle_degrees": 0.005829296178727842,
+          "norm_ratio": 0.9999999928058665,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999944258486,
+          "angle_degrees": 0.006049604864191651,
+          "norm_ratio": 0.9999999925339762,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999949026763,
+          "angle_degrees": 0.005785071570888906,
+          "norm_ratio": 0.9999999928604457,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999940846539,
+          "angle_degrees": 0.0062320038133448245,
+          "norm_ratio": 0.9999999923088714,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999942798146,
+          "angle_degrees": 0.00612833763623747,
+          "norm_ratio": 0.9999999924368093,
+          "dim_idx": 48
+        }
+      ],
+      "10000": [
+        {
+          "cos_similarity": 0.9999999948627468,
+          "angle_degrees": 0.005807685833470249,
+          "norm_ratio": 1.0395919081123606,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999947149224,
+          "angle_degrees": 0.005890651290577242,
+          "norm_ratio": 1.0395806304065782,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999943772936,
+          "angle_degrees": 0.006075896037537213,
+          "norm_ratio": 1.0229821433034105,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999951184488,
+          "angle_degrees": 0.005661305003231337,
+          "norm_ratio": 1.049112896062006,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999946499853,
+          "angle_degrees": 0.00592672963663396,
+          "norm_ratio": 1.0245383173577374,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999949786443,
+          "angle_degrees": 0.005741800810759816,
+          "norm_ratio": 1.047987681586917,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999948700375,
+          "angle_degrees": 0.005803563273789405,
+          "norm_ratio": 1.0455123684474288,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999951831134,
+          "angle_degrees": 0.005623683096863569,
+          "norm_ratio": 1.0627539501280525,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999953274004,
+          "angle_degrees": 0.005538815718722214,
+          "norm_ratio": 1.05945365196448,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999950423234,
+          "angle_degrees": 0.005705276898749099,
+          "norm_ratio": 1.0551033980651798,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999948081713,
+          "angle_degrees": 0.005838453285934726,
+          "norm_ratio": 1.0369131056760321,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999951962022,
+          "angle_degrees": 0.005616037383730206,
+          "norm_ratio": 1.0635347800603863,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999948702826,
+          "angle_degrees": 0.005803424672174396,
+          "norm_ratio": 1.0481994784444422,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999949403329,
+          "angle_degrees": 0.005763663313618954,
+          "norm_ratio": 1.047473770842105,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.999999995382939,
+          "angle_degrees": 0.005505800039175229,
+          "norm_ratio": 1.059559977597587,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999949745584,
+          "angle_degrees": 0.005744136431234182,
+          "norm_ratio": 1.029870806876484,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999946166849,
+          "angle_degrees": 0.005945146103991724,
+          "norm_ratio": 1.0354495544242595,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999951933186,
+          "angle_degrees": 0.005617722704068399,
+          "norm_ratio": 1.0604663073749996,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999941744763,
+          "angle_degrees": 0.006184507468149671,
+          "norm_ratio": 1.0154187258278782,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999943460424,
+          "angle_degrees": 0.0060927576754226725,
+          "norm_ratio": 1.0117135232665602,
+          "dim_idx": 48
+        }
+      ],
+      "20000": [
+        {
+          "cos_similarity": 0.9999999948424133,
+          "angle_degrees": 0.00581916804272056,
+          "norm_ratio": 1.0354933628967549,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999946587288,
+          "angle_degrees": 0.00592188467268752,
+          "norm_ratio": 1.0286436403632342,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999942641977,
+          "angle_degrees": 0.006136697508801674,
+          "norm_ratio": 1.0028114745465868,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999951147497,
+          "angle_degrees": 0.005663449614822302,
+          "norm_ratio": 1.0483184889937827,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999945249606,
+          "angle_degrees": 0.005995580738669883,
+          "norm_ratio": 1.0011425743673767,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999950449883,
+          "angle_degrees": 0.005703743332062383,
+          "norm_ratio": 1.0620194633703526,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999948748537,
+          "angle_degrees": 0.005800838363009081,
+          "norm_ratio": 1.0464948823295694,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999952276825,
+          "angle_degrees": 0.005597605620407423,
+          "norm_ratio": 1.0726790702679643,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999953383881,
+          "angle_degrees": 0.005532299535292743,
+          "norm_ratio": 1.0619508499067782,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999950968564,
+          "angle_degrees": 0.005673811914370508,
+          "norm_ratio": 1.0668383242499004,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999947982928,
+          "angle_degrees": 0.005844005024540213,
+          "norm_ratio": 1.0349439736479882,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999952471771,
+          "angle_degrees": 0.005586160980794839,
+          "norm_ratio": 1.0749413503194718,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999949147729,
+          "angle_degrees": 0.005778203167439934,
+          "norm_ratio": 1.0573701221422096,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999949370286,
+          "angle_degrees": 0.005765545003792631,
+          "norm_ratio": 1.046790168571173,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999953835209,
+          "angle_degrees": 0.00550545309236089,
+          "norm_ratio": 1.0596935504495129,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999947322097,
+          "angle_degrees": 0.005881009354186385,
+          "norm_ratio": 0.9824908197469884,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999945720549,
+          "angle_degrees": 0.0059697391293474945,
+          "norm_ratio": 1.0269358068029864,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999951798463,
+          "angle_degrees": 0.005625589969906745,
+          "norm_ratio": 1.057502347446941,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999940107152,
+          "angle_degrees": 0.006270831259669228,
+          "norm_ratio": 0.9876548284143971,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999941625402,
+          "angle_degrees": 0.0061908400525834415,
+          "norm_ratio": 0.9799100324837673,
+          "dim_idx": 48
+        }
+      ],
+      "30000": [
+        {
+          "cos_similarity": 0.9999999947490349,
+          "angle_degrees": 0.005871609934694864,
+          "norm_ratio": 1.0170790938980516,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999945751937,
+          "angle_degrees": 0.005968012816618689,
+          "norm_ratio": 1.0128038037875131,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999941206734,
+          "angle_degrees": 0.006213000990385132,
+          "norm_ratio": 0.9783311382910395,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999950623641,
+          "angle_degrees": 0.005693733810884885,
+          "norm_ratio": 1.0371963634884693,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.999999994299044,
+          "angle_degrees": 0.006118028229573264,
+          "norm_ratio": 0.9614694098878512,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999950163958,
+          "angle_degrees": 0.005720176136119142,
+          "norm_ratio": 1.055926321183007,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999948741293,
+          "angle_degrees": 0.0058012483120752295,
+          "norm_ratio": 1.0463469901564446,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999952076479,
+          "angle_degrees": 0.005609342888765786,
+          "norm_ratio": 1.0681946586563582,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999953353521,
+          "angle_degrees": 0.00553410078085601,
+          "norm_ratio": 1.061259723347663,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.999999995097884,
+          "angle_degrees": 0.005673217376205801,
+          "norm_ratio": 1.0670619731061262,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999947095977,
+          "angle_degrees": 0.00589361797303375,
+          "norm_ratio": 1.0175928180461928,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999952456718,
+          "angle_degrees": 0.005587045491912953,
+          "norm_ratio": 1.0746010311870817,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999949578288,
+          "angle_degrees": 0.005753689558117968,
+          "norm_ratio": 1.0663991558773385,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999948773634,
+          "angle_degrees": 0.005799417924564531,
+          "norm_ratio": 1.0345978005321672,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999953553472,
+          "angle_degrees": 0.005522227020007187,
+          "norm_ratio": 1.0532656279317074,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999943620722,
+          "angle_degrees": 0.006084114589905287,
+          "norm_ratio": 0.917989040889742,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999944830813,
+          "angle_degrees": 0.006018467538564792,
+          "norm_ratio": 1.0103739697129677,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999951232268,
+          "angle_degrees": 0.005658533744020875,
+          "norm_ratio": 1.0452246168700008,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.999999993744419,
+          "angle_degrees": 0.006408722372788415,
+          "norm_ratio": 0.9456109301352127,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999940100326,
+          "angle_degrees": 0.006271188575178144,
+          "norm_ratio": 0.9549610656340606,
+          "dim_idx": 48
+        }
+      ],
+      "40000": [
+        {
+          "cos_similarity": 0.999999994676607,
+          "angle_degrees": 0.00591196552612131,
+          "norm_ratio": 1.0032411242696617,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999944924925,
+          "angle_degrees": 0.006013331929390491,
+          "norm_ratio": 0.9975954894726666,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999940100347,
+          "angle_degrees": 0.006271187470948824,
+          "norm_ratio": 0.960260695597725,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999950154767,
+          "angle_degrees": 0.00572070361363554,
+          "norm_ratio": 1.0274398810617769,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999940642432,
+          "angle_degrees": 0.0062427461989631935,
+          "norm_ratio": 0.9234365995559345,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999950290308,
+          "angle_degrees": 0.005712920311395094,
+          "norm_ratio": 1.0586102093596528,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999948716038,
+          "angle_degrees": 0.005802677221449917,
+          "norm_ratio": 1.0458317247457112,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.99999999514381,
+          "angle_degrees": 0.005646579743596572,
+          "norm_ratio": 1.054152480706145,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.999999995331946,
+          "angle_degrees": 0.005536120935085816,
+          "norm_ratio": 1.0604853093282078,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999951030121,
+          "angle_degrees": 0.00567024921382116,
+          "norm_ratio": 1.0681793552097054,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.999999994640238,
+          "angle_degrees": 0.00593212620186885,
+          "norm_ratio": 1.0044243077418282,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999952408966,
+          "angle_degrees": 0.005589850627859949,
+          "norm_ratio": 1.0735227290788205,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999950174052,
+          "angle_degrees": 0.005719596804124941,
+          "norm_ratio": 1.0791499966367055,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.999999994829781,
+          "angle_degrees": 0.005826290051052653,
+          "norm_ratio": 1.025076228467255,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999952853685,
+          "angle_degrees": 0.005563671830166691,
+          "norm_ratio": 1.0376321846337944,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999939096714,
+          "angle_degrees": 0.0063235068339144865,
+          "norm_ratio": 0.8497991207561769,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999944461198,
+          "angle_degrees": 0.006038594762198323,
+          "norm_ratio": 1.003649873110622,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999951021182,
+          "angle_degrees": 0.005670766681654494,
+          "norm_ratio": 1.0407199935501916,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999933337694,
+          "angle_degrees": 0.006615730354559669,
+          "norm_ratio": 0.8873599872779953,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.999999993895795,
+          "angle_degrees": 0.006330706604437954,
+          "norm_ratio": 0.9370893185598459,
+          "dim_idx": 48
+        }
+      ],
+      "50000": [
+        {
+          "cos_similarity": 0.9999999946217457,
+          "angle_degrees": 0.005942350938660513,
+          "norm_ratio": 0.9930074804331617,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999943427308,
+          "angle_degrees": 0.0060945417053926525,
+          "norm_ratio": 0.9711866900281562,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999938926143,
+          "angle_degrees": 0.0063323557394555545,
+          "norm_ratio": 0.9417987772756978,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999949260843,
+          "angle_degrees": 0.005771773176166976,
+          "norm_ratio": 1.0093384560871317,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999937743106,
+          "angle_degrees": 0.006393392330281716,
+          "norm_ratio": 0.8804318021958494,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.999999994976982,
+          "angle_degrees": 0.005742751153493506,
+          "norm_ratio": 1.0476408238901607,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999948236293,
+          "angle_degrees": 0.005829755141543443,
+          "norm_ratio": 1.0361389380697912,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999950975997,
+          "angle_degrees": 0.005673381835999619,
+          "norm_ratio": 1.0442160166944958,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.99999999534835,
+          "angle_degrees": 0.005526385078734898,
+          "norm_ratio": 1.0642251092090123,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999951376929,
+          "angle_degrees": 0.005650134985563803,
+          "norm_ratio": 1.0757982457752224,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999945601894,
+          "angle_degrees": 0.005976260503559096,
+          "norm_ratio": 0.9896438783620487,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.999999995239738,
+          "angle_degrees": 0.005590530960516601,
+          "norm_ratio": 1.073261567801711,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999950550187,
+          "angle_degrees": 0.005697967369057013,
+          "norm_ratio": 1.0873583918969876,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999948050761,
+          "angle_degrees": 0.0058401933697359715,
+          "norm_ratio": 1.0202013640819818,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999952548286,
+          "angle_degrees": 0.005581662603137748,
+          "norm_ratio": 1.0309539589315435,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999933840166,
+          "angle_degrees": 0.00659074994704073,
+          "norm_ratio": 0.7822806215748801,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.999999994286353,
+          "angle_degrees": 0.0061248341481373895,
+          "norm_ratio": 0.9755855142364795,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999950320507,
+          "angle_degrees": 0.005711184717258463,
+          "norm_ratio": 1.026041817149534,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999929248994,
+          "angle_degrees": 0.006815597590549072,
+          "norm_ratio": 0.8360794268658185,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999938763314,
+          "angle_degrees": 0.00634079144819877,
+          "norm_ratio": 0.9341108743679969,
+          "dim_idx": 48
+        }
+      ]
+    },
+    "mix20_seed123": {
+      "3000": [
+        {
+          "cos_similarity": 0.999999994530916,
+          "angle_degrees": 0.005992319013609784,
+          "norm_ratio": 0.9999999926046745,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999948269963,
+          "angle_degrees": 0.0058278588492873176,
+          "norm_ratio": 0.9999999928076404,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999950807357,
+          "angle_degrees": 0.005683131564653594,
+          "norm_ratio": 0.9999999929862534,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999948924668,
+          "angle_degrees": 0.0057908621726566025,
+          "norm_ratio": 0.9999999928532993,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999948697399,
+          "angle_degrees": 0.005803731638584489,
+          "norm_ratio": 0.9999999928374166,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999947203276,
+          "angle_degrees": 0.005887638233489558,
+          "norm_ratio": 0.9999999927338646,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999949035292,
+          "angle_degrees": 0.0057845875777229674,
+          "norm_ratio": 0.999999992861043,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999948612935,
+          "angle_degrees": 0.005808507245985349,
+          "norm_ratio": 0.9999999928315229,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999948426571,
+          "angle_degrees": 0.00581903050175623,
+          "norm_ratio": 0.9999999928185359,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999948348857,
+          "angle_degrees": 0.00582341311536972,
+          "norm_ratio": 0.9999999928131271,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999948580574,
+          "angle_degrees": 0.005810335961966322,
+          "norm_ratio": 0.999999992829266,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999944512901,
+          "angle_degrees": 0.00603578333425003,
+          "norm_ratio": 0.9999999925510338,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999944330709,
+          "angle_degrees": 0.006045684468684685,
+          "norm_ratio": 0.9999999925388144,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999946937831,
+          "angle_degrees": 0.005902420280375922,
+          "norm_ratio": 0.9999999927156216,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.999999994603745,
+          "angle_degrees": 0.005952286987531673,
+          "norm_ratio": 0.9999999926540795,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999949772355,
+          "angle_degrees": 0.005742606260665875,
+          "norm_ratio": 0.9999999929128537,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947233302,
+          "angle_degrees": 0.005885963818418756,
+          "norm_ratio": 0.999999992735931,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999947477428,
+          "angle_degrees": 0.005872332288455222,
+          "norm_ratio": 0.9999999927527543,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999948313474,
+          "angle_degrees": 0.005825407392923011,
+          "norm_ratio": 0.9999999928106658,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999949856011,
+          "angle_degrees": 0.005737821982493565,
+          "norm_ratio": 0.999999992918758,
+          "dim_idx": 48
+        }
+      ],
+      "10000": [
+        {
+          "cos_similarity": 0.9999999948426096,
+          "angle_degrees": 0.005819057308720185,
+          "norm_ratio": 1.0604362635828266,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999950678335,
+          "angle_degrees": 0.005690579472186473,
+          "norm_ratio": 1.0488298997350536,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999954250347,
+          "angle_degrees": 0.005480643234980428,
+          "norm_ratio": 1.0752571069071448,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999950467976,
+          "angle_degrees": 0.005702701871477988,
+          "norm_ratio": 1.0311577074708385,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.999999995104833,
+          "angle_degrees": 0.005669194914191113,
+          "norm_ratio": 1.0480256133529673,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999949328804,
+          "angle_degrees": 0.005767906458184304,
+          "norm_ratio": 1.041947449292765,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999952044183,
+          "angle_degrees": 0.00561123268107487,
+          "norm_ratio": 1.0627430306259873,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999951609346,
+          "angle_degrees": 0.0056366150373508474,
+          "norm_ratio": 1.0619213024318916,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999950900531,
+          "angle_degrees": 0.0056777468864700475,
+          "norm_ratio": 1.050386623094215,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999950959982,
+          "angle_degrees": 0.005674308439292463,
+          "norm_ratio": 1.0532447957546225,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999950562736,
+          "angle_degrees": 0.0056972443382196205,
+          "norm_ratio": 1.0400945525219951,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999946643799,
+          "angle_degrees": 0.005918751121577008,
+          "norm_ratio": 1.0399372507158047,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.999999994642306,
+          "angle_degrees": 0.005930981664633084,
+          "norm_ratio": 1.0390531947923758,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999948215337,
+          "angle_degrees": 0.005830935112181163,
+          "norm_ratio": 1.0246695642328278,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999947805914,
+          "angle_degrees": 0.005853940146329876,
+          "norm_ratio": 1.0338824784530596,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999952286108,
+          "angle_degrees": 0.005597061137207443,
+          "norm_ratio": 1.0526838857165128,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999949961099,
+          "angle_degrees": 0.00573180637204533,
+          "norm_ratio": 1.0545135376172354,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999949185443,
+          "angle_degrees": 0.0057760600854844775,
+          "norm_ratio": 1.033612663246184,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999949909776,
+          "angle_degrees": 0.005734745089084896,
+          "norm_ratio": 1.0318685123759428,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999952364937,
+          "angle_degrees": 0.005592435712334645,
+          "norm_ratio": 1.0526697092946862,
+          "dim_idx": 48
+        }
+      ],
+      "20000": [
+        {
+          "cos_similarity": 0.9999999948837383,
+          "angle_degrees": 0.005795808238313241,
+          "norm_ratio": 1.0689609007404717,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.999999995082041,
+          "angle_degrees": 0.005682377526857331,
+          "norm_ratio": 1.0518598517308042,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999955266722,
+          "angle_degrees": 0.005419422290568213,
+          "norm_ratio": 1.0996878914743582,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999949853574,
+          "angle_degrees": 0.005737961406536972,
+          "norm_ratio": 1.0185238391018394,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999951284305,
+          "angle_degrees": 0.0056555139890579744,
+          "norm_ratio": 1.0531021576666313,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999949435638,
+          "angle_degrees": 0.005761822757442865,
+          "norm_ratio": 1.0441488732945088,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999952406201,
+          "angle_degrees": 0.005590012976379602,
+          "norm_ratio": 1.0708266241820477,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999952339037,
+          "angle_degrees": 0.005593955880368216,
+          "norm_ratio": 1.0781792694900656,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999951534979,
+          "angle_degrees": 0.005640944574174857,
+          "norm_ratio": 1.064137085716027,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999951238214,
+          "angle_degrees": 0.00565818875490568,
+          "norm_ratio": 1.0592545839890581,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999950482712,
+          "angle_degrees": 0.005701853519207442,
+          "norm_ratio": 1.0384136381863966,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999946609277,
+          "angle_degrees": 0.0059206655791486954,
+          "norm_ratio": 1.0392647789345706,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.999999994617577,
+          "angle_degrees": 0.005944653439926114,
+          "norm_ratio": 1.0342793783114712,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999946783544,
+          "angle_degrees": 0.0059109951583117964,
+          "norm_ratio": 0.997100780544054,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999947611609,
+          "angle_degrees": 0.005864826410287649,
+          "norm_ratio": 1.0300478670608484,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999952282477,
+          "angle_degrees": 0.005597274131381877,
+          "norm_ratio": 1.0526037091021074,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999949817125,
+          "angle_degrees": 0.005740046328770461,
+          "norm_ratio": 1.0514881872867203,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999948741086,
+          "angle_degrees": 0.005801259997554978,
+          "norm_ratio": 1.0246524061475764,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999949242981,
+          "angle_degrees": 0.005772788980549665,
+          "norm_ratio": 1.0183128687193745,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999952347576,
+          "angle_degrees": 0.005593454763845117,
+          "norm_ratio": 1.0522862120217267,
+          "dim_idx": 48
+        }
+      ],
+      "30000": [
+        {
+          "cos_similarity": 0.9999999949629037,
+          "angle_degrees": 0.00575079328767363,
+          "norm_ratio": 1.085761213616476,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999950773749,
+          "angle_degrees": 0.005685072541687326,
+          "norm_ratio": 1.0508627858331108,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.999999995558688,
+          "angle_degrees": 0.005399993925373697,
+          "norm_ratio": 1.10761515841796,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999948683272,
+          "angle_degrees": 0.005804530629680983,
+          "norm_ratio": 0.9952959337136617,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999950977527,
+          "angle_degrees": 0.005673293310968663,
+          "norm_ratio": 1.046511914293298,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999949660334,
+          "angle_degrees": 0.005749006428647584,
+          "norm_ratio": 1.0488095863089422,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999952486534,
+          "angle_degrees": 0.005585293361014135,
+          "norm_ratio": 1.0726371054036132,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999952640871,
+          "angle_degrees": 0.005576214648169588,
+          "norm_ratio": 1.085050954965377,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999951659941,
+          "angle_degrees": 0.005633667571559447,
+          "norm_ratio": 1.0668879829717934,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999950924091,
+          "angle_degrees": 0.005676384509101658,
+          "norm_ratio": 1.0524744990061399,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999950507691,
+          "angle_degrees": 0.00570041519286292,
+          "norm_ratio": 1.0389377271709141,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999946761182,
+          "angle_degrees": 0.005912236958916022,
+          "norm_ratio": 1.0422301193099213,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999945531587,
+          "angle_degrees": 0.0059801212797960775,
+          "norm_ratio": 1.0220472296053886,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999944748039,
+          "angle_degrees": 0.006022980788290359,
+          "norm_ratio": 0.9603671796569871,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999947110446,
+          "angle_degrees": 0.005892811949712189,
+          "norm_ratio": 1.0202874679525549,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999952315667,
+          "angle_degrees": 0.005595327189380634,
+          "norm_ratio": 1.0533363662149888,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999949458649,
+          "angle_degrees": 0.005760511582889807,
+          "norm_ratio": 1.0440302402043833,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999948761352,
+          "angle_degrees": 0.0058001130748657585,
+          "norm_ratio": 1.0250576799394422,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999948515406,
+          "angle_degrees": 0.005814016743285566,
+          "norm_ratio": 1.003922215445587,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999952507655,
+          "angle_degrees": 0.005584051758892373,
+          "norm_ratio": 1.0558330764104438,
+          "dim_idx": 48
+        }
+      ],
+      "40000": [
+        {
+          "cos_similarity": 0.9999999949920269,
+          "angle_degrees": 0.005734144410864058,
+          "norm_ratio": 1.09207534824981,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999950314064,
+          "angle_degrees": 0.005711555093065092,
+          "norm_ratio": 1.041140428760015,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999956072951,
+          "angle_degrees": 0.005370363011955695,
+          "norm_ratio": 1.1198713525649224,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999947137853,
+          "angle_degrees": 0.00589128494664,
+          "norm_ratio": 0.9661985825160807,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999950802926,
+          "angle_degrees": 0.005683387505577811,
+          "norm_ratio": 1.0427977674410556,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999949734568,
+          "angle_degrees": 0.005744765946367004,
+          "norm_ratio": 1.0503585087562837,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999952638267,
+          "angle_degrees": 0.005576367982022684,
+          "norm_ratio": 1.0760734794397886,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999953294597,
+          "angle_degrees": 0.005537595024356564,
+          "norm_ratio": 1.1002381720328076,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.999999995211913,
+          "angle_degrees": 0.005606846269550527,
+          "norm_ratio": 1.0771196291151017,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999950843471,
+          "angle_degrees": 0.005681045065425975,
+          "norm_ratio": 1.0507484208622537,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999950421341,
+          "angle_degrees": 0.005705385816585565,
+          "norm_ratio": 1.0371282481912585,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.999999994658221,
+          "angle_degrees": 0.00592216617462491,
+          "norm_ratio": 1.0387382032495425,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999944310234,
+          "angle_degrees": 0.006046796144375533,
+          "norm_ratio": 0.9996322969557906,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999941562626,
+          "angle_degrees": 0.006194167935568333,
+          "norm_ratio": 0.9080176736563981,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999946505128,
+          "angle_degrees": 0.005926437466301682,
+          "norm_ratio": 1.0087424757829475,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999952079047,
+          "angle_degrees": 0.005609192600539949,
+          "norm_ratio": 1.0481352779789175,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999948047205,
+          "angle_degrees": 0.005840393253617883,
+          "norm_ratio": 1.01566622781751,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999948649909,
+          "angle_degrees": 0.0058064172162801565,
+          "norm_ratio": 1.0228330369762053,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999947860493,
+          "angle_degrees": 0.005850878657563105,
+          "norm_ratio": 0.9913121389764127,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999952405585,
+          "angle_degrees": 0.005590049161852842,
+          "norm_ratio": 1.0535688132907883,
+          "dim_idx": 48
+        }
+      ],
+      "50000": [
+        {
+          "cos_similarity": 0.9999999950362092,
+          "angle_degrees": 0.005708793926350204,
+          "norm_ratio": 1.1017958642756962,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999950337302,
+          "angle_degrees": 0.005710219291673841,
+          "norm_ratio": 1.0416276012108443,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999956128469,
+          "angle_degrees": 0.005366968234916262,
+          "norm_ratio": 1.1212884648231505,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999945968832,
+          "angle_degrees": 0.005956070230859345,
+          "norm_ratio": 0.9452938680846862,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999950457509,
+          "angle_degrees": 0.0057033043914665035,
+          "norm_ratio": 1.035527349952801,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999949711603,
+          "angle_degrees": 0.005746078113288197,
+          "norm_ratio": 1.0498788122730391,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999952609434,
+          "angle_degrees": 0.005578065091811797,
+          "norm_ratio": 1.0754188671639457,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999953418325,
+          "angle_degrees": 0.005530255314291429,
+          "norm_ratio": 1.103160473503953,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999952671006,
+          "angle_degrees": 0.005574440283173385,
+          "norm_ratio": 1.0896793460881897,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999950681016,
+          "angle_degrees": 0.0056904248605531525,
+          "norm_ratio": 1.0472872687832915,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999949988658,
+          "angle_degrees": 0.005730227750371196,
+          "norm_ratio": 1.028155307950542,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999946436754,
+          "angle_degrees": 0.005930223679634413,
+          "norm_ratio": 1.0359174269914306,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999943239714,
+          "angle_degrees": 0.006104638056946256,
+          "norm_ratio": 0.9807788704831262,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999938341434,
+          "angle_degrees": 0.006362595890140521,
+          "norm_ratio": 0.8605806854312881,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999945568594,
+          "angle_degrees": 0.0059780894202106465,
+          "norm_ratio": 0.9913863252862002,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999951688667,
+          "angle_degrees": 0.005631993429195791,
+          "norm_ratio": 1.039665873274693,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947332131,
+          "angle_degrees": 0.005880449214111641,
+          "norm_ratio": 1.0018764944865752,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999948822438,
+          "angle_degrees": 0.005796654660620658,
+          "norm_ratio": 1.0262811903722717,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999947315092,
+          "angle_degrees": 0.005881400329842095,
+          "norm_ratio": 0.9810499967649965,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999952436485,
+          "angle_degrees": 0.0055882342531207736,
+          "norm_ratio": 1.0542532499822161,
+          "dim_idx": 48
+        }
+      ]
+    },
+    "mix20_seed456": {
+      "3000": [
+        {
+          "cos_similarity": 0.9999999948758617,
+          "angle_degrees": 0.005800267904447999,
+          "norm_ratio": 0.9999999928416914,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999948102926,
+          "angle_degrees": 0.005837260411976349,
+          "norm_ratio": 0.9999999927960376,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999949808728,
+          "angle_degrees": 0.005740526585489986,
+          "norm_ratio": 0.9999999929154202,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999949398656,
+          "angle_degrees": 0.0057639294632022605,
+          "norm_ratio": 0.9999999928865378,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.999999994415018,
+          "angle_degrees": 0.006055479253987997,
+          "norm_ratio": 0.9999999925267261,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999944632224,
+          "angle_degrees": 0.0060292899506116495,
+          "norm_ratio": 0.9999999925590473,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999950455829,
+          "angle_degrees": 0.005703401077599593,
+          "norm_ratio": 0.999999992961238,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.999999994942692,
+          "angle_degrees": 0.0057623194783941725,
+          "norm_ratio": 0.9999999928885248,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999950205498,
+          "angle_degrees": 0.0057177916545018284,
+          "norm_ratio": 0.9999999929434779,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999946666366,
+          "angle_degrees": 0.005917499355248376,
+          "norm_ratio": 0.999999992697012,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999949477113,
+          "angle_degrees": 0.00575945925162134,
+          "norm_ratio": 0.9999999928920548,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999947593617,
+          "angle_degrees": 0.005865833369981428,
+          "norm_ratio": 0.9999999927607748,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999942168084,
+          "angle_degrees": 0.006161996121512442,
+          "norm_ratio": 0.9999999923952702,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999940945504,
+          "angle_degrees": 0.006226788478760214,
+          "norm_ratio": 0.9999999923153077,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999941126565,
+          "angle_degrees": 0.006217235503133405,
+          "norm_ratio": 0.9999999923270975,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999947113234,
+          "angle_degrees": 0.005892656644744044,
+          "norm_ratio": 0.9999999927276713,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999946979864,
+          "angle_degrees": 0.005900082024648674,
+          "norm_ratio": 0.9999999927185074,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.999999994650549,
+          "angle_degrees": 0.005926417417882978,
+          "norm_ratio": 0.9999999926860058,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999948392673,
+          "angle_degrees": 0.005820942568258998,
+          "norm_ratio": 0.9999999928161761,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999947548561,
+          "angle_degrees": 0.005868354391808976,
+          "norm_ratio": 0.9999999927576635,
+          "dim_idx": 48
+        }
+      ],
+      "10000": [
+        {
+          "cos_similarity": 0.9999999952100723,
+          "angle_degrees": 0.0056079238592871145,
+          "norm_ratio": 1.0697735960889254,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999951513561,
+          "angle_degrees": 0.005642190903866451,
+          "norm_ratio": 1.0703420852854701,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999951974211,
+          "angle_degrees": 0.005615324832913164,
+          "norm_ratio": 1.0450899736671284,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.999999995181894,
+          "angle_degrees": 0.005624394912781306,
+          "norm_ratio": 1.0502331009555976,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999945222756,
+          "angle_degrees": 0.005997050677082449,
+          "norm_ratio": 1.0195807247045936,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999944980386,
+          "angle_degrees": 0.006010303482500934,
+          "norm_ratio": 1.0063279808052847,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999952810906,
+          "angle_degrees": 0.0055661954100605735,
+          "norm_ratio": 1.0499072232810236,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999951727533,
+          "angle_degrees": 0.005629727555893912,
+          "norm_ratio": 1.0476588523070272,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999953191968,
+          "angle_degrees": 0.005543675756321601,
+          "norm_ratio": 1.0638025480174884,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999949022077,
+          "angle_degrees": 0.005785337491579417,
+          "norm_ratio": 1.0462104184390315,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999952794623,
+          "angle_degrees": 0.005567155696680173,
+          "norm_ratio": 1.0702781396546104,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999949844208,
+          "angle_degrees": 0.005738497220672474,
+          "norm_ratio": 1.0448719969683224,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.999999994281901,
+          "angle_degrees": 0.006127219876318361,
+          "norm_ratio": 1.0113835965643214,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999942234904,
+          "angle_degrees": 0.00615843526021279,
+          "norm_ratio": 1.0223214530236187,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999941303374,
+          "angle_degrees": 0.006207892689422208,
+          "norm_ratio": 1.0030122206779468,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999949241055,
+          "angle_degrees": 0.005772898518641611,
+          "norm_ratio": 1.0419200913775755,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999949600381,
+          "angle_degrees": 0.005752428863996024,
+          "norm_ratio": 1.0519947449758942,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999948177501,
+          "angle_degrees": 0.00583306484353319,
+          "norm_ratio": 1.032264244615619,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999951442963,
+          "angle_degrees": 0.005646297024585847,
+          "norm_ratio": 1.062818613357357,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999949901696,
+          "angle_degrees": 0.005735207614833963,
+          "norm_ratio": 1.0469703242138506,
+          "dim_idx": 48
+        }
+      ],
+      "20000": [
+        {
+          "cos_similarity": 0.9999999952516172,
+          "angle_degrees": 0.005583551058981491,
+          "norm_ratio": 1.0791333364914537,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999952142185,
+          "angle_degrees": 0.005605496244010652,
+          "norm_ratio": 1.084401246143122,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999951355646,
+          "angle_degrees": 0.005651371420501487,
+          "norm_ratio": 1.0318005084892081,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999951509603,
+          "angle_degrees": 0.005642421185016913,
+          "norm_ratio": 1.0435332954221033,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999943780963,
+          "angle_degrees": 0.006075462328013096,
+          "norm_ratio": 0.9934325762899181,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999941790296,
+          "angle_degrees": 0.006182090022027982,
+          "norm_ratio": 0.9511778233286254,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999952580148,
+          "angle_degrees": 0.00557978840084389,
+          "norm_ratio": 1.0447980297220973,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999951573142,
+          "angle_degrees": 0.005638723212601851,
+          "norm_ratio": 1.0443187867010633,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999953182334,
+          "angle_degrees": 0.005544246255435421,
+          "norm_ratio": 1.0635836669990375,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999948519125,
+          "angle_degrees": 0.005813806737205834,
+          "norm_ratio": 1.0359892396767385,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999953422034,
+          "angle_degrees": 0.005530035125384739,
+          "norm_ratio": 1.0846950040569623,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999949396137,
+          "angle_degrees": 0.00576407293479802,
+          "norm_ratio": 1.0356202161621926,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999941371439,
+          "angle_degrees": 0.00620429225917397,
+          "norm_ratio": 0.98641201043714,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999941743744,
+          "angle_degrees": 0.0061845615673890245,
+          "norm_ratio": 1.0137022678702174,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999938738069,
+          "angle_degrees": 0.006342098336993732,
+          "norm_ratio": 0.9610117032906113,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999948721985,
+          "angle_degrees": 0.005802340802663318,
+          "norm_ratio": 1.0313731181120012,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999949485628,
+          "angle_degrees": 0.0057589738653930226,
+          "norm_ratio": 1.0496049948003556,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999947105385,
+          "angle_degrees": 0.005893093912707414,
+          "norm_ratio": 1.011341354994708,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999952321271,
+          "angle_degrees": 0.005594998366434801,
+          "norm_ratio": 1.0823973109372587,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999949452911,
+          "angle_degrees": 0.005760838550415634,
+          "norm_ratio": 1.0376747665904469,
+          "dim_idx": 48
+        }
+      ],
+      "30000": [
+        {
+          "cos_similarity": 0.9999999951711527,
+          "angle_degrees": 0.005630660825278921,
+          "norm_ratio": 1.061151480098704,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999952155788,
+          "angle_degrees": 0.005604699507483591,
+          "norm_ratio": 1.0847095478911961,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999950248816,
+          "angle_degrees": 0.005715304083276828,
+          "norm_ratio": 1.0088457857846809,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999950966334,
+          "angle_degrees": 0.005673940963642302,
+          "norm_ratio": 1.0319715347668126,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999940742751,
+          "angle_degrees": 0.006237468618707236,
+          "norm_ratio": 0.942497727884709,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999937698917,
+          "angle_degrees": 0.006395660899273642,
+          "norm_ratio": 0.8887129446651051,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999951915856,
+          "angle_degrees": 0.005618735353117027,
+          "norm_ratio": 1.0303639915352019,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.999999995098553,
+          "angle_degrees": 0.00567283023444882,
+          "norm_ratio": 1.031798987497531,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999952622961,
+          "angle_degrees": 0.005577268945657018,
+          "norm_ratio": 1.0510261046180227,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999947590513,
+          "angle_degrees": 0.005866007092657047,
+          "norm_ratio": 1.0176332367595693,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999953670016,
+          "angle_degrees": 0.005515294493531187,
+          "norm_ratio": 1.0905008457674237,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999948311815,
+          "angle_degrees": 0.0058255008637975395,
+          "norm_ratio": 1.0138947941805905,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999939950481,
+          "angle_degrees": 0.006279027655152433,
+          "norm_ratio": 0.9630704092025248,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999940945188,
+          "angle_degrees": 0.006226805160281754,
+          "norm_ratio": 0.9999946790123125,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999936659659,
+          "angle_degrees": 0.006448783963602538,
+          "norm_ratio": 0.9294777007135209,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999947775549,
+          "angle_degrees": 0.0058556427645421105,
+          "norm_ratio": 1.0126820390875877,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.999999994820837,
+          "angle_degrees": 0.005831327320148045,
+          "norm_ratio": 1.023720157667797,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.999999994543794,
+          "angle_degrees": 0.005985259870662601,
+          "norm_ratio": 0.9804342092739937,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999952620183,
+          "angle_degrees": 0.005577432444561698,
+          "norm_ratio": 1.0892259021823103,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999947997366,
+          "angle_degrees": 0.005843193966351762,
+          "norm_ratio": 1.0086304226185874,
+          "dim_idx": 48
+        }
+      ],
+      "40000": [
+        {
+          "cos_similarity": 0.9999999951048747,
+          "angle_degrees": 0.00566917074161829,
+          "norm_ratio": 1.0467839321260437,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999952080207,
+          "angle_degrees": 0.005609124699869589,
+          "norm_ratio": 1.082998687884195,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999949126934,
+          "angle_degrees": 0.005779384456205447,
+          "norm_ratio": 0.9865981184353327,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999950212389,
+          "angle_degrees": 0.005717395992867309,
+          "norm_ratio": 1.0163440823296341,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999936597327,
+          "angle_degrees": 0.006451956263314935,
+          "norm_ratio": 0.8808748590049063,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999933189517,
+          "angle_degrees": 0.006623078998545066,
+          "norm_ratio": 0.828728913438061,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999951187988,
+          "angle_degrees": 0.005661102079455607,
+          "norm_ratio": 1.0149995749909182,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999950546018,
+          "angle_degrees": 0.005698207548772385,
+          "norm_ratio": 1.0226290878452482,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999952012316,
+          "angle_degrees": 0.005613096708848397,
+          "norm_ratio": 1.0376517341320273,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999946553768,
+          "angle_degrees": 0.005923742559756784,
+          "norm_ratio": 0.9978932664234933,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.99999999537226,
+          "angle_degrees": 0.0055121636710435,
+          "norm_ratio": 1.0917399857019496,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.999999994695547,
+          "angle_degrees": 0.00590143914102697,
+          "norm_ratio": 0.9879695796041847,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.999999993843726,
+          "angle_degrees": 0.006357649809745891,
+          "norm_ratio": 0.9393980062508366,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999939955527,
+          "angle_degrees": 0.00627876383612746,
+          "norm_ratio": 0.9835126299042571,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999934715743,
+          "angle_degrees": 0.006546992795250658,
+          "norm_ratio": 0.9018013663830319,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999947484488,
+          "angle_degrees": 0.005871937605571333,
+          "norm_ratio": 1.007069366427449,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999947134869,
+          "angle_degrees": 0.005891451237585069,
+          "norm_ratio": 1.0029320827689783,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999942793648,
+          "angle_degrees": 0.006128578552722305,
+          "norm_ratio": 0.9351148833404709,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999952614226,
+          "angle_degrees": 0.005577783081926501,
+          "norm_ratio": 1.0890890528907606,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999946570319,
+          "angle_degrees": 0.005922825257778369,
+          "norm_ratio": 0.9816910215305579,
+          "dim_idx": 48
+        }
+      ],
+      "50000": [
+        {
+          "cos_similarity": 0.9999999950235244,
+          "angle_degrees": 0.005716083554130251,
+          "norm_ratio": 1.0296721380317528,
+          "dim_idx": 119
+        },
+        {
+          "cos_similarity": 0.9999999951915155,
+          "angle_degrees": 0.005618776283395156,
+          "norm_ratio": 1.0792813760549087,
+          "dim_idx": 118
+        },
+        {
+          "cos_similarity": 0.9999999948143716,
+          "angle_degrees": 0.005834965939974323,
+          "norm_ratio": 0.9678918086054981,
+          "dim_idx": 31
+        },
+        {
+          "cos_similarity": 0.9999999949683425,
+          "angle_degrees": 0.005747687764843596,
+          "norm_ratio": 1.0056595681334868,
+          "dim_idx": 32
+        },
+        {
+          "cos_similarity": 0.9999999931996968,
+          "angle_degrees": 0.0066819276534885045,
+          "norm_ratio": 0.821284273952582,
+          "dim_idx": 33
+        },
+        {
+          "cos_similarity": 0.9999999928585493,
+          "angle_degrees": 0.006847481227438406,
+          "norm_ratio": 0.7753015469693836,
+          "dim_idx": 34
+        },
+        {
+          "cos_similarity": 0.9999999950771323,
+          "angle_degrees": 0.005685212618282107,
+          "norm_ratio": 1.006408678729839,
+          "dim_idx": 35
+        },
+        {
+          "cos_similarity": 0.9999999949879258,
+          "angle_degrees": 0.005736491789346251,
+          "norm_ratio": 1.0090249266232414,
+          "dim_idx": 36
+        },
+        {
+          "cos_similarity": 0.9999999951535579,
+          "angle_degrees": 0.0056409096843518984,
+          "norm_ratio": 1.0274444929099382,
+          "dim_idx": 37
+        },
+        {
+          "cos_similarity": 0.9999999945910518,
+          "angle_degrees": 0.005959283420416727,
+          "norm_ratio": 0.9860259873934336,
+          "dim_idx": 38
+        },
+        {
+          "cos_similarity": 0.9999999953886254,
+          "angle_degrees": 0.005502408542021948,
+          "norm_ratio": 1.095614416330109,
+          "dim_idx": 39
+        },
+        {
+          "cos_similarity": 0.9999999945727184,
+          "angle_degrees": 0.005969374271238739,
+          "norm_ratio": 0.9656101240838899,
+          "dim_idx": 40
+        },
+        {
+          "cos_similarity": 0.9999999936569842,
+          "angle_degrees": 0.006453354554102826,
+          "norm_ratio": 0.9117416591340363,
+          "dim_idx": 41
+        },
+        {
+          "cos_similarity": 0.9999999939628812,
+          "angle_degrees": 0.006295822737075905,
+          "norm_ratio": 0.9781900744332808,
+          "dim_idx": 42
+        },
+        {
+          "cos_similarity": 0.9999999933390638,
+          "angle_degrees": 0.006613102726104124,
+          "norm_ratio": 0.8838612653386418,
+          "dim_idx": 43
+        },
+        {
+          "cos_similarity": 0.9999999947017825,
+          "angle_degrees": 0.005897969510107602,
+          "norm_ratio": 0.9981992075110205,
+          "dim_idx": 44
+        },
+        {
+          "cos_similarity": 0.9999999946146216,
+          "angle_degrees": 0.005946285279275399,
+          "norm_ratio": 0.9845201301070996,
+          "dim_idx": 45
+        },
+        {
+          "cos_similarity": 0.9999999939892097,
+          "angle_degrees": 0.006282079371958439,
+          "norm_ratio": 0.8899746448565514,
+          "dim_idx": 46
+        },
+        {
+          "cos_similarity": 0.9999999952860728,
+          "angle_degrees": 0.005563256297740678,
+          "norm_ratio": 1.0947840558553092,
+          "dim_idx": 47
+        },
+        {
+          "cos_similarity": 0.9999999944779744,
+          "angle_degrees": 0.0060212524891492415,
+          "norm_ratio": 0.9498586491534844,
+          "dim_idx": 48
+        }
+      ]
+    }
+  },
+  "performance": {
+    "mix0_seed42": {
+      "3000": 0.0,
+      "10000": 0.0,
+      "20000": 0.0,
+      "30000": 0.0,
+      "40000": 0.0,
+      "50000": 0.0
+    },
+    "mix0_seed123": {
+      "3000": 0.0,
+      "10000": 0.0,
+      "20000": 0.0,
+      "30000": 0.0,
+      "40000": 0.0,
+      "50000": 0.0
+    },
+    "mix0_seed456": {
+      "3000": 0.0,
+      "10000": 0.0,
+      "20000": 0.0,
+      "30000": 0.0,
+      "40000": 0.0,
+      "50000": 0.02
+    },
+    "mix20_seed42": {
+      "3000": 0.0,
+      "10000": 0.0,
+      "20000": 0.0,
+      "30000": 0.0,
+      "40000": 0.0,
+      "50000": 0.0
+    },
+    "mix20_seed123": {
+      "3000": 0.0,
+      "10000": 0.0,
+      "20000": 0.0,
+      "30000": 0.0,
+      "40000": 0.0,
+      "50000": 0.0
+    },
+    "mix20_seed456": {
+      "3000": 0.0,
+      "10000": 0.0,
+      "20000": 0.0,
+      "30000": 0.0,
+      "40000": 0.0,
+      "50000": 0.0
+    }
+  },
+  "correlations": {
+    "mix0_seed42": {
+      "metrics": {
+        "avg_angle_all": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "avg_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "max_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        }
+      },
+      "data": {
+        "avg_angle_all": [
+          0.006021265393469531,
+          0.005851574201485864,
+          0.005819083274274607,
+          0.005839304153093567,
+          0.005873106714273201,
+          0.005930585531042131
+        ],
+        "avg_angle_top5": [
+          0.006017144092719755,
+          0.005870697916766268,
+          0.005868321550985461,
+          0.005920823490166052,
+          0.005976260999057369,
+          0.00604070895684568
+        ],
+        "max_angle_top5": [
+          0.006131393677462982,
+          0.006015464397703128,
+          0.006032430910278287,
+          0.006094434898396226,
+          0.006159714865515464,
+          0.006249917475344924
+        ],
+        "performances": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "mix0_seed123": {
+      "metrics": {
+        "avg_angle_all": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "avg_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "max_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        }
+      },
+      "data": {
+        "avg_angle_all": [
+          0.005971988533097998,
+          0.005833136362496499,
+          0.005842155878282654,
+          0.0058892453902535755,
+          0.0059566998360378,
+          0.00602521796278222
+        ],
+        "avg_angle_top5": [
+          0.005933928776535296,
+          0.005784069435434367,
+          0.0058124570406534164,
+          0.005881697868244005,
+          0.005974827417267786,
+          0.006092650526395259
+        ],
+        "max_angle_top5": [
+          0.006111745432903069,
+          0.00600816426884881,
+          0.006127987454881044,
+          0.0063096947270921,
+          0.0065372859393780305,
+          0.00684578752314914
+        ],
+        "performances": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "mix0_seed456": {
+      "metrics": {
+        "avg_angle_all": {
+          "pearson": {
+            "r": 0.7923373537898426,
+            "p": 0.06020806336928502
+          },
+          "spearman": {
+            "r": 0.6546536707079772,
+            "p": 0.15830242337545783
+          }
+        },
+        "avg_angle_top5": {
+          "pearson": {
+            "r": 0.7990445770473767,
+            "p": 0.05651702335796777
+          },
+          "spearman": {
+            "r": 0.6546536707079772,
+            "p": 0.15830242337545783
+          }
+        },
+        "max_angle_top5": {
+          "pearson": {
+            "r": 0.6695499529311629,
+            "p": 0.1457537349189534
+          },
+          "spearman": {
+            "r": 0.6546536707079772,
+            "p": 0.15830242337545783
+          }
+        }
+      },
+      "data": {
+        "avg_angle_all": [
+          0.006088983141758783,
+          0.005981980828063086,
+          0.006005131428661893,
+          0.00605471489848735,
+          0.006133116544684247,
+          0.006227326750602438
+        ],
+        "avg_angle_top5": [
+          0.006058992864461371,
+          0.0059627342932388385,
+          0.0060184312371435785,
+          0.006105986108026724,
+          0.0062285993340554496,
+          0.00636832292843927
+        ],
+        "max_angle_top5": [
+          0.00636264246055585,
+          0.00636159743696613,
+          0.006468345790916252,
+          0.006577030865829467,
+          0.006690297390965962,
+          0.006772759143590386
+        ],
+        "performances": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.02
+        ]
+      }
+    },
+    "mix20_seed42": {
+      "metrics": {
+        "avg_angle_all": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "avg_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "max_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        }
+      },
+      "data": {
+        "avg_angle_all": [
+          0.00591554011573694,
+          0.005794352833891713,
+          0.005813122818873294,
+          0.005859974803213635,
+          0.005906966145812296,
+          0.005961329737124177
+        ],
+        "avg_angle_top5": [
+          0.005974123947152923,
+          0.00587245356029,
+          0.005907356115540387,
+          0.0059728771564313676,
+          0.006031986947811871,
+          0.006106882777991482
+        ],
+        "max_angle_top5": [
+          0.00614531811817858,
+          0.006075896037537213,
+          0.006136697508801674,
+          0.006213000990385132,
+          0.006271187470948824,
+          0.006393392330281716
+        ],
+        "performances": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "mix20_seed123": {
+      "metrics": {
+        "avg_angle_all": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "avg_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "max_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        }
+      },
+      "data": {
+        "avg_angle_all": [
+          0.005851586134444034,
+          0.0057196973541513135,
+          0.0057191913351794365,
+          0.00572984183663842,
+          0.005751461984156768,
+          0.005772456321128905
+        ],
+        "avg_angle_top5": [
+          0.005819580647758357,
+          0.005672435360311237,
+          0.0056582166902667454,
+          0.005662736739076859,
+          0.005678146993620531,
+          0.005689071215053232
+        ],
+        "max_angle_top5": [
+          0.005992319013609784,
+          0.005819057308720185,
+          0.005795808238313241,
+          0.005804530629680983,
+          0.00589128494664,
+          0.005956070230859345
+        ],
+        "performances": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "mix20_seed456": {
+      "metrics": {
+        "avg_angle_all": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "avg_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        },
+        "max_angle_top5": {
+          "pearson": {
+            "r": NaN,
+            "p": NaN
+          },
+          "spearman": {
+            "r": NaN,
+            "p": NaN
+          }
+        }
+      },
+      "data": {
+        "avg_angle_all": [
+          0.005898376545390636,
+          0.005778061124559178,
+          0.005807613129299614,
+          0.005869042251308706,
+          0.005936792251901594,
+          0.0060006862857221056
+        ],
+        "avg_angle_top5": [
+          0.005839492723820918,
+          0.005697377037186097,
+          0.0057116604473047275,
+          0.0057724147996777745,
+          0.0058454064307751135,
+          0.005919888239166366
+        ],
+        "max_angle_top5": [
+          0.006055479253987997,
+          0.005997050677082449,
+          0.006075462328013096,
+          0.006237468618707236,
+          0.006451956263314935,
+          0.0066819276534885045
+        ],
+        "performances": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "critical_dimensions": {
+    "mix0_seed42": {
+      "3000": {
+        "angles": [
+          0.006131393677462982,
+          0.006030886983781886,
+          0.006037075896447725,
+          0.005892755604973843,
+          0.005993608300932337
+        ],
+        "avg_angle": 0.006017144092719755,
+        "max_angle": 0.006131393677462982
+      },
+      "10000": {
+        "angles": [
+          0.006015464397703128,
+          0.005847037948444078,
+          0.0058515580402942954,
+          0.005759270734240934,
+          0.0058801584631489046
+        ],
+        "avg_angle": 0.005870697916766268,
+        "max_angle": 0.006015464397703128
+      },
+      "20000": {
+        "angles": [
+          0.006032430910278287,
+          0.005811916152885127,
+          0.005807782915548337,
+          0.0057765591154310915,
+          0.005912918660784465
+        ],
+        "avg_angle": 0.005868321550985461,
+        "max_angle": 0.006032430910278287
+      },
+      "30000": {
+        "angles": [
+          0.006094434898396226,
+          0.005837838680685027,
+          0.0058235750233616886,
+          0.005830630765622393,
+          0.00601763808276493
+        ],
+        "avg_angle": 0.005920823490166052,
+        "max_angle": 0.006094434898396226
+      },
+      "40000": {
+        "angles": [
+          0.006159714865515464,
+          0.0058657835387079,
+          0.0058297817741570545,
+          0.00589482052583637,
+          0.006131204291070055
+        ],
+        "avg_angle": 0.005976260999057369,
+        "max_angle": 0.006159714865515464
+      },
+      "50000": {
+        "angles": [
+          0.00622532314000383,
+          0.005900746292189116,
+          0.005847257357272295,
+          0.005980300519418231,
+          0.006249917475344924
+        ],
+        "avg_angle": 0.00604070895684568,
+        "max_angle": 0.006249917475344924
+      }
+    },
+    "mix0_seed123": {
+      "3000": {
+        "angles": [
+          0.006047414825554833,
+          0.006111745432903069,
+          0.005746061748729652,
+          0.0059263828557258496,
+          0.0058380390197630755
+        ],
+        "avg_angle": 0.005933928776535296,
+        "max_angle": 0.006111745432903069
+      },
+      "10000": {
+        "angles": [
+          0.00585321782666387,
+          0.00600816426884881,
+          0.005501980036202217,
+          0.005825670471440905,
+          0.00573131457401603
+        ],
+        "avg_angle": 0.005784069435434367,
+        "max_angle": 0.00600816426884881
+      },
+      "20000": {
+        "angles": [
+          0.0057815801414022715,
+          0.006127987454881044,
+          0.005464799567292448,
+          0.0059220088699884574,
+          0.005765909169702859
+        ],
+        "avg_angle": 0.0058124570406534164,
+        "max_angle": 0.006127987454881044
+      },
+      "30000": {
+        "angles": [
+          0.005757853144070378,
+          0.0063096947270921,
+          0.005462449195259016,
+          0.006059553907264233,
+          0.0058189383675342965
+        ],
+        "avg_angle": 0.005881697868244005,
+        "max_angle": 0.0063096947270921
+      },
+      "40000": {
+        "angles": [
+          0.005736138844745336,
+          0.0065372859393780305,
+          0.005455258585897888,
+          0.006238001608184592,
+          0.00590745210813308
+        ],
+        "avg_angle": 0.005974827417267786,
+        "max_angle": 0.0065372859393780305
+      },
+      "50000": {
+        "angles": [
+          0.005724197855677502,
+          0.00684578752314914,
+          0.005463076411368654,
+          0.0064543812203951305,
+          0.005975809621385865
+        ],
+        "avg_angle": 0.006092650526395259,
+        "max_angle": 0.00684578752314914
+      }
+    },
+    "mix0_seed456": {
+      "3000": {
+        "angles": [
+          0.006289599794168654,
+          0.005826660303497383,
+          0.006014434314176814,
+          0.005801627449908153,
+          0.00636264246055585
+        ],
+        "avg_angle": 0.006058992864461371,
+        "max_angle": 0.00636264246055585
+      },
+      "10000": {
+        "angles": [
+          0.006226457355942962,
+          0.005672088899250022,
+          0.005911244562794846,
+          0.005642283211240232,
+          0.00636159743696613
+        ],
+        "avg_angle": 0.0059627342932388385,
+        "max_angle": 0.00636159743696613
+      },
+      "20000": {
+        "angles": [
+          0.006263314720337085,
+          0.0056857705825087475,
+          0.005994050851758932,
+          0.005680674240196871,
+          0.006468345790916252
+        ],
+        "avg_angle": 0.0060184312371435785,
+        "max_angle": 0.006468345790916252
+      },
+      "30000": {
+        "angles": [
+          0.006301806695911129,
+          0.00571924727772602,
+          0.006126366772863479,
+          0.005805478927803521,
+          0.006577030865829467
+        ],
+        "avg_angle": 0.006105986108026724,
+        "max_angle": 0.006577030865829467
+      },
+      "40000": {
+        "angles": [
+          0.0063610027246041425,
+          0.005758311725017657,
+          0.006346191347809975,
+          0.00598719348187951,
+          0.006690297390965962
+        ],
+        "avg_angle": 0.0062285993340554496,
+        "max_angle": 0.006690297390965962
+      },
+      "50000": {
+        "angles": [
+          0.0064523446701615535,
+          0.005817030779940616,
+          0.006545807215968557,
+          0.006253672832535236,
+          0.006772759143590386
+        ],
+        "avg_angle": 0.00636832292843927,
+        "max_angle": 0.006772759143590386
+      }
+    },
+    "mix20_seed42": {
+      "3000": {
+        "angles": [
+          0.005921538531280444,
+          0.006006097962198161,
+          0.00614531811817858,
+          0.005798660152267844,
+          0.005999004971839588
+        ],
+        "avg_angle": 0.005974123947152923,
+        "max_angle": 0.00614531811817858
+      },
+      "10000": {
+        "angles": [
+          0.005807685833470249,
+          0.005890651290577242,
+          0.006075896037537213,
+          0.005661305003231337,
+          0.00592672963663396
+        ],
+        "avg_angle": 0.00587245356029,
+        "max_angle": 0.006075896037537213
+      },
+      "20000": {
+        "angles": [
+          0.00581916804272056,
+          0.00592188467268752,
+          0.006136697508801674,
+          0.005663449614822302,
+          0.005995580738669883
+        ],
+        "avg_angle": 0.005907356115540387,
+        "max_angle": 0.006136697508801674
+      },
+      "30000": {
+        "angles": [
+          0.005871609934694864,
+          0.005968012816618689,
+          0.006213000990385132,
+          0.005693733810884885,
+          0.006118028229573264
+        ],
+        "avg_angle": 0.0059728771564313676,
+        "max_angle": 0.006213000990385132
+      },
+      "40000": {
+        "angles": [
+          0.00591196552612131,
+          0.006013331929390491,
+          0.006271187470948824,
+          0.00572070361363554,
+          0.0062427461989631935
+        ],
+        "avg_angle": 0.006031986947811871,
+        "max_angle": 0.006271187470948824
+      },
+      "50000": {
+        "angles": [
+          0.005942350938660513,
+          0.0060945417053926525,
+          0.0063323557394555545,
+          0.005771773176166976,
+          0.006393392330281716
+        ],
+        "avg_angle": 0.006106882777991482,
+        "max_angle": 0.006393392330281716
+      }
+    },
+    "mix20_seed123": {
+      "3000": {
+        "angles": [
+          0.005992319013609784,
+          0.0058278588492873176,
+          0.005683131564653594,
+          0.0057908621726566025,
+          0.005803731638584489
+        ],
+        "avg_angle": 0.005819580647758357,
+        "max_angle": 0.005992319013609784
+      },
+      "10000": {
+        "angles": [
+          0.005819057308720185,
+          0.005690579472186473,
+          0.005480643234980428,
+          0.005702701871477988,
+          0.005669194914191113
+        ],
+        "avg_angle": 0.005672435360311237,
+        "max_angle": 0.005819057308720185
+      },
+      "20000": {
+        "angles": [
+          0.005795808238313241,
+          0.005682377526857331,
+          0.005419422290568213,
+          0.005737961406536972,
+          0.0056555139890579744
+        ],
+        "avg_angle": 0.0056582166902667454,
+        "max_angle": 0.005795808238313241
+      },
+      "30000": {
+        "angles": [
+          0.00575079328767363,
+          0.005685072541687326,
+          0.005399993925373697,
+          0.005804530629680983,
+          0.005673293310968663
+        ],
+        "avg_angle": 0.005662736739076859,
+        "max_angle": 0.005804530629680983
+      },
+      "40000": {
+        "angles": [
+          0.005734144410864058,
+          0.005711555093065092,
+          0.005370363011955695,
+          0.00589128494664,
+          0.005683387505577811
+        ],
+        "avg_angle": 0.005678146993620531,
+        "max_angle": 0.00589128494664
+      },
+      "50000": {
+        "angles": [
+          0.005708793926350204,
+          0.005710219291673841,
+          0.005366968234916262,
+          0.005956070230859345,
+          0.0057033043914665035
+        ],
+        "avg_angle": 0.005689071215053232,
+        "max_angle": 0.005956070230859345
+      }
+    },
+    "mix20_seed456": {
+      "3000": {
+        "angles": [
+          0.005800267904447999,
+          0.005837260411976349,
+          0.005740526585489986,
+          0.0057639294632022605,
+          0.006055479253987997
+        ],
+        "avg_angle": 0.005839492723820918,
+        "max_angle": 0.006055479253987997
+      },
+      "10000": {
+        "angles": [
+          0.0056079238592871145,
+          0.005642190903866451,
+          0.005615324832913164,
+          0.005624394912781306,
+          0.005997050677082449
+        ],
+        "avg_angle": 0.005697377037186097,
+        "max_angle": 0.005997050677082449
+      },
+      "20000": {
+        "angles": [
+          0.005583551058981491,
+          0.005605496244010652,
+          0.005651371420501487,
+          0.005642421185016913,
+          0.006075462328013096
+        ],
+        "avg_angle": 0.0057116604473047275,
+        "max_angle": 0.006075462328013096
+      },
+      "30000": {
+        "angles": [
+          0.005630660825278921,
+          0.005604699507483591,
+          0.005715304083276828,
+          0.005673940963642302,
+          0.006237468618707236
+        ],
+        "avg_angle": 0.0057724147996777745,
+        "max_angle": 0.006237468618707236
+      },
+      "40000": {
+        "angles": [
+          0.00566917074161829,
+          0.005609124699869589,
+          0.005779384456205447,
+          0.005717395992867309,
+          0.006451956263314935
+        ],
+        "avg_angle": 0.0058454064307751135,
+        "max_angle": 0.006451956263314935
+      },
+      "50000": {
+        "angles": [
+          0.005716083554130251,
+          0.005618776283395156,
+          0.005834965939974323,
+          0.005747687764843596,
+          0.0066819276534885045
+        ],
+        "avg_angle": 0.005919888239166366,
+        "max_angle": 0.0066819276534885045
+      }
+    }
+  },
+  "dimension_importance": {
+    "scores": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "critical_dims": [
+      119,
+      118,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48
+    ],
+    "top_5_dims": [
+      119,
+      118,
+      31,
+      32,
+      33
+    ],
+    "top_5_scores": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  }
+}
