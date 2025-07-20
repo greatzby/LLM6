@@ -188,7 +188,7 @@ def plot_granular_results(summary, k_value):
 def main():
     # 在这里定义你要测试的k值
     # 建议先从一个k值开始，比如k=65，看看结果
-    k_to_test = [60, 65, 70] 
+    k_to_test = [10, 15, 20, 30, 45,60, 65, 70] 
 
     for k in k_to_test:
         summary_data = analyze_granular_evolution(k_value=k)
