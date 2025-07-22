@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-sfs_hypothesis_validator_final.py
+sfs_hypothesis_validator_final_corrected.py
 
 该脚本用于验证“确定性知识子空间 (DKS) + 随机波动子空间 (SFS)”假说。
-此版本已根据用户提供的最终、精确的路径和文件名格式进行配置，可直接运行。
+此版本已根据用户提供的最终、精确的路径、文件名格式以及维度更正进行配置，可直接运行。
 
 预测: Rank(W_seed1 - W_seed2) ≈ Embedding_Dim - 92
 
-运行: python sfs_hypothesis_validator_final.py
+运行: python sfs_hypothesis_validator_final_corrected.py
 """
 import os
 import torch
@@ -36,9 +36,9 @@ CONFIG = {
         'seed_A': 42,
         'seed_B': 123,
     },
-    '100_embed': {
-        'label': 'Embed Dim = 100',
-        'predicted_rank': 100 - 92,
+    '120_embed': { # <--- 已从 100 更正为 120
+        'label': 'Embed Dim = 120', # <--- 已更正
+        'predicted_rank': 120 - 92, # <--- 已从 100-92=8 更正为 120-92=28
         'model_A_dir': 'out/composition_mix5_seed42_20250705_151206', # Seed 42
         'model_B_dir': 'out/composition_mix5_seed123_20250705_153459', # Seed 123
         'ckpt_filename_template': 'ckpt_mix{ratio}_seed{seed}_iter{iter}.pt',
@@ -76,7 +76,7 @@ def load_weight_matrix(exp_config, iteration, seed):
     filename = exp_config['ckpt_filename_template'].format(
         iter=iteration,
         seed=seed,
-        ratio=exp_config.get('ratio') # 使用.get以防某些配置没有ratio
+        ratio=exp_config.get('ratio')
     )
     
     ckpt_path = os.path.join(model_dir, filename)
@@ -113,16 +113,20 @@ def run_analysis_and_plot():
     执行所有实验的分析并生成最终的可视化图表。
     """
     print("="*80)
-    print("Starting SFS Hypothesis Validation (Final Version)")
+    print("Starting SFS Hypothesis Validation (Final Corrected Version)")
     print("="*80)
 
-    num_experiments = len(CONFIG)
+    # 重新排序以获得更直观的图表：200 -> 120 -> 60
+    exp_order = ['200_embed', '120_embed', '60_embed']
+    
+    num_experiments = len(exp_order)
     fig, axes = plt.subplots(1, num_experiments, figsize=(7 * num_experiments, 6), sharey=True)
     if num_experiments == 1: axes = [axes]
 
     colors = plt.cm.viridis(np.linspace(0.1, 0.9, len(ITERATIONS_TO_TEST)))
 
-    for i, (exp_key, exp_info) in enumerate(CONFIG.items()):
+    for i, exp_key in enumerate(exp_order):
+        exp_info = CONFIG[exp_key]
         ax = axes[i]
         print(f"\n--- Running Experiment: {exp_key} ---")
         
@@ -160,7 +164,7 @@ def run_analysis_and_plot():
     fig.suptitle("SFS Hypothesis Validation: Singular Value Spectrum of Weight Difference", fontsize=20, fontweight='bold')
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     
-    output_path = os.path.join(OUTPUT_DIR, "sfs_rank_validation_final.png")
+    output_path = os.path.join(OUTPUT_DIR, "sfs_rank_validation_final_corrected.png")
     plt.savefig(output_path, dpi=300)
     print(f"\n✓ Analysis complete! Plot saved to: {output_path}")
     plt.show()
