@@ -10,6 +10,23 @@ echo "================================================="
 
 # --- 组 1: 嵌入维度 n_embd = 92 ---
 echo ""
+echo "--- [4/6] 正在运行: 0% mix, 92 embed, seed 42 ---"
+python train_final_suite.py \
+    --data_dir data/simple_graph/composition_90 \
+    --n_embd 92 \
+    --mixing_ratio 0 \
+    --seed 42
+
+echo ""
+echo "--- [5/6] 正在运行: 0% mix, 92 embed, seed 123 ---"
+python train_final_suite.py \
+    --data_dir data/simple_graph/composition_90_mixed_20 \
+    --n_embd 92 \
+    --mixing_ratio 0 \
+    --seed 123
+
+
+echo ""
 echo "--- [1/6] 正在运行: 0% mix, 92 embed, seed 456 ---"
 python train_final_suite.py \
     --data_dir data/simple_graph/composition_90 \
@@ -34,21 +51,6 @@ python train_final_suite.py \
     --seed 123
 
 # --- 组 2: 嵌入维度 n_embd = 120 ---
-echo ""
-echo "--- [4/6] 正在运行: 0% mix, 92 embed, seed 42 ---"
-python train_final_suite.py \
-    --data_dir data/simple_graph/composition_90 \
-    --n_embd 92 \
-    --mixing_ratio 0 \
-    --seed 42
-
-echo ""
-echo "--- [5/6] 正在运行: 0% mix, 92 embed, seed 123 ---"
-python train_final_suite.py \
-    --data_dir data/simple_graph/composition_90_mixed_20 \
-    --n_embd 92 \
-    --mixing_ratio 0 \
-    --seed 123
 
 echo ""
 echo "--- [6/6] 正在运行: 20% mix, 92 embed, seed 456 ---"
