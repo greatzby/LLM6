@@ -11,7 +11,7 @@ echo "================================================="
 # --- 任务 1/4 ---
 echo ""
 echo "--- [1/4] 正在运行: 0% mix, 92 embed, seed 456 ---"
-python train_composition_sweep.py \
+python trainfour.py \
     --data_dir data/simple_graph/composition_90 \
     --n_embd 92 \
     --mixing_ratio 0 \
@@ -20,7 +20,7 @@ python train_composition_sweep.py \
 # --- 任务 2/4 ---
 echo ""
 echo "--- [2/4] 正在运行: 20% mix, 92 embed, seed 42 ---"
-python train_composition_sweep.py \
+python trainfour.py \
     --data_dir data/simple_graph/composition_90_mixed_20 \
     --n_embd 92 \
     --mixing_ratio 20 \
@@ -29,7 +29,7 @@ python train_composition_sweep.py \
 # --- 任务 3/4 ---
 echo ""
 echo "--- [3/4] 正在运行: 20% mix, 92 embed, seed 123 ---"
-python train_composition_sweep.py \
+python trainfour.py \
     --data_dir data/simple_graph/composition_90_mixed_20 \
     --n_embd 92 \
     --mixing_ratio 20 \
@@ -38,7 +38,7 @@ python train_composition_sweep.py \
 # --- 任务 4/4 ---
 echo ""
 echo "--- [4/4] 正在运行: 20% mix, 92 embed, seed 456 ---"
-python train_composition_sweep.py \
+python trainfour.py \
     --data_dir data/simple_graph/composition_90_mixed_20 \
     --n_embd 92 \
     --mixing_ratio 20 \
