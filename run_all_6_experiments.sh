@@ -35,28 +35,28 @@ python train_final_suite.py \
 
 # --- 组 2: 嵌入维度 n_embd = 120 ---
 echo ""
-echo "--- [4/6] 正在运行: 0% mix, 120 embed, seed 456 ---"
+echo "--- [4/6] 正在运行: 0% mix, 92 embed, seed 42 ---"
 python train_final_suite.py \
     --data_dir data/simple_graph/composition_90 \
-    --n_embd 120 \
+    --n_embd 92 \
     --mixing_ratio 0 \
-    --seed 456
-
-echo ""
-echo "--- [5/6] 正在运行: 20% mix, 120 embed, seed 42 ---"
-python train_final_suite.py \
-    --data_dir data/simple_graph/composition_90_mixed_20 \
-    --n_embd 120 \
-    --mixing_ratio 20 \
     --seed 42
 
 echo ""
-echo "--- [6/6] 正在运行: 20% mix, 120 embed, seed 123 ---"
+echo "--- [5/6] 正在运行: 0% mix, 92 embed, seed 123 ---"
 python train_final_suite.py \
     --data_dir data/simple_graph/composition_90_mixed_20 \
-    --n_embd 120 \
-    --mixing_ratio 20 \
+    --n_embd 92 \
+    --mixing_ratio 0 \
     --seed 123
+
+echo ""
+echo "--- [6/6] 正在运行: 20% mix, 92 embed, seed 456 ---"
+python train_final_suite.py \
+    --data_dir data/simple_graph/composition_90_mixed_20 \
+    --n_embd 92 \
+    --mixing_ratio 20 \
+    --seed 456
 
 # 打印结束信息
 echo ""
