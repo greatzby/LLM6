@@ -1,8 +1,9 @@
 """
-analyze_matched_dimensions.py
+analyze_matched_dimensions.py (FIXED)
 
 通过寻找V-space的最佳匹配，深入分析0%和20%模型在92维空间下的真实结构差异。
 该脚本解决了SVD排序带来的“维度身份不匹配”问题，并为精确的消融实验提供指导。
+修复了 'TypeError: keys must be ... not int64' 的JSON序列化问题。
 """
 
 import numpy as np
@@ -51,26 +52,19 @@ def find_best_matches_and_analyze(W0, W20):
     V20 = V20_T.T
     
     # 2. 计算相似度矩阵 (成本矩阵)
-    # 我们希望最大化相似度，等价于最小化“不相似度” (1 - sim)
     similarity_matrix = np.abs(V0.T @ V20) # (92, 92)
     cost_matrix = 1 - similarity_matrix
     
     # 3. 使用匈牙利算法找到全局最优匹配
-    # row_ind[k] 与 col_ind[k] 是一对最佳匹配
     row_ind, col_ind = linear_sum_assignment(cost_matrix)
     
     # 4. 基于匹配结果进行分析
     matched_analysis = []
     for i, j_match in zip(row_ind, col_ind):
-        # 真实角度
         cos_angle = similarity_matrix[i, j_match]
         angle_deg = np.arccos(np.clip(cos_angle, -1, 1)) * 180 / np.pi
-        
-        # 真实能量变化
         energy_change = S20[j_match] - S0[i]
         relative_change = energy_change / (S0[i] + 1e-10)
-        
-        # 排序变化
         rank_swap_distance = abs(i - j_match)
         
         matched_analysis.append({
@@ -79,9 +73,9 @@ def find_best_matches_and_analyze(W0, W20):
             'rank_swap_distance': rank_swap_distance,
             'true_angle_deg': angle_deg,
             'true_relative_energy_change': relative_change,
-            's0': S0[i],
-            's20_matched': S20[j_match],
-            'similarity': cos_angle
+            's0': float(S0[i]), # 转换为原生float
+            's20_matched': float(S20[j_match]), # 转换为原生float
+            'similarity': float(cos_angle) # 转换为原生float
         })
         
     return matched_analysis, (U0, S0, V0), (U20, S20, V20)
@@ -91,7 +85,6 @@ def create_matched_visualization(analysis, output_prefix):
     if not analysis:
         return
         
-    # 提取数据
     angles = [d['true_angle_deg'] for d in analysis]
     rel_energy_changes = [d['true_relative_energy_change'] for d in analysis]
     rank_swaps = [d['rank_swap_distance'] for d in analysis]
@@ -156,7 +149,7 @@ def create_matched_visualization(analysis, output_prefix):
     
     info_text = f"MATCHED ANALYSIS SUMMARY (Seed {output_prefix.split('_')[-1]})\n"
     info_text += "="*40 + "\n"
-    info_text += f"Mean True Angle: {np.mean(angles):.1f}° (vs. naive 81°)\n"
+    info_text += f"Mean True Angle: {np.mean(angles):.1f}° (vs. naive ~81°)\n"
     info_text += f"Mean Rank Swap Distance: {np.mean(rank_swaps):.1f}\n"
     info_text += f"Dims with >45° True Angle: {sum(a > 45 for a in angles)}\n"
     info_text += f"Dims with >10 rank swap: {sum(r > 10 for r in rank_swaps)}\n\n"
@@ -185,20 +178,16 @@ def create_matched_visualization(analysis, output_prefix):
 def generate_precise_transplant_code(analysis, output_prefix):
     """根据匹配分析结果，生成更精确的消融实验代码和候选维度"""
     
-    # 候选维度1: 真实角度最大的维度 (概念重塑)
     restructured_dims = sorted(analysis, key=lambda x: x['true_angle_deg'], reverse=True)
-    
-    # 候选维度2: 真实能量增益最大的维度 (重要性提升)
     energy_boosted_dims = sorted(analysis, key=lambda x: x['true_relative_energy_change'], reverse=True)
-
-    # 候选维度3: 最稳定的维度 (控制组)
     stable_dims = sorted(analysis, key=lambda x: x['true_angle_deg'])
 
-    # 准备消融实验的移植映射
-    # key: 0%模型的维度索引, value: 20%模型中匹配的维度索引
-    transplant_map_restructured_top20 = {d['dim_0_index']: d['dim_20_match_index'] for d in restructured_dims[:20]}
-    transplant_map_energy_top20 = {d['dim_0_index']: d['dim_20_match_index'] for d in energy_boosted_dims[:20]}
-    transplant_map_stable_bottom20 = {d['dim_0_index']: d['dim_20_match_index'] for d in stable_dims[:20]}
+    # ==================== FIX START ====================
+    # 将Numpy的整数键转换为Python的原生int
+    transplant_map_restructured_top20 = {int(d['dim_0_index']): int(d['dim_20_match_index']) for d in restructured_dims[:20]}
+    transplant_map_energy_top20 = {int(d['dim_0_index']): int(d['dim_20_match_index']) for d in energy_boosted_dims[:20]}
+    transplant_map_stable_bottom20 = {int(d['dim_0_index']): int(d['dim_20_match_index']) for d in stable_dims[:20]}
+    # ===================== FIX END =====================
     
     report = {
         'transplant_candidates': {
@@ -229,7 +218,7 @@ def transplant_matched_dimensions(path_0, path_20, transplant_map):
     Args:
         path_0: 0%模型的checkpoint路径
         path_20: 20%模型的checkpoint路径
-        transplant_map: 一个字典 {{dim_0_idx: dim_20_idx, ...}}
+        transplant_map: 一个字典 {{{{dim_0_idx: dim_20_idx, ...}}}}
     """
     # 加载权重
     ckpt_0 = torch.load(path_0, map_location='cpu')
@@ -244,18 +233,17 @@ def transplant_matched_dimensions(path_0, path_20, transplant_map):
     U0, S0, V0t = torch.linalg.svd(W0, full_matrices=False)
     U20, S20, V20t = torch.linalg.svd(W20, full_matrices=False)
     
-    # 创建混合版本 (注意：这里我们嫁接整个子空间，即U, S, V)
-    # 这是更稳健的做法，因为U也可能发生了变化
+    # 创建混合版本
     U_hybrid = U0.clone()
     S_hybrid = S0.clone()
     V_hybrid_t = V0t.clone()
     
-    print(f"Transplanting {{len(transplant_map)}} dimensions...")
+    print(f"Transplanting {{{{len(transplant_map)}}}} dimensions...")
     for dim0_idx, dim20_idx in transplant_map.items():
-        print(f"  - Mapping 0%[dim {{dim0_idx}}] -> 20%[dim {{dim20_idx}}]")
-        U_hybrid[:, dim0_idx] = U20[:, dim20_idx]  # 嫁接U空间的基向量
-        S_hybrid[dim0_idx] = S20[dim20_idx]        # 嫁接对应的奇异值
-        V_hybrid_t[dim0_idx, :] = V20t[dim20_idx, :]  # 嫁接V空间的基向量
+        print(f"  - Mapping 0%[dim {{{{dim0_idx}}}}] -> 20%[dim {{{{dim20_idx}}}}]")
+        U_hybrid[:, dim0_idx] = U20[:, dim20_idx]
+        S_hybrid[dim0_idx] = S20[dim20_idx]
+        V_hybrid_t[dim0_idx, :] = V20t[dim20_idx, :]
     
     # 重构权重
     W_hybrid = U_hybrid @ torch.diag(S_hybrid) @ V_hybrid_t
@@ -286,20 +274,20 @@ if __name__ == "__main__":
         candidates = json.load(f)
     
     # 3. 选择一个策略进行移植 (例如，移植角度变化最大的Top 20)
-    # transplant_map = candidates['transplant_candidates']['by_angle_top20']
+    transplant_map = candidates['transplant_candidates']['by_angle_top20']
     # transplant_map = candidates['transplant_candidates']['by_energy_top20']
-    transplant_map = candidates['transplant_candidates']['control_stable_bottom20']
+    # transplant_map = candidates['transplant_candidates']['control_stable_bottom20']
     
     # 将JSON中的字符串key转为int
-    transplant_map = {{int(k): v for k, v in transplant_map.items()}}
+    transplant_map = {{{{int(k): v for k, v in transplant_map.items()}}}}
 
     # 4. 执行嫁接
     hybrid_ckpt = transplant_matched_dimensions(path_0, path_20, transplant_map)
     
     # 5. 保存混合模型
-    output_filename = f"hybrid_model_transplant_stable_bottom20.pt"
+    output_filename = f"hybrid_model_transplant_angle_top20.pt"
     torch.save(hybrid_ckpt, output_filename)
-    print(f"\\nHybrid model saved to {{output_filename}}!")
+    print(f"\\nHybrid model saved to {{{{output_filename}}}}!")
 '''
     print("\n" + "="*60)
     print("PRECISE TRANSPLANT CODE GENERATED")
