@@ -17,7 +17,9 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def convert_to_serializable(obj):
     """转换numpy类型为Python原生类型"""
-    if isinstance(obj, np.integer):
+    if isinstance(obj, (np.bool_, bool)):
+        return bool(obj)
+    elif isinstance(obj, np.integer):
         return int(obj)
     elif isinstance(obj, np.floating):
         return float(obj)
