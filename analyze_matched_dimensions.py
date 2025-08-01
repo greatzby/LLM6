@@ -175,6 +175,9 @@ def create_matched_visualization(analysis, output_prefix):
     plt.close()
     print(f"  Visualization saved to {OUTPUT_DIR}/{output_prefix}_visualization.png")
 
+# =================================================================
+# 请用这个最终修复后的函数替换你脚本中对应的整个函数
+# =================================================================
 def generate_precise_transplant_code(analysis, output_prefix):
     """根据匹配分析结果，生成更精确的消融实验代码和候选维度"""
     
@@ -182,12 +185,9 @@ def generate_precise_transplant_code(analysis, output_prefix):
     energy_boosted_dims = sorted(analysis, key=lambda x: x['true_relative_energy_change'], reverse=True)
     stable_dims = sorted(analysis, key=lambda x: x['true_angle_deg'])
 
-    # ==================== FIX START ====================
-    # 将Numpy的整数键转换为Python的原生int
     transplant_map_restructured_top20 = {int(d['dim_0_index']): int(d['dim_20_match_index']) for d in restructured_dims[:20]}
     transplant_map_energy_top20 = {int(d['dim_0_index']): int(d['dim_20_match_index']) for d in energy_boosted_dims[:20]}
     transplant_map_stable_bottom20 = {int(d['dim_0_index']): int(d['dim_20_match_index']) for d in stable_dims[:20]}
-    # ===================== FIX END =====================
     
     report = {
         'transplant_candidates': {
@@ -202,7 +202,10 @@ def generate_precise_transplant_code(analysis, output_prefix):
         json.dump(report, f, indent=2)
     print(f"  Transplant candidates saved to {report_path}")
 
-    # 生成代码
+    # ==================== FINAL FIX START ====================
+    # 1. 使用双花括号 {{}} 来转义f-string，使其输出字面上的花括号。
+    # 2. 对于 report_path，使用单花括号 {} 来直接嵌入其字符串值。
+    # =========================================================
     code = f'''
 # ===================================================================
 # PRECISE ABLATION STUDY CODE (Generated from matched analysis)
@@ -210,6 +213,17 @@ def generate_precise_transplant_code(analysis, output_prefix):
 import torch
 import numpy as np
 import json
+import glob
+import os
+
+def get_checkpoint_path(ratio, seed, iteration, checkpoint_dir="out_d92"):
+    """Helper function to find the correct checkpoint path."""
+    pattern = f"{{checkpoint_dir}}/composition_mix{{ratio}}_seed{{seed}}_*"
+    dirs = glob.glob(pattern)
+    if not dirs:
+        raise FileNotFoundError(f"No directory found matching: {{pattern}}")
+    selected_dir = sorted(dirs)[-1]
+    return f"{{selected_dir}}/ckpt_mix{{ratio}}_seed{{seed}}_iter{{iteration}}.pt"
 
 def transplant_matched_dimensions(path_0, path_20, transplant_map):
     """
@@ -262,21 +276,22 @@ def transplant_matched_dimensions(path_0, path_20, transplant_map):
 
 # --- 使用示例 ---
 if __name__ == "__main__":
-    # 1. 定义模型路径 (请根据实际情况修改)
-    seed = 42
+    # 1. 定义模型参数
+    seed = 42 # <-- 修改为你想要操作的seed
     iteration = 50000
-    path_0 = "{get_checkpoint_path(0, seed, iteration)}"
-    path_20 = "{get_checkpoint_path(20, seed, iteration)}"
     
-    # 2. 加载候选维度列表
-    candidates_path = "{report_path}"
+    # 自动获取路径
+    path_0 = get_checkpoint_path(0, seed, iteration)
+    path_20 = get_checkpoint_path(20, seed, iteration)
+    
+    # 2. 加载候选维度列表 (路径由分析脚本生成)
+    candidates_path = '{report_path}' # <-- 这里的值被自动填充
     with open(candidates_path, 'r') as f:
         candidates = json.load(f)
     
     # 3. 选择一个策略进行移植 (例如，移植角度变化最大的Top 20)
-    transplant_map = candidates['transplant_candidates']['by_angle_top20']
-    # transplant_map = candidates['transplant_candidates']['by_energy_top20']
-    # transplant_map = candidates['transplant_candidates']['control_stable_bottom20']
+    strategy = 'by_angle_top20' # <-- 修改策略: 'by_angle_top20', 'by_energy_top20', 'control_stable_bottom20'
+    transplant_map = candidates['transplant_candidates'][strategy]
     
     # 将JSON中的字符串key转为int
     transplant_map = {{{{int(k): v for k, v in transplant_map.items()}}}}
@@ -285,15 +300,15 @@ if __name__ == "__main__":
     hybrid_ckpt = transplant_matched_dimensions(path_0, path_20, transplant_map)
     
     # 5. 保存混合模型
-    output_filename = f"hybrid_model_transplant_angle_top20.pt"
+    output_filename = f"hybrid_model_seed{{seed}}_{{strategy}}.pt"
     torch.save(hybrid_ckpt, output_filename)
     print(f"\\nHybrid model saved to {{{{output_filename}}}}!")
 '''
+    # ===================== FINAL FIX END =====================
     print("\n" + "="*60)
     print("PRECISE TRANSPLANT CODE GENERATED")
     print("="*60)
     print(code)
-
 
 # --- 主函数 ---
 def main():
