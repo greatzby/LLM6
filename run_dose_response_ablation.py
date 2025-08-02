@@ -1,5 +1,5 @@
 # ===================================================================
-#             run_dose_response_ablation.py
+#             run_dose_response_ablation.py (已修正)
 #
 #  自动执行“剂量效应”维度嫁接实验。
 #  - 遍历三种主要策略。
@@ -19,7 +19,7 @@ import argparse
 def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
     """
     辅助函数，用于自动查找给定ratio和seed的最新一次训练的最终模型路径。
-    这个版本更健壮，它会寻找最新的目录并返回其中的 'ckpt.pt' 文件。
+    此版本根据你提供的有效脚本进行了修正，以匹配确切的文件名格式。
     """
     pattern = f"{checkpoint_dir}/composition_mix{ratio}_seed{seed}_*"
     dirs = glob.glob(pattern)
@@ -29,11 +29,14 @@ def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
     # 选择最新的一个训练目录
     latest_dir = sorted(dirs)[-1]
     
-    # 寻找最终的checkpoint文件，通常命名为 'ckpt.pt'
-    path = os.path.join(latest_dir, 'ckpt.pt')
+    # --- 修正核心 ---
+    # 根据你的训练脚本命名规则，构建完整的文件名
+    iteration = 50000  # 我们只关心最终的、迭代了50000次的模型
+    expected_filename = f"ckpt_mix{ratio}_seed{seed}_iter{iteration}.pt"
+    path = os.path.join(latest_dir, expected_filename)
     
     if not os.path.exists(path):
-        raise FileNotFoundError(f"在目录 {latest_dir} 中未找到最终的 checkpoint 文件 'ckpt.pt'")
+        raise FileNotFoundError(f"在目录 {latest_dir} 中未找到预期的最终 checkpoint 文件 '{expected_filename}'")
 
     print(f"  > 自动定位到模型: {path}")
     return path
@@ -114,7 +117,7 @@ if __name__ == "__main__":
         path_20 = get_final_checkpoint_path(20, SEED_TO_TEST)
     except FileNotFoundError as e:
         print(f"\n🚨 错误: {e}")
-        print("🚨 请确保你已经为该种子训练了0%和20%的最终模型，并且 'ckpt.pt' 文件存在于最新的输出目录中。")
+        print("🚨 请仔细检查你的输出目录，确认最终模型文件确实存在并且命名符合预期。")
         exit(1)
 
     # 2. 加载候选维度列表 (只执行一次)
