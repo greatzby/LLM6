@@ -160,24 +160,28 @@ def run_effective_rank_analysis():
     # --- 2. 整合所有数据 (d=92 和 d=120) ---
     all_er_data.update(PRECOMPUTED_ER_D120)
 
-    # --- 3. 详细打印所有数据 ---
+    # --- 3. 详细打印所有数据 (已修正) ---
     print("\n>>> 步骤 2: 详细有效秩数据一览")
-    for group_name, seed_data in all_er_data.items():
-        print("\n" + "-"*50)
+    for group_name, seed_data in sorted(all_er_data.items()): # 按组名排序，更整洁
+        # 构造表头
+        header = f"  {'Seed':<10} | " + " | ".join([f"{i//1000:<5}k" for i in ITERATIONS_TO_CHECK])
+        
+        print("\n" + "="*len(header))
         print(f"  实验组: {group_name}")
-        print(f"  {'Seed':<10} | " + " | ".join([f'{i//1000}k':<8 for i in ITERATIONS_TO_CHECK]))
-        print("-" * 50)
-        for seed, timeline in seed_data.items():
-            timeline_str = " | ".join([f'{val:8.2f}' if val is not None else '  N/A   ' for val in timeline])
+        print("="*len(header))
+        print(header)
+        print("-" * len(header))
+        
+        for seed, timeline in sorted(seed_data.items()): # 按种子排序
+            # 使用' '来填充，而不是'N/A'，让表格更整洁
+            timeline_str = " | ".join([f"{val:5.2f}" if val is not None and not np.isnan(val) else " N/A " for val in timeline])
             print(f"  {seed:<10} | {timeline_str}")
-        print("-" * 50)
+        print("-" * len(header))
 
     # --- 4. 准备绘图数据 (计算均值和标准差) ---
     plot_data = {}
     for group_name, seed_data in all_er_data.items():
-        # 将所有种子的时间线数据收集到一个numpy数组中
-        timelines = np.array(list(seed_data.values()))
-        # 计算均值和标准差，忽略NaN值
+        timelines = np.array(list(seed_data.values()), dtype=float)
         plot_data[group_name] = {
             'mean': np.nanmean(timelines, axis=0),
             'std': np.nanstd(timelines, axis=0)
@@ -194,14 +198,18 @@ def run_effective_rank_analysis():
         'd92_m20': ('purple', '--', 'd=92, 20% mix data')
     }
 
-    for key, style_info in styles.items():
+    for key, style_info in sorted(styles.items()):
         if key in plot_data:
             color, linestyle, label = style_info
             mean = plot_data[key]['mean']
             std = plot_data[key]['std']
             
-            ax.plot(ITERATIONS_TO_CHECK, mean, label=label, color=color, linestyle=linestyle, marker='o', markersize=4)
-            ax.fill_between(ITERATIONS_TO_CHECK, mean - std, mean + std, color=color, alpha=0.15)
+            # 仅在数据有效时绘图
+            valid_indices = ~np.isnan(mean)
+            if np.any(valid_indices):
+                iters = np.array(ITERATIONS_TO_CHECK)[valid_indices]
+                ax.plot(iters, mean[valid_indices], label=label, color=color, linestyle=linestyle, marker='o', markersize=4)
+                ax.fill_between(iters, mean[valid_indices] - std[valid_indices], mean[valid_indices] + std[valid_indices], color=color, alpha=0.15)
 
     ax.set_title('Effective Rank Dynamics During Training', fontsize=16, fontweight='bold')
     ax.set_xlabel('Training Steps', fontsize=12)
@@ -213,7 +221,7 @@ def run_effective_rank_analysis():
     plt.tight_layout()
     savename = 'effective_rank_dynamics.png'
     plt.savefig(savename, dpi=300)
-    print(f"🎉 有效秩图表已保存至: {savename}")
+    print(f"\n🎉 有效秩图表已保存至: {savename}")
     plt.show()
 
 def run_similarity_analysis():
