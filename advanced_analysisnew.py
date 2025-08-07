@@ -6,9 +6,8 @@ import glob
 import os
 from model import GPT, GPTConfig
 
-# --- 辅助模块与类 ---
+# --- 辅助模块与类 (词汇表已确认无误) ---
 
-# 修正后的全局词汇表，包含了换行符 \n
 VOCAB = {chr(ord('A')+i): i for i in range(6)}
 VOCAB.update({',': 6, '>': 7, '\n': 8})
 INV_VOCAB = {i: c for c, i in VOCAB.items()}
@@ -45,7 +44,7 @@ def load_model_from_path(model_path, device='cpu'):
     return model
 
 class AttentionHook:
-    """通用的注意力钩子类，用于捕获或修改注意力权重。"""
+    """通用的注意力钩子类"""
     def __init__(self, model, layer_name="transformer.h.0.attn.attn_dropout"):
         self.model = model
         self.layer_name = layer_name
@@ -57,8 +56,7 @@ class AttentionHook:
         attention_weights = input_tensors[0]
         self.captured_attention = attention_weights.clone().detach()
         if self.modification_fn:
-            modified_attention = self.modification_fn(attention_weights)
-            return modified_attention
+            return self.modification_fn(attention_weights)
         return output_tensors
 
     def set_modification(self, mod_fn):
@@ -72,31 +70,32 @@ class AttentionHook:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if self._hook_handle:
-            self._hook_handle.remove()
-        self.captured_attention = None
-        self.modification_fn = None
+        if self._hook_handle: self._hook_handle.remove()
 
 def display_pred(pred_idx):
-    """安全地显示预测字符，将\n显示为'\\n'"""
+    """安全地显示预测字符"""
     char = INV_VOCAB.get(pred_idx, 'N/A')
-    return repr(char) if char != 'N/A' else 'N/A'
+    return repr(char)
+
+# 这是关键的修正：定义了模型训练时看到的标准上下文
+CONTEXT = "A,B,C\nD,E,F\n"
 
 # --- 实验A：输出分析 ---
 def analyze_predictions(model_0, model_20):
-    print("\n--- 实验A：实际输出分析 (修正版) ---")
-    print("验证模型在不同组合下的实际预测，检验其泛化能力。\n")
+    print("\n--- 实验A：实际输出分析 (最终修正版) ---")
+    print(f"标准上下文: {repr(CONTEXT)}")
     
-    test_cases = {
-        "A,F -> C": ("A,B,C,D,E,F,>,A,F,", 'C'),
-        "B,E -> D": ("A,B,C,D,E,F,>,B,E,", 'D'),
-        "C,D -> E": ("A,B,C,D,E,F,>,C,D,", 'E'),
-        "A,C -> C": ("A,B,C,D,E,F,>,A,C,", 'C'), # 测试第二个参数是否被忽略
+    test_prompts = {
+        "A,F -> C": (">,A,F,", 'C'),
+        "B,E -> D": (">,B,E,", 'D'),
+        "C,D -> E": (">,C,D,", 'E'),
+        "A,C -> C": (">,A,C,", 'C'),
     }
     
-    for name, (text, expected) in test_cases.items():
-        print(f"[*] 测试案例: {name} (输入: '{text}') | 预期输出: '{expected}'")
-        input_ids = torch.tensor([[VOCAB[c] for c in text]], dtype=torch.long)
+    for name, (prompt, expected) in test_prompts.items():
+        full_input = CONTEXT + prompt
+        print(f"\n[*] 测试案例: {name} (完整输入: {repr(full_input)}) | 预期输出: {repr(expected)}")
+        input_ids = torch.tensor([[VOCAB[c] for c in full_input]], dtype=torch.long)
         
         with torch.no_grad():
             logits_0, _ = model_0(input_ids)
@@ -106,15 +105,15 @@ def analyze_predictions(model_0, model_20):
             pred_idx_20 = torch.argmax(logits_20[0, -1, :]).item()
             
         print(f"  - Mix0 (无能模型) 预测: {display_pred(pred_idx_0)}")
-        print(f"  - Mix20 (有能模型) 预测: {display_pred(pred_idx_20)}\n")
+        print(f"  - Mix20 (有能模型) 预测: {display_pred(pred_idx_20)}")
 
 # --- 实验B：注意力权重定量分析 ---
 def quantify_attention(model_20):
-    print("\n--- 实验B：注意力权重定量分析 (修正版) ---")
-    print("量化Mix20模型在预测时的注意力焦点，验证新的'查找后继'假说。\n")
+    print("\n--- 实验B：注意力权重定量分析 (最终修正版) ---")
     
-    text = "A,B,C,D,E,F,>,A,F,"
-    input_ids = torch.tensor([[VOCAB[c] for c in text]], dtype=torch.long)
+    prompt = ">,A,F,"
+    full_input = CONTEXT + prompt
+    input_ids = torch.tensor([[VOCAB[c] for c in full_input]], dtype=torch.long)
     
     with AttentionHook(model_20) as hook, torch.no_grad():
         model_20(input_ids)
@@ -123,32 +122,31 @@ def quantify_attention(model_20):
     last_query_attention = attn_map[-1, :].cpu().numpy()
     entropy = -np.sum(last_query_attention * np.log2(last_query_attention + 1e-9))
     
-    print(f"[*] 对于查询 '{text}' (预测第19个字符时的注意力):")
-    print(f"  - 注意力熵: {entropy:.4f} (熵越低，注意力越集中)")
+    print(f"[*] 对于查询 {repr(full_input)}:")
+    print(f"  - 注意力熵: {entropy:.4f}")
     
     top_k = 3
     top_indices = np.argsort(last_query_attention)[-top_k:][::-1]
     
     print(f"  - Top {top_k} 注意力焦点 (位置, 字符, 权重):")
     for idx in top_indices:
-        # 修正后的字符获取方式
-        char = text[idx]
+        char = full_input[idx]
         weight = last_query_attention[idx]
-        print(f"    - Pos {idx}: '{char}' (权重: {weight:.4f})")
+        print(f"    - Pos {idx}: {repr(char)} (权重: {weight:.4f})")
 
 # --- 实验C：因果介入 ---
 def run_causal_intervention(model_20):
-    print("\n--- 实验C：因果介入分析 (修正版) ---")
-    print("通过手动修改注意力权重，验证注意力模式与模型输出之间的因果关系。\n")
+    print("\n--- 实验C：因果介入分析 (最终修正版) ---")
 
-    text = "A,B,C,D,E,F,>,A,F,"
-    input_ids = torch.tensor([[VOCAB[c] for c in text]], dtype=torch.long)
+    prompt = ">,A,F,"
+    full_input = CONTEXT + prompt
+    input_ids = torch.tensor([[VOCAB[c] for c in full_input]], dtype=torch.long)
     
-    # 假说：注意力集中在'B' (Pos 2) 是关键。
-    # 干预：强制注意力看向'C' (Pos 4)，看看预测是否会变为'D' (C的后继)。
-    def force_attention_to_C(attn_weights):
+    # 假说: 注意力集中在'C' (Pos 4) 是预测'C'的关键
+    # 干预: 强制注意力看向'B' (Pos 2)
+    def force_attention_to_B(attn_weights):
         attn_weights[0, 0, -1, :] = 0.0
-        attn_weights[0, 0, -1, 4] = 1.0 # 索引4对应'C'
+        attn_weights[0, 0, -1, 2] = 1.0 # 索引2对应'B'
         return attn_weights
 
     with AttentionHook(model_20) as hook, torch.no_grad():
@@ -156,12 +154,12 @@ def run_causal_intervention(model_20):
         pred_orig = torch.argmax(logits_orig[0, -1, :]).item()
         print(f"[*] 原始预测 (无干预): {display_pred(pred_orig)}")
         
-        hook.set_modification(force_attention_to_C)
+        hook.set_modification(force_attention_to_B)
         logits_modified, _ = model_20(input_ids)
         pred_modified = torch.argmax(logits_modified[0, -1, :]).item()
 
-    print(f"[*] 干预后预测 (强制注意'C'): {display_pred(pred_modified)}")
-    print("  - 新的预期: 如果'查找后继'假说成立，强制注意'C'应该会导致模型输出'D'。")
+    print(f"[*] 干预后预测 (强制注意'B'): {display_pred(pred_modified)}")
+    print("  - 预期: 如果'A->C'查找是关键，那么强制注意'B'应该会破坏预测，输出不再是'C'。")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="对GPT模型进行高级分析，验证组合能力机制。")
