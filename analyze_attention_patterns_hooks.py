@@ -9,9 +9,6 @@ from model import GPT, GPTConfig # 导入您未经修改的原始模型定义
 
 # 辅助类，用于优雅地管理钩子和捕获的数据
 class AttentionExtractor:
-    """
-    一个上下文管理器，用于在特定层上临时注册钩子并捕获其输入。
-    """
     def __init__(self, model, target_layer_name):
         self.model = model
         self.target_layer_name = target_layer_name
@@ -19,35 +16,31 @@ class AttentionExtractor:
         self._hook_handle = None
 
     def _hook_fn(self, module, input_tensors, output_tensors):
-        # 钩子函数：当目标层被调用时，此函数会自动执行
-        # 注意力权重是送入dropout层的输入，所以我们捕获input_tensors[0]
-        # .clone().detach() 是为了安全地复制张量，不影响原始的计算图
         self.captured_tensors.append(input_tensors[0].clone().detach())
 
     def __enter__(self):
-        # 进入上下文时，找到目标层并注册钩子
         target_layer = self.model
         for part in self.target_layer_name.split('.'):
             target_layer = getattr(target_layer, part)
-        
-        # 注册一个“前向钩子”，它会在目标层forward()执行后被调用
         self._hook_handle = target_layer.register_forward_hook(self._hook_fn)
-        return self # 返回自身，以便在 with 语句中使用
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        # 退出上下文时，移除钩子，防止内存泄漏和意外行为
         if self._hook_handle:
             self._hook_handle.remove()
         self.captured_tensors.clear()
 
 def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
-    # (此函数与前面脚本中的完全相同，为简洁省略，您可从上面复制)
     pattern = f"{checkpoint_dir}/composition_mix{ratio}_seed{seed}_*"
-    dirs = glob.glob(pattern); 
-    if not dirs: raise FileNotFoundError(f"错误：未找到匹配的目录: {pattern}")
+    dirs = glob.glob(pattern)
+    if not dirs:
+        raise FileNotFoundError(f"错误：未找到匹配的目录: {pattern}")
     latest_dir = sorted(dirs)[-1]
-    path = os.path.join(latest_dir, f"ckpt_mix{ratio}_seed{seed}_iter50000.pt")
-    if not os.path.exists(path): raise FileNotFoundError(f"错误：未找到文件 '{path}'")
+    iteration = 50000
+    expected_filename = f"ckpt_mix{ratio}_seed{seed}_iter{iteration}.pt"
+    path = os.path.join(latest_dir, expected_filename)
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"错误：在目录 {latest_dir} 中未找到预期的最终 checkpoint 文件 '{expected_filename}'")
     return path
 
 def load_model_from_path(model_path, device='cpu'):
@@ -56,7 +49,6 @@ def load_model_from_path(model_path, device='cpu'):
     gptconf = GPTConfig(**ckpt['model_args'])
     model = GPT(gptconf)
     state_dict = ckpt['model']
-    # 修复PyTorch 2.0+编译模型后可能出现的键名前缀问题
     unwanted_prefix = '_orig_mod.'
     for k,v in list(state_dict.items()):
         if k.startswith(unwanted_prefix):
@@ -68,10 +60,6 @@ def load_model_from_path(model_path, device='cpu'):
     return model
 
 def visualize_attention(seed):
-    # 定义一个有代表性的组合例子: "A,F->C"
-    # 任务: "A,B,C,D,E,F -> A,F,C"
-    # 输入序列: "A,B,C,D,E,F,>,A,F," ('>'是提示符)
-    # 我们想看模型在预测最后一个 "C" 时，注意力集中在哪里
     vocab = {chr(ord('A')+i): i for i in range(6)}
     vocab.update({',': 6, '>': 7})
     input_text = "A,B,C,D,E,F,>,A,F,"
@@ -82,36 +70,32 @@ def visualize_attention(seed):
     model_0 = load_model_from_path(path_0)
     model_20 = load_model_from_path(path_20)
 
-    # 目标层：h.0中，注意力模块里的attn_dropout层。它的输入就是我们想要的注意力矩阵。
     target_layer_name = "transformer.h.0.attn.attn_dropout"
 
-    # 使用钩子分别获取两个模型的注意力权重
     with AttentionExtractor(model_0, target_layer_name) as extractor_0:
-        model_0(input_ids) # 正常执行前向传播，钩子会自动捕获数据
+        model_0(input_ids)
         attn_map_0 = extractor_0.captured_tensors[0]
 
     with AttentionExtractor(model_20, target_layer_name) as extractor_20:
         model_20(input_ids)
         attn_map_20 = extractor_20.captured_tensors[0]
 
-    # 张量形状: (batch, n_head, seq_len, seq_len) -> 挤压掉 batch 维度
     attn_map_0 = attn_map_0.squeeze(0)
     attn_map_20 = attn_map_20.squeeze(0)
 
-    # --- 可视化 ---
     n_head = attn_map_0.size(0)
-    fig, axes = plt.subplots(2, n_head, figsize=(n_head * 3, 6.5), sharex=True, sharey=True)
+    fig, axes = plt.subplots(2, n_head, figsize=(n_head * 3, 6.5), sharex=True, sharey=True, squeeze=False) # <--- 修正1: 添加 squeeze=False 保证axes总是二维
+    
     fig.suptitle(f'输入序列 "{input_text}" 的注意力模式 (预测下一个Token)\n(通过钩子非侵入式提取)', fontsize=16)
     labels = list(input_text)
     for i in range(n_head):
-        # 绘制 mix0 模型
+        # <--- 修正2: 现在因为有了squeeze=False, axes[0, i]总是安全的了 --->
         ax0 = axes[0, i]
         im0 = ax0.imshow(attn_map_0[i].cpu().numpy(), cmap='viridis', vmin=0, vmax=1)
         ax0.set_title(f'mix0 - 注意力头 {i+1}')
         ax0.set_yticks(range(len(labels))); ax0.set_yticklabels(labels)
         if i == 0: ax0.set_ylabel('查询位置 (Query)')
         
-        # 绘制 mix20 模型
         ax1 = axes[1, i]
         im1 = ax1.imshow(attn_map_20[i].cpu().numpy(), cmap='viridis', vmin=0, vmax=1)
         ax1.set_title(f'mix20 - 注意力头 {i+1}')
