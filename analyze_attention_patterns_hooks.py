@@ -2,6 +2,7 @@ import torch
 import matplotlib.pyplot as plt
 import argparse
 import glob
+import os
 from model import GPT, GPTConfig # 导入您未经修改的原始模型定义
 
 # --- (此脚本使用Hooks，无需修改 model.py) ---
