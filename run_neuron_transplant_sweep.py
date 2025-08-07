@@ -20,20 +20,19 @@ def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
 def transplant_neurons(state_0, state_20, k):
     """
     执行完整的神经元移植。
-    一个神经元 = c_fc的一行 + c_proj的一列 + c_fc的偏置。
+    一个神经元 = c_fc的一行 + c_proj的一列。
+    (已移除对偏置项的处理，因为模型中不存在偏置项)
     """
     if k == 0:
         return state_0.copy()
 
     state_hybrid = {key: val.clone() for key, val in state_0.items()}
     
-    # 定义MLP层的权重和偏置键
+    # 定义MLP层的权重键
     w_fc_key = 'transformer.h.0.mlp.c_fc.weight'
-    b_fc_key = 'transformer.h.0.mlp.c_fc.bias'
     w_proj_key = 'transformer.h.0.mlp.c_proj.weight'
 
-    W_fc_0, B_fc_0, W_proj_0 = state_0[w_fc_key], state_0[b_fc_key], state_0[w_proj_key]
-    W_fc_20, B_fc_20, W_proj_20 = state_20[w_fc_key], state_20[b_fc_key], state_20[w_proj_key]
+    W_fc_20, W_proj_20 = state_20[w_fc_key], state_20[w_proj_key]
 
     # 1. 识别mix20中最重要的k个神经元
     # 重要性定义为神经元输出权重(c_proj的列)的L2范数
@@ -45,8 +44,6 @@ def transplant_neurons(state_0, state_20, k):
     for idx in indices_to_transplant:
         # 替换输入权重 (c_fc 的行)
         state_hybrid[w_fc_key][idx, :] = W_fc_20[idx, :]
-        # 替换偏置
-        state_hybrid[b_fc_key][idx] = B_fc_20[idx]
         # 替换输出权重 (c_proj 的列)
         state_hybrid[w_proj_key][:, idx] = W_proj_20[:, idx]
         
@@ -59,11 +56,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     SEED_TO_TEST = args.seed
-    # 基于插值实验的洞察，我们测试一个更有意义的k值范围
     K_VALUES = [0, 1, 2, 5, 10, 20, 40, 80] 
 
     print("="*60)
-    print("     🚀 开始 h.0 MLP层神经元移植扫描 (最终修正版) 🚀     ")
+    print("     🚀 开始 h.0 MLP层神经元移植扫描 (最终修正版 v2) 🚀     ")
     print(f"     操作种子 (Seed): {SEED_TO_TEST}, 扫描范围 k: {K_VALUES}")
     print("="*60)
 
@@ -95,7 +91,7 @@ if __name__ == "__main__":
 
     # --- 步骤3: 自动生成评估脚本 ---
     print("\n步骤 3: 生成批量评估脚本...")
-    script_content = f"#!/bin/bash\necho '🚀 开始批量评估神经元移植模型... 🚀'\n"
+    script_content = f"#!/bin/bash\necho '🚀 开始批量评估神经元移植模型 (v2)... 🚀'\n"
     for model_path in generated_models:
         script_content += f"echo '\n--- 正在评估: {os.path.basename(model_path)} ---'\n"
         script_content += f"python evaluate_hybrid_model.py --model_path {model_path} --data_dir data/simple_graph/composition_90\n"
@@ -109,4 +105,4 @@ if __name__ == "__main__":
     print("\n" + "="*60)
     print("🎉🎉🎉 神经元移植模型均已成功生成！ 🎉🎉🎉")
     print("="*60)
-    print(f"下一步：请运行 './{script_filename}' 脚本，这次我们有充分的理由相信会看到有意义的结果。")
+    print(f"下一步：请再次运行 './{script_filename}' 脚本。这次它应该能顺利完成了。")
