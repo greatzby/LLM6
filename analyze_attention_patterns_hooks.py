@@ -3,11 +3,10 @@ import matplotlib.pyplot as plt
 import argparse
 import glob
 import os
-from model import GPT, GPTConfig # 导入您未经修改的原始模型定义
+from model import GPT, GPTConfig
 
-# --- (此脚本使用Hooks，无需修改 model.py) ---
+# --- (This script uses Hooks and does not modify model.py) ---
 
-# 辅助类，用于优雅地管理钩子和捕获的数据
 class AttentionExtractor:
     def __init__(self, model, target_layer_name):
         self.model = model
@@ -34,17 +33,17 @@ def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
     pattern = f"{checkpoint_dir}/composition_mix{ratio}_seed{seed}_*"
     dirs = glob.glob(pattern)
     if not dirs:
-        raise FileNotFoundError(f"错误：未找到匹配的目录: {pattern}")
+        raise FileNotFoundError(f"Error: No matching directory found for pattern: {pattern}")
     latest_dir = sorted(dirs)[-1]
     iteration = 50000
     expected_filename = f"ckpt_mix{ratio}_seed{seed}_iter{iteration}.pt"
     path = os.path.join(latest_dir, expected_filename)
     if not os.path.exists(path):
-        raise FileNotFoundError(f"错误：在目录 {latest_dir} 中未找到预期的最终 checkpoint 文件 '{expected_filename}'")
+        raise FileNotFoundError(f"Error: Expected checkpoint file '{expected_filename}' not found in {latest_dir}")
     return path
 
 def load_model_from_path(model_path, device='cpu'):
-    print(f"[*] 正在加载模型: {model_path}")
+    print(f"[*] Loading model: {model_path}")
     ckpt = torch.load(model_path, map_location=device)
     gptconf = GPTConfig(**ckpt['model_args'])
     model = GPT(gptconf)
@@ -56,7 +55,7 @@ def load_model_from_path(model_path, device='cpu'):
     model.load_state_dict(state_dict)
     model.eval()
     model.to(device)
-    print("[*] 模型加载成功。")
+    print("[*] Model loaded successfully.")
     return model
 
 def visualize_attention(seed):
@@ -84,33 +83,46 @@ def visualize_attention(seed):
     attn_map_20 = attn_map_20.squeeze(0)
 
     n_head = attn_map_0.size(0)
-    fig, axes = plt.subplots(2, n_head, figsize=(n_head * 3, 6.5), sharex=True, sharey=True, squeeze=False) # <--- 修正1: 添加 squeeze=False 保证axes总是二维
+    # REVISED PLOTTING LOGIC
+    fig, axes = plt.subplots(2, n_head, figsize=(n_head * 4, 8), squeeze=False)
+    fig.suptitle(f'Attention Pattern for Input: "{input_text}"\n(Predicting the next token)', fontsize=16)
     
-    fig.suptitle(f'输入序列 "{input_text}" 的注意力模式 (预测下一个Token)\n(通过钩子非侵入式提取)', fontsize=16)
     labels = list(input_text)
-    for i in range(n_head):
-        # <--- 修正2: 现在因为有了squeeze=False, axes[0, i]总是安全的了 --->
-        ax0 = axes[0, i]
-        im0 = ax0.imshow(attn_map_0[i].cpu().numpy(), cmap='viridis', vmin=0, vmax=1)
-        ax0.set_title(f'mix0 - 注意力头 {i+1}')
-        ax0.set_yticks(range(len(labels))); ax0.set_yticklabels(labels)
-        if i == 0: ax0.set_ylabel('查询位置 (Query)')
-        
-        ax1 = axes[1, i]
-        im1 = ax1.imshow(attn_map_20[i].cpu().numpy(), cmap='viridis', vmin=0, vmax=1)
-        ax1.set_title(f'mix20 - 注意力头 {i+1}')
-        ax1.set_xticks(range(len(labels))); ax1.set_xticklabels(labels, rotation=90)
-        ax1.set_xlabel('键位置 (Key)')
-        if i == 0: ax1.set_ylabel('查询位置 (Query)')
+    
+    # Common image object for colorbar
+    im = None
 
-    fig.colorbar(im1, ax=axes.ravel().tolist(), shrink=0.6, label="注意力权重")
-    plt.tight_layout(rect=[0, 0.03, 1, 0.93])
-    output_filename = f"attention_visualization_hooks_seed{seed}.png"
-    plt.savefig(output_filename, dpi=300)
-    print(f"\n✅ 注意力可视化图已保存至: {output_filename}")
+    for i in range(n_head):
+        # Plot for mix0 model
+        ax0 = axes[0, i]
+        ax0.imshow(attn_map_0[i].cpu().numpy(), cmap='viridis', vmin=0, vmax=1)
+        ax0.set_title(f'mix0 - Head {i+1}')
+        ax0.set_yticks(range(len(labels)))
+        ax0.set_yticklabels(labels)
+        if i == 0: ax0.set_ylabel('Query Position')
+        
+        # Plot for mix20 model
+        ax1 = axes[1, i]
+        im = ax1.imshow(attn_map_20[i].cpu().numpy(), cmap='viridis', vmin=0, vmax=1)
+        ax1.set_title(f'mix20 - Head {i+1}')
+        ax1.set_xticks(range(len(labels)))
+        ax1.set_xticklabels(labels, rotation=90)
+        ax1.set_xlabel('Key Position')
+        if i == 0: ax1.set_ylabel('Query Position')
+
+    # Adjust layout to make space for the colorbar
+    fig.subplots_adjust(right=0.85, hspace=0.3, wspace=0.3)
+    
+    # Add a new axis for the colorbar to the right of the subplots
+    cbar_ax = fig.add_axes([0.88, 0.15, 0.04, 0.7]) # [left, bottom, width, height]
+    fig.colorbar(im, cax=cbar_ax, label="Attention Weight")
+
+    output_filename = f"attention_visualization_hooks_seed{seed}_EN.png"
+    plt.savefig(output_filename, dpi=300, bbox_inches='tight')
+    print(f"\n✅ Attention visualization saved to: {output_filename}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="使用Hooks可视化并比较 mix0 和 mix20 模型的注意力模式。")
-    parser.add_argument('--seed', type=int, default=42, help='指定实验用的随机种子 (例如: 42)')
+    parser = argparse.ArgumentParser(description="Visualize and compare attention patterns of mix0 and mix20 models using Hooks.")
+    parser.add_argument('--seed', type=int, default=42, help='Seed used for the experiment (e.g., 42)')
     args = parser.parse_args()
     visualize_attention(args.seed)
