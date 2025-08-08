@@ -1,6 +1,7 @@
-# ----------- 文件: graft_advanced.py (v3 - 集成k=0修正) -----------
-# 一个功能完备的实验平台，用于执行多模式、多参数的权重融合实验。
-# 核心修正：当 k=0 时，执行“无操作”，确保返回精确的基线模型。
+# ----------- 文件: graft_advanced.py (v3.1 - 集成输出控制和alpha命名) -----------
+# 核心修正：
+# 1. 新增 --output_file 参数，允许外部脚本指定精确的输出路径。
+# 2. 修改默认文件名生成逻辑，使其包含 alpha 值，避免实验结果被覆盖。
 # =================================================================
 
 import torch
@@ -28,7 +29,7 @@ def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
     print(f"  > 定位到模型: {path}")
     return path
 
-def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, alpha_clip, no_procrustes):
+def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, alpha_clip, no_procrustes, output_file_path):
     """
     执行精准嫁接的核心函数，支持多种模式和控制。
     """
@@ -41,13 +42,10 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
     
     W0 = state_0['lm_head.weight'].float().cpu().numpy()
     
-    # --- 关键修正: k=0 的特殊处理 ---
     if k_val == 0:
         print("[*] k=0: 触发“无操作”模式。")
-        print("    - 将直接回写 mix0 的 lm_head，仅确保 tie_weights=False。")
         W_head_new = W0
     else:
-        # --- 只有 k > 0 时，才执行 SVD 和融合逻辑 ---
         W20 = state_20['lm_head.weight'].float().cpu().numpy()
         print("[*] 正在对 lm_head 权重执行 SVD...")
         U0, S0, V0t = np.linalg.svd(W0, full_matrices=False)
@@ -136,9 +134,17 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
     model_args['tie_weights'] = False
     ckpt_hybrid['model_args'] = model_args
 
-    output_dir = "hybrid_models"
+    # --- 修改: 输出路径控制 ---
+    if output_file_path:
+        output_path = output_file_path
+        output_dir = os.path.dirname(output_path)
+    else:
+        output_dir = "hybrid_models"
+        # --- 修改: 自动生成的文件名现在包含alpha值 ---
+        alpha_str = f"_alpha{alpha_val:.2f}" if alpha_val is not None else ""
+        output_path = os.path.join(output_dir, f"grafted_mode-{mode}_k{k_val}_lam{lam:.2f}{alpha_str}_seed{seed}.pt")
+    
     os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, f"grafted_mode-{mode}_k{k_val}_lam{lam:.2f}_seed{seed}.pt")
     torch.save(ckpt_hybrid, output_path)
     print("-" * 60)
     print(f"✅ 精准嫁接模型已生成！")
@@ -149,7 +155,7 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="执行多模式、多参数的 lm_head 精准嫁接实验 (v3)。")
+    parser = argparse.ArgumentParser(description="执行多模式、多参数的 lm_head 精准嫁接实验 (v3.1)。")
     parser.add_argument('--seed', type=int, default=42, help='随机种子')
     parser.add_argument('--k', type=int, required=True, help='指定移植的秩k (k=0为无操作)。')
     parser.add_argument('--lam', type=float, default=1.0, help='融合比例 lambda (或旋转比例 tau)')
@@ -157,16 +163,19 @@ if __name__ == "__main__":
     parser.add_argument('--alpha', type=float, default=None, help='手动指定缩放因子 alpha')
     parser.add_argument('--alpha_clip', action='store_true', help='对自动计算的 alpha 进行 [0.5, 2.0] 的裁剪')
     parser.add_argument('--no_procrustes', action='store_true', help='关闭普氏对齐，仅做谱/投影融合')
+    # --- 新增: 允许从外部指定输出文件路径 ---
+    parser.add_argument('--output_file', type=str, default=None, help='手动指定完整的输出文件路径')
     
     args = parser.parse_args()
 
-    print("\n🔬 开始执行 lm_head 精准嫁接手术 (v3 - 已修正) 🔬\n")
+    print("\n🔬 开始执行 lm_head 精准嫁接手术 (v3.1 - 已升级) 🔬\n")
     path_0 = get_final_checkpoint_path(0, args.seed)
     path_20 = get_final_checkpoint_path(20, args.seed)
     
     generated_file = create_graft_transplant(
         path_0, path_20, args.lam, args.seed, args.k, 
-        args.mode, args.alpha, args.alpha_clip, args.no_procrustes
+        args.mode, args.alpha, args.alpha_clip, args.no_procrustes,
+        args.output_file  # --- 新增: 传递 output_file 参数 ---
     )
     
     print("💡 如何评估？请运行以下命令:")
