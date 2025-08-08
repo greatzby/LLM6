@@ -1,8 +1,9 @@
 # ===================================================================
-#               evaluate_hybrid_model.py
+#               evaluate_hybrid_model.py (v2.0)
 #
 #  一个专门的评估脚本，用于测试混合模型或任何已保存模型的组合能力。
-#  它使用了你提供的 train_final_suite.py 中的核心评估逻辑。
+#  - v2.0 核心更新: 默认采用确定性评估 (Greedy Decoding)，
+#    并提供命令行参数以启用旧的随机采样评估模式。
 # ===================================================================
 
 import os
@@ -15,7 +16,7 @@ import networkx as nx
 from model import GPTConfig, GPT
 
 @torch.no_grad()
-def evaluate_composition(model, test_file, stages, stoi, itos, device, G, vocab_size, temperature=0.1, top_k=10):
+def evaluate_composition(model, test_file, stages, stoi, itos, device, G, vocab_size, temperature, top_k):
     """
     评估组合能力的核心函数。
     这个函数是从你的 train_final_suite.py 中完整复制过来的，确保了逻辑的绝对一致。
@@ -46,7 +47,10 @@ def evaluate_composition(model, test_file, stages, stoi, itos, device, G, vocab_
                 prompt = f"{source} {target} {source}"
                 prompt_ids = [stoi[token] for token in prompt.split() if token in stoi]
                 x = torch.tensor(prompt_ids, dtype=torch.long, device=device).unsqueeze(0)
+                # <<< MODIFICATION START >>>
+                # 调用 model.generate 时传入从命令行获取的 temperature 和 top_k
                 y = model.generate(x, max_new_tokens=30, temperature=temperature, top_k=top_k)
+                # <<< MODIFICATION END >>>
                 all_numbers = []
                 for tid in y[0].tolist():
                     if tid == 1: break # EOS token
@@ -58,7 +62,9 @@ def evaluate_composition(model, test_file, stages, stoi, itos, device, G, vocab_
                 prompt_str = f"{source} {target}"
                 prompt_ids = [stoi[c] for c in prompt_str if c in stoi]
                 x = torch.tensor(prompt_ids, dtype=torch.long, device=device).unsqueeze(0)
+                # <<< MODIFICATION START >>>
                 y = model.generate(x, max_new_tokens=50, temperature=temperature, top_k=top_k)
+                # <<< MODIFICATION END >>>
                 chars = [itos[tid] for tid in y[0].tolist() if tid in itos and tid > 1]
                 full_str = ''.join(chars)
                 numbers = [int(s) for s in full_str.split() if s.isdigit()]
@@ -68,27 +74,43 @@ def evaluate_composition(model, test_file, stages, stoi, itos, device, G, vocab_
             if len(generated_path) >= 2 and generated_path[0] == source and generated_path[-1] == target:
                 path_valid = all(G.has_edge(str(generated_path[i]), str(generated_path[i+1])) for i in range(len(generated_path)-1))
                 if path_valid:
-                    # For S1->S3, path must go through S2
                     if path_type != 'S1->S3' or any(node in S2 for node in generated_path[1:-1]):
                         success = True
             if success:
                 results[path_type]['correct'] += 1
         results[path_type]['accuracy'] = (results[path_type]['correct'] / results[path_type]['total']) if results[path_type]['total'] > 0 else 0
-    model.train() # Set back to train mode just in case
+    model.train()
     return results
 
 def main():
-    parser = argparse.ArgumentParser(description="Evaluate a pre-trained hybrid model for compositionality.")
+    parser = argparse.ArgumentParser(description="Evaluate a pre-trained hybrid model for compositionality (v2.0 - Deterministic by default).")
     parser.add_argument('--model_path', type=str, required=True, help="Path to the .pt model file to evaluate.")
     parser.add_argument('--data_dir', type=str, required=True, help="Directory containing the test data, meta.pkl, etc.")
     parser.add_argument('--device', type=str, default='cuda:0', help="Device to run on (e.g., 'cuda:0' or 'cpu').")
+    
+    # <<< MODIFICATION START >>>
+    # 添加新的命令行参数来控制生成过程
+    # 默认 temperature=0.0 会强制执行贪心解码，从而实现确定性评估
+    parser.add_argument('--temperature', type=float, default=0.0, 
+                        help="Temperature for generation. Default is 0.0 for deterministic greedy decoding.")
+    # 当 temperature=0.0 时，top_k 实际上不起作用，但我们保留它以实现完整的可配置性
+    parser.add_argument('--top_k', type=int, default=1, 
+                        help="Top-k sampling. Default is 1, which is also deterministic.")
+    # <<< MODIFICATION END >>>
+    
     args = parser.parse_args()
 
     print("="*60)
-    print("        🚀 Hybrid Model Compositionality Evaluation 🚀       ")
+    print("   🚀 Hybrid Model Compositionality Evaluation (v2.0 - Deterministic) 🚀")
     print("="*60)
     print(f"[*] Loading model from: {args.model_path}")
     print(f"[*] Using data from: {args.data_dir}")
+    # <<< MODIFICATION START >>>
+    if args.temperature == 0.0:
+        print("[*] Evaluation Mode: DETERMINISTIC (Greedy Decoding, temperature=0.0)")
+    else:
+        print(f"[*] Evaluation Mode: SAMPLING (temperature={args.temperature}, top_k={args.top_k})")
+    # <<< MODIFICATION END >>>
 
     # --- 1. Load the model ---
     checkpoint = torch.load(args.model_path, map_location=args.device)
@@ -96,7 +118,6 @@ def main():
     gptconf = GPTConfig(**model_args)
     model = GPT(gptconf)
     
-    # This part handles potential `torch.compile` prefixes
     state_dict = checkpoint['model']
     unwanted_prefix = '_orig_mod.'
     for k,v in list(state_dict.items()):
@@ -120,7 +141,11 @@ def main():
 
     # --- 3. Run the evaluation ---
     print("\n[*] Starting evaluation...")
-    results = evaluate_composition(model, test_file, stages, stoi, itos, args.device, G, vocab_size)
+    # <<< MODIFICATION START >>>
+    # 将命令行参数传递给评估函数
+    results = evaluate_composition(model, test_file, stages, stoi, itos, args.device, G, vocab_size, 
+                                   temperature=args.temperature, top_k=args.top_k)
+    # <<< MODIFICATION END >>>
     
     # --- 4. Print results beautifully ---
     print("\n" + "="*60)
