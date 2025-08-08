@@ -1,4 +1,4 @@
-# ----------- 文件: graft_advanced.py (最终大师版) -----------
+# ----------- 文件: graft_advanced.py (已修正UnboundLocalError) -----------
 # 一个功能完备的实验平台，用于执行多模式、多参数的权重融合实验。
 # 实现了“谱融合”、“投影融合”和“纯旋转”三种核心策略。
 # =================================================================
@@ -10,6 +10,7 @@ import glob
 import numpy as np
 from scipy.linalg import orthogonal_procrustes, fractional_matrix_power
 
+# 假设 model.py 在同一目录下
 from model import GPTConfig, GPT
 
 def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
@@ -38,7 +39,6 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
     state_0 = ckpt_0['model']
     state_20 = ckpt_20['model']
     
-    # 确保数据类型安全
     W0 = state_0['lm_head.weight'].float().cpu().numpy()
     W20 = state_20['lm_head.weight'].float().cpu().numpy()
 
@@ -49,10 +49,12 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
     k = k_val
     print(f"[*] 使用指定的秩 k = {k}")
 
+    # --- 修正点 1: 在这里提前准备好所有需要的矩阵 ---
     U0_k, S0_k, V0_k = U0[:, :k], S0[:k], V0t[:k, :].T
     U0_tail, S0_tail, V0_tail = U0[:, k:], S0[k:], V0t[k:, :].T
-    W0_tail = U0_tail @ np.diag(S0_tail) @ V0_tail.T
+    S2_k = S2[:k] # <--- 将 S2_k 的定义移到这里！
     
+    W0_tail = U0_tail @ np.diag(S0_tail) @ V0_tail.T
     W0_k_comp = U0_k @ np.diag(S0_k) @ V0_k.T
 
     # --- 对齐步骤 ---
@@ -60,11 +62,12 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
     if not no_procrustes:
         print("[*] 正在对 V 矩阵进行加权普氏对齐...")
         V2_k = V2t[:k, :].T
-        weights = S2_k[:k]**2
+        
+        # --- 修正点 2: 使用已经定义好的 S2_k ---
+        weights = S2_k**2 
         weights /= weights.sum()
         W_diag = np.diag(np.sqrt(weights))
         try:
-            # 增加 try-except 块以处理可能的对齐失败
             Rv, _ = orthogonal_procrustes(V0_k @ W_diag, V2_k @ W_diag)
             print("    - V 矩阵对齐完成。")
         except Exception as e:
@@ -76,8 +79,6 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
     print(f"[*] 进入融合模式: '{mode}'")
     
     if mode == 'spectral':
-        # --- FUSION MODE: SPECTRAL (谱融合) ---
-        S2_k = S2[:k]
         if alpha_val is not None:
             alpha = alpha_val
             print(f"    - 使用手动指定的 alpha = {alpha:.4f}")
@@ -96,11 +97,8 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
         W_head_new = W_head_mixed + W0_tail
 
     elif mode == 'projection':
-        # --- FUSION MODE: PROJECTION (投影融合) ---
         print("[*] 正在将 mix20 权重投影到 mix0 的子空间...")
         C = U0_k.T @ W20 @ V0_k
-        
-        # 可选的尺度控制
         if alpha_val is not None:
             scale_factor = alpha_val
             print(f"    - 使用手动指定的投影尺度因子 = {scale_factor:.4f}")
@@ -114,13 +112,11 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
         W_head_new = W_head_mixed + W0_tail
 
     elif mode == 'rotation':
-        # --- FUSION MODE: ROTATION (纯旋转) ---
-        # 在此模式下，lam 被解释为旋转角度 tau
         tau = lam
         print(f"[*] 正在执行纯旋转，旋转比例 tau = {tau:.2f}")
         try:
             Rv_tau = fractional_matrix_power(Rv, tau)
-            Rv_tau = Rv_tau.real # 确保结果是实数矩阵
+            Rv_tau = Rv_tau.real
         except Exception as e:
             print(f"    - 警告：分数次幂计算失败: {e}。将使用线性插值近似。")
             Rv_tau = (1-tau) * np.eye(k) + tau * Rv
