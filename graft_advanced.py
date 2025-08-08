@@ -1,4 +1,4 @@
-# ----------- 文件: graft_advanced.py (全新) -----------
+# ----------- 文件: graft_advanced.py (修正后) -----------
 import torch
 import os
 import argparse
@@ -35,10 +35,6 @@ def k95(s):
 def create_graft_transplant(path_0, path_20, lam, seed):
     """
     执行精准的、解耦的、低秩的 lm_head 嫁接手术。
-    - 不动 U 矩阵
-    - 加权对齐 V 矩阵
-    - 带尺度校准地融合 Σ 矩阵
-    - 只更新 lm_head，不触碰 wte
     """
     print("[*] 正在加载原始模型权重...")
     ckpt_0 = torch.load(path_0, map_location='cpu')
@@ -58,12 +54,10 @@ def create_graft_transplant(path_0, path_20, lam, seed):
     print(f"    - mix20 的 k@95% = {k95(S2)}")
     print(f"    - 将使用 k = {k}")
 
-    # --- 1. 分割矩阵 (头部 vs 尾部) ---
     U0_k, S0_k, V0_k = U0[:, :k], S0[:k], V0t[:k, :].T
     U0_tail, S0_tail, V0_tail = U0[:, k:], S0[k:], V0t[k:, :].T
     S2_k, V2_k = S2[:k], V2t[:k, :].T
 
-    # --- 2. V侧加权普氏分析 (Weighted Procrustes) ---
     print("[*] 正在对 V 矩阵进行加权普氏对齐...")
     weights = S2_k**2
     weights /= weights.sum()
@@ -72,41 +66,38 @@ def create_graft_transplant(path_0, path_20, lam, seed):
     V0_k_aligned = V0_k @ Rv
     print("    - V 矩阵对齐完成。")
 
-    # --- 3. Σ能谱融合与尺度校准 ---
-    print(f"[*] 正在以 lambda={lam} 融合 Σ 能谱...")
+    # --- 4. 重建新的 lm_head 权重 (修正后的逻辑) ---
+    print("[*] 正在重建新的 lm_head 权重...")
+    
+    # 计算尺度校准因子
     alpha = np.linalg.norm(S0_k) / np.linalg.norm(S2_k)
     print(f"    - 计算得到尺度校准因子 alpha = {alpha:.4f}")
-    S_mix = (1 - lam) * S0_k + lam * (alpha * S2_k)
-    print("    - Σ 能谱融合完成。")
 
-    # --- 4. 重建新的 lm_head 权重 ---
-    # 核心思想：只替换头部，尾部保持 mix0 的不变
-    print("[*] 正在重建新的 lm_head 权重...")
-    W_head_new = (U0_k @ np.diag(S_mix) @ V0_k_aligned.T) + \
-                 (U0_tail @ np.diag(S0_tail) @ V0_tail.T)
+    # 组件A: mix0 的原始头部
+    W0_k_comp = U0_k @ np.diag(S0_k) @ V0_k.T
     
+    # 组件B: mix20 的对齐后头部 (在 mix0 的 U 基上表达)
+    W20_k_aligned_comp = U0_k @ np.diag(alpha * S2_k) @ V0_k_aligned.T
+
+    # 使用 lambda 线性插值这两个组件
+    W_head_mixed = (1 - lam) * W0_k_comp + lam * W20_k_aligned_comp
+    
+    # 加上 mix0 的尾部
+    W_tail = U0_tail @ np.diag(S0_tail) @ V0_tail.T
+    W_head_new = W_head_mixed + W_tail
+    
+    print("    - 权重重建完成。")
+
     # --- 5. 构建新的、解耦的混合模型 ---
     print("[*] 正在构建最终的混合模型 checkpoint...")
-    
-    # 复制 mix0 的 checkpoint 结构
     ckpt_hybrid = ckpt_0.copy()
-    
-    # 创建一个新的 state_dict，从 mix0 开始
     state_hybrid = state_0.copy()
-    
-    # **只更新 lm_head.weight**
     state_hybrid['lm_head.weight'] = torch.from_numpy(W_head_new).float()
-    
-    # **不触碰 transformer.wte.weight**，它将保留 mix0 的原始值
-    
     ckpt_hybrid['model'] = state_hybrid
-    
-    # 在保存的配置中，明确指出权重是解耦的
     model_args = ckpt_hybrid['model_args']
     model_args['tie_weights'] = False
     ckpt_hybrid['model_args'] = model_args
 
-    # 保存模型
     output_dir = "hybrid_models"
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, f"grafted_advanced_lam{lam:.2f}_seed{seed}.pt")
@@ -119,6 +110,7 @@ def create_graft_transplant(path_0, path_20, lam, seed):
     print("-" * 60)
     return output_path
 
+# main 函数部分保持不变，无需修改
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="执行解耦的、低秩的、对齐的 lm_head 精准嫁接实验。")
     parser.add_argument('--seed', type=int, default=42, help='指定实验用的随机种子 (例如: 42)')
