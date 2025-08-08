@@ -1,4 +1,4 @@
-# ----------- 文件: model.py (修改后) -----------
+# ----------- 文件: model.py (最终修复版) -----------
 import math
 import inspect
 from dataclasses import dataclass
@@ -47,7 +47,6 @@ class CausalSelfAttention(nn.Module):
         # flash attention make GPU go brrrrr but support is only in PyTorch >= 2.0
         self.flash = False
         if not self.flash:
-            # --- 为了简洁，移除了这里的 print 警告 ---
             pass
         # causal mask to ensure that attention is only applied to the left in the input sequence
         self.register_buffer("bias", torch.tril(torch.ones(config.block_size, config.block_size))
@@ -62,19 +61,16 @@ class CausalSelfAttention(nn.Module):
         q = q.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
         v = v.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
 
-        # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         if self.flash:
             y = torch.nn.functional.scaled_dot_product_attention(q, k, v, attn_mask=None, dropout_p=self.dropout if self.training else 0, is_causal=True)
         else:
-            # manual implementation of attention
             att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
             att = att.masked_fill(self.bias[:,:,:T,:T] == 0, float('-inf'))
             att = F.softmax(att, dim=-1)
             att = self.attn_dropout(att)
             y = att @ v # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
-        y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
+        y = y.transpose(1, 2).contiguous().view(B, T, C)
 
-        # output projection
         y = self.resid_dropout(self.c_proj(y))
         return y
 
@@ -110,14 +106,12 @@ class Block(nn.Module):
 @dataclass
 class GPTConfig:
     block_size: int = 1024
-    vocab_size: int = 50304 # GPT-2 vocab_size of 50257, padded up to nearest multiple of 64 for efficiency
+    vocab_size: int = 50304
     n_layer: int = 12
     n_head: int = 12
     n_embd: int = 768
     dropout: float = 0.0
-    bias: bool = True # True: bias in Linears and LayerNorms, like GPT-2. False: a bit better and faster
-    # --- 新增 ---
-    # 为权重绑定增加一个可控的开关
+    bias: bool = True
     tie_weights: bool = True
 
 class GPT(nn.Module):
@@ -137,21 +131,14 @@ class GPT(nn.Module):
         ))
         self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
 
-        # --- 修改 ---
-        # 旧逻辑是无条件绑定，新逻辑是根据 config.tie_weights 决定是否绑定
         if config.tie_weights:
             print(" > INFO: 权重绑定已启用 (tying weights for lm_head and wte).")
             self.transformer.wte.weight = self.lm_head.weight
 
-        # init all weights
         self.apply(self._init_weights)
-        # apply special scaled init to the residual projections, per GPT-2 paper
         for pn, p in self.named_parameters():
             if pn.endswith('c_proj.weight'):
                 torch.nn.init.normal_(p, mean=0.0, std=0.02/math.sqrt(2 * config.n_layer))
-
-        # report number of parameters
-        # --- 为了简洁，移除了这里的 print 报告 ---
 
     def get_num_params(self, non_embedding=True):
         n_params = sum(p.numel() for p in self.parameters())
@@ -171,7 +158,7 @@ class GPT(nn.Module):
         device = idx.device
         b, t = idx.size()
         assert t <= self.config.block_size, f"Cannot forward sequence of length {t}, block size is only {self.config.block_size}"
-        pos = torch.arange(0, t, dtype=torch.long, device=device).unsqueeze(0) # shape (1, t)
+        pos = torch.arange(0, t, dtype=torch.long, device=device).unsqueeze(0)
 
         tok_emb = self.transformer.wte(idx)
         pos_emb = self.transformer.wpe(pos)
@@ -188,9 +175,7 @@ class GPT(nn.Module):
             loss = None
 
         return logits, loss
-    
-    # --- 类的其余部分 (crop_block_size, from_pretrained, etc.) 保持不变 ---
-    # --- 为保持代码完整性，将其余部分也粘贴在此处 ---
+
     def crop_block_size(self, block_size):
         assert block_size <= self.config.block_size
         self.config.block_size = block_size
@@ -261,9 +246,6 @@ class GPT(nn.Module):
                 elif pn.endswith('weight') and isinstance(m, blacklist_weight_modules):
                     no_decay.add(fpn)
         
-        # --- 修改 ---
-        # 如果权重没有绑定，lm_head.weight 应该被 decay
-        # 如果绑定了，它和 wte.weight 是同一个对象，wte 在 no_decay 中，所以 lm_head 也不应被 decay
         if self.config.tie_weights:
             decay.remove('lm_head.weight')
 
@@ -298,15 +280,38 @@ class GPT(nn.Module):
 
     @torch.no_grad()
     def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):
+        """
+        从一个初始的序列 idx (LongTensor of shape (B,T)) 开始生成文本。
+        此版本已修复，可以正确处理 temperature = 0 的情况，以支持确定性贪心解码。
+        """
         for _ in range(max_new_tokens):
+            # 如果序列长度超过了模型的上下文长度，就进行裁剪
             idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]
+            # 获取模型的预测 logits
             logits, _ = self(idx_cond)
-            logits = logits[:, -1, :] / temperature
-            if top_k is not None:
-                v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
-                logits[logits < v[:, [-1]]] = -float('Inf')
-            probs = F.softmax(logits, dim=-1)
-            idx_next = torch.multinomial(probs, num_samples=1)
+            # 只关注最后一个时间步的 logits
+            logits = logits[:, -1, :] # 形状变为 (B, C)
+
+            # <<< 核心修复逻辑开始 >>>
+            # 特殊处理 temperature = 0 的情况，此时执行确定性贪心解码
+            if temperature == 0.0:
+                # 直接选择概率最高的 token，不进行除法或采样
+                _, idx_next = torch.topk(logits, k=1, dim=-1)
+            else:
+                # 原始的随机采样逻辑
+                # 使用 temperature 对 logits 进行缩放
+                logits = logits / temperature
+                # 可选：将 logits 限制在 top-k 范围内
+                if top_k is not None:
+                    v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                    logits[logits < v[:, [-1]]] = -float('Inf')
+                # 对 logits 应用 softmax 得到概率分布
+                probs = F.softmax(logits, dim=-1)
+                # 从概率分布中进行采样
+                idx_next = torch.multinomial(probs, num_samples=1)
+            # <<< 核心修复逻辑结束 >>>
+
+            # 将新生成的 token 拼接到序列的末尾
             idx = torch.cat((idx, idx_next), dim=1)
 
         return idx
