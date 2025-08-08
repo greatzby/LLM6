@@ -1,6 +1,6 @@
-# ----------- 文件: graft_advanced.py (已修正UnboundLocalError) -----------
+# ----------- 文件: graft_advanced.py (v3 - 集成k=0修正) -----------
 # 一个功能完备的实验平台，用于执行多模式、多参数的权重融合实验。
-# 实现了“谱融合”、“投影融合”和“纯旋转”三种核心策略。
+# 核心修正：当 k=0 时，执行“无操作”，确保返回精确的基线模型。
 # =================================================================
 
 import torch
@@ -40,92 +40,92 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
     state_20 = ckpt_20['model']
     
     W0 = state_0['lm_head.weight'].float().cpu().numpy()
-    W20 = state_20['lm_head.weight'].float().cpu().numpy()
-
-    print("[*] 正在对 lm_head 权重执行 SVD...")
-    U0, S0, V0t = np.linalg.svd(W0, full_matrices=False)
-    U2, S2, V2t = np.linalg.svd(W20, full_matrices=False)
     
-    k = k_val
-    print(f"[*] 使用指定的秩 k = {k}")
-
-    # --- 修正点 1: 在这里提前准备好所有需要的矩阵 ---
-    U0_k, S0_k, V0_k = U0[:, :k], S0[:k], V0t[:k, :].T
-    U0_tail, S0_tail, V0_tail = U0[:, k:], S0[k:], V0t[k:, :].T
-    S2_k = S2[:k] # <--- 将 S2_k 的定义移到这里！
-    
-    W0_tail = U0_tail @ np.diag(S0_tail) @ V0_tail.T
-    W0_k_comp = U0_k @ np.diag(S0_k) @ V0_k.T
-
-    # --- 对齐步骤 ---
-    Rv = np.eye(k)
-    if not no_procrustes:
-        print("[*] 正在对 V 矩阵进行加权普氏对齐...")
-        V2_k = V2t[:k, :].T
-        
-        # --- 修正点 2: 使用已经定义好的 S2_k ---
-        weights = S2_k**2 
-        weights /= weights.sum()
-        W_diag = np.diag(np.sqrt(weights))
-        try:
-            Rv, _ = orthogonal_procrustes(V0_k @ W_diag, V2_k @ W_diag)
-            print("    - V 矩阵对齐完成。")
-        except Exception as e:
-            print(f"    - 警告：普氏对齐失败: {e}。将使用单位矩阵作为旋转矩阵。")
+    # --- 关键修正: k=0 的特殊处理 ---
+    if k_val == 0:
+        print("[*] k=0: 触发“无操作”模式。")
+        print("    - 将直接回写 mix0 的 lm_head，仅确保 tie_weights=False。")
+        W_head_new = W0
     else:
-        print("[*] 已跳过普氏对齐 (no_procrustes=True)。")
-
-    # --- 核心融合逻辑 ---
-    print(f"[*] 进入融合模式: '{mode}'")
-    
-    if mode == 'spectral':
-        if alpha_val is not None:
-            alpha = alpha_val
-            print(f"    - 使用手动指定的 alpha = {alpha:.4f}")
-        else:
-            alpha = np.linalg.norm(S0_k) / np.linalg.norm(S2_k)
-            print(f"    - 自动计算得到 alpha = {alpha:.4f}")
-            if alpha_clip:
-                alpha_clipped = np.clip(alpha, 0.5, 2.0)
-                if alpha != alpha_clipped:
-                    print(f"    - alpha 已被裁剪至: {alpha_clipped:.4f}")
-                alpha = alpha_clipped
+        # --- 只有 k > 0 时，才执行 SVD 和融合逻辑 ---
+        W20 = state_20['lm_head.weight'].float().cpu().numpy()
+        print("[*] 正在对 lm_head 权重执行 SVD...")
+        U0, S0, V0t = np.linalg.svd(W0, full_matrices=False)
+        U2, S2, V2t = np.linalg.svd(W20, full_matrices=False)
         
-        V0_k_aligned = V0_k @ Rv
-        W20_k_aligned_comp = U0_k @ np.diag(alpha * S2_k) @ V0_k_aligned.T
-        W_head_mixed = (1 - lam) * W0_k_comp + lam * W20_k_aligned_comp
-        W_head_new = W_head_mixed + W0_tail
+        k = k_val
+        print(f"[*] 使用指定的秩 k = {k}")
 
-    elif mode == 'projection':
-        print("[*] 正在将 mix20 权重投影到 mix0 的子空间...")
-        C = U0_k.T @ W20 @ V0_k
-        if alpha_val is not None:
-            scale_factor = alpha_val
-            print(f"    - 使用手动指定的投影尺度因子 = {scale_factor:.4f}")
-        else:
-            scale_factor = np.linalg.norm(np.diag(S0_k)) / np.linalg.norm(C)
-            print(f"    - 自动计算得到投影尺度因子 = {scale_factor:.4f}")
+        U0_k, S0_k, V0_k = U0[:, :k], S0[:k], V0t[:k, :].T
+        U0_tail, S0_tail, V0_tail = U0[:, k:], S0[k:], V0t[k:, :].T
+        S2_k = S2[:k]
         
-        C_scaled = C * scale_factor
-        W20_proj_comp = U0_k @ C_scaled @ V0_k.T
-        W_head_mixed = (1 - lam) * W0_k_comp + lam * W20_proj_comp
-        W_head_new = W_head_mixed + W0_tail
+        W0_tail = U0_tail @ np.diag(S0_tail) @ V0_tail.T
+        W0_k_comp = U0_k @ np.diag(S0_k) @ V0_k.T
 
-    elif mode == 'rotation':
-        tau = lam
-        print(f"[*] 正在执行纯旋转，旋转比例 tau = {tau:.2f}")
-        try:
-            Rv_tau = fractional_matrix_power(Rv, tau)
-            Rv_tau = Rv_tau.real
-        except Exception as e:
-            print(f"    - 警告：分数次幂计算失败: {e}。将使用线性插值近似。")
-            Rv_tau = (1-tau) * np.eye(k) + tau * Rv
+        Rv = np.eye(k)
+        if not no_procrustes:
+            print("[*] 正在对 V 矩阵进行加权普氏对齐...")
+            V2_k = V2t[:k, :].T
+            weights = S2_k**2 
+            weights /= weights.sum()
+            W_diag = np.diag(np.sqrt(weights))
+            try:
+                Rv, _ = orthogonal_procrustes(V0_k @ W_diag, V2_k @ W_diag)
+                print("    - V 矩阵对齐完成。")
+            except Exception as e:
+                print(f"    - 警告：普氏对齐失败: {e}。将使用单位矩阵作为旋转矩阵。")
+        else:
+            print("[*] 已跳过普氏对齐 (no_procrustes=True)。")
 
-        V_rotated = V0_k @ Rv_tau
-        W_head_new = U0_k @ np.diag(S0_k) @ V_rotated.T + W0_tail
+        print(f"[*] 进入融合模式: '{mode}'")
+        if mode == 'spectral':
+            if alpha_val is not None:
+                alpha = alpha_val
+                print(f"    - 使用手动指定的 alpha = {alpha:.4f}")
+            else:
+                alpha = np.linalg.norm(S0_k) / np.linalg.norm(S2_k)
+                print(f"    - 自动计算得到 alpha = {alpha:.4f}")
+                if alpha_clip:
+                    alpha_clipped = np.clip(alpha, 0.5, 2.0)
+                    if alpha != alpha_clipped:
+                        print(f"    - alpha 已被裁剪至: {alpha_clipped:.4f}")
+                    alpha = alpha_clipped
+            
+            V0_k_aligned = V0_k @ Rv
+            W20_k_aligned_comp = U0_k @ np.diag(alpha * S2_k) @ V0_k_aligned.T
+            W_head_mixed = (1 - lam) * W0_k_comp + lam * W20_k_aligned_comp
+            W_head_new = W_head_mixed + W0_tail
 
-    else:
-        raise ValueError(f"未知的融合模式: {mode}")
+        elif mode == 'projection':
+            print("[*] 正在将 mix20 权重投影到 mix0 的子空间...")
+            C = U0_k.T @ W20 @ V0_k
+            if alpha_val is not None:
+                scale_factor = alpha_val
+                print(f"    - 使用手动指定的投影尺度因子 = {scale_factor:.4f}")
+            else:
+                scale_factor = np.linalg.norm(np.diag(S0_k)) / np.linalg.norm(C)
+                print(f"    - 自动计算得到投影尺度因子 = {scale_factor:.4f}")
+            
+            C_scaled = C * scale_factor
+            W20_proj_comp = U0_k @ C_scaled @ V0_k.T
+            W_head_mixed = (1 - lam) * W0_k_comp + lam * W20_proj_comp
+            W_head_new = W_head_mixed + W0_tail
+
+        elif mode == 'rotation':
+            tau = lam
+            print(f"[*] 正在执行纯旋转，旋转比例 tau = {tau:.2f}")
+            try:
+                Rv_tau = fractional_matrix_power(Rv, tau)
+                Rv_tau = Rv_tau.real
+            except Exception as e:
+                print(f"    - 警告：分数次幂计算失败: {e}。将使用线性插值近似。")
+                Rv_tau = (1-tau) * np.eye(k) + tau * Rv
+
+            V_rotated = V0_k @ Rv_tau
+            W_head_new = U0_k @ np.diag(S0_k) @ V_rotated.T + W0_tail
+        else:
+            raise ValueError(f"未知的融合模式: {mode}")
 
     print("[*] 正在构建最终的混合模型 checkpoint...")
     ckpt_hybrid = ckpt_0.copy()
@@ -138,20 +138,20 @@ def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, 
 
     output_dir = "hybrid_models"
     os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, f"grafted_mode-{mode}_k{k}_lam{lam:.2f}_seed{seed}.pt")
+    output_path = os.path.join(output_dir, f"grafted_mode-{mode}_k{k_val}_lam{lam:.2f}_seed{seed}.pt")
     torch.save(ckpt_hybrid, output_path)
     print("-" * 60)
     print(f"✅ 精准嫁接模型已生成！")
-    print(f"   - Mode: {mode}, Rank (k): {k}, Lambda/Tau: {lam:.2f}, Seed: {seed}")
+    print(f"   - Mode: {mode}, Rank (k): {k_val}, Lambda/Tau: {lam:.2f}, Seed: {seed}")
     print(f"   - 保存路径: {output_path}")
     print("-" * 60)
     return output_path
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="执行多模式、多参数的 lm_head 精准嫁接实验。")
+    parser = argparse.ArgumentParser(description="执行多模式、多参数的 lm_head 精准嫁接实验 (v3)。")
     parser.add_argument('--seed', type=int, default=42, help='随机种子')
-    parser.add_argument('--k', type=int, required=True, help='指定移植的秩k。')
+    parser.add_argument('--k', type=int, required=True, help='指定移植的秩k (k=0为无操作)。')
     parser.add_argument('--lam', type=float, default=1.0, help='融合比例 lambda (或旋转比例 tau)')
     parser.add_argument('--mode', type=str, default='spectral', choices=['spectral', 'projection', 'rotation'], help='融合模式')
     parser.add_argument('--alpha', type=float, default=None, help='手动指定缩放因子 alpha')
@@ -160,7 +160,7 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
 
-    print("\n🔬 开始执行 lm_head 精准嫁接手术 (大师版) 🔬\n")
+    print("\n🔬 开始执行 lm_head 精准嫁接手术 (v3 - 已修正) 🔬\n")
     path_0 = get_final_checkpoint_path(0, args.seed)
     path_20 = get_final_checkpoint_path(20, args.seed)
     
