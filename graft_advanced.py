@@ -1,12 +1,15 @@
-# ----------- 文件: graft_advanced.py (修正后) -----------
+# ----------- 文件: graft_advanced.py (最终大师版) -----------
+# 一个功能完备的实验平台，用于执行多模式、多参数的权重融合实验。
+# 实现了“谱融合”、“投影融合”和“纯旋转”三种核心策略。
+# =================================================================
+
 import torch
 import os
 import argparse
 import glob
 import numpy as np
-from scipy.linalg import orthogonal_procrustes
+from scipy.linalg import orthogonal_procrustes, fractional_matrix_power
 
-# 从您修改后的 model.py 中导入
 from model import GPTConfig, GPT
 
 def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
@@ -24,71 +27,110 @@ def get_final_checkpoint_path(ratio, seed, checkpoint_dir="out_d92"):
     print(f"  > 定位到模型: {path}")
     return path
 
-def k95(s):
-    """计算捕获95%能量所需的奇异值数量(k)"""
-    s_squared = s**2
-    energy_cumsum = np.cumsum(s_squared)
-    total_energy = energy_cumsum[-1]
-    k = np.searchsorted(energy_cumsum, 0.95 * total_energy) + 1
-    return int(k)
-
-def create_graft_transplant(path_0, path_20, lam, seed):
+def create_graft_transplant(path_0, path_20, lam, seed, k_val, mode, alpha_val, alpha_clip, no_procrustes):
     """
-    执行精准的、解耦的、低秩的 lm_head 嫁接手术。
+    执行精准嫁接的核心函数，支持多种模式和控制。
     """
     print("[*] 正在加载原始模型权重...")
     ckpt_0 = torch.load(path_0, map_location='cpu')
     ckpt_20 = torch.load(path_20, map_location='cpu')
 
-    state_0, state_20 = ckpt_0['model'], ckpt_20['model']
-    W0 = state_0['lm_head.weight'].numpy()
-    W20 = state_20['lm_head.weight'].numpy()
+    state_0 = ckpt_0['model']
+    state_20 = ckpt_20['model']
+    
+    # 确保数据类型安全
+    W0 = state_0['lm_head.weight'].float().cpu().numpy()
+    W20 = state_20['lm_head.weight'].float().cpu().numpy()
 
     print("[*] 正在对 lm_head 权重执行 SVD...")
     U0, S0, V0t = np.linalg.svd(W0, full_matrices=False)
     U2, S2, V2t = np.linalg.svd(W20, full_matrices=False)
-
-    print("[*] 计算保留95%能量的秩 k...")
-    k = min(k95(S0), k95(S2))
-    print(f"    - mix0 的 k@95% = {k95(S0)}")
-    print(f"    - mix20 的 k@95% = {k95(S2)}")
-    print(f"    - 将使用 k = {k}")
+    
+    k = k_val
+    print(f"[*] 使用指定的秩 k = {k}")
 
     U0_k, S0_k, V0_k = U0[:, :k], S0[:k], V0t[:k, :].T
     U0_tail, S0_tail, V0_tail = U0[:, k:], S0[k:], V0t[k:, :].T
-    S2_k, V2_k = S2[:k], V2t[:k, :].T
-
-    print("[*] 正在对 V 矩阵进行加权普氏对齐...")
-    weights = S2_k**2
-    weights /= weights.sum()
-    W_diag = np.diag(np.sqrt(weights))
-    Rv, _ = orthogonal_procrustes(V0_k @ W_diag, V2_k @ W_diag)
-    V0_k_aligned = V0_k @ Rv
-    print("    - V 矩阵对齐完成。")
-
-    # --- 4. 重建新的 lm_head 权重 (修正后的逻辑) ---
-    print("[*] 正在重建新的 lm_head 权重...")
+    W0_tail = U0_tail @ np.diag(S0_tail) @ V0_tail.T
     
-    # 计算尺度校准因子
-    alpha = np.linalg.norm(S0_k) / np.linalg.norm(S2_k)
-    print(f"    - 计算得到尺度校准因子 alpha = {alpha:.4f}")
-
-    # 组件A: mix0 的原始头部
     W0_k_comp = U0_k @ np.diag(S0_k) @ V0_k.T
-    
-    # 组件B: mix20 的对齐后头部 (在 mix0 的 U 基上表达)
-    W20_k_aligned_comp = U0_k @ np.diag(alpha * S2_k) @ V0_k_aligned.T
 
-    # 使用 lambda 线性插值这两个组件
-    W_head_mixed = (1 - lam) * W0_k_comp + lam * W20_k_aligned_comp
-    
-    # 加上 mix0 的尾部
-    W_tail = U0_tail @ np.diag(S0_tail) @ V0_tail.T
-    W_head_new = W_head_mixed + W_tail
-    
-    print("    - 权重重建完成。")
+    # --- 对齐步骤 ---
+    Rv = np.eye(k)
+    if not no_procrustes:
+        print("[*] 正在对 V 矩阵进行加权普氏对齐...")
+        V2_k = V2t[:k, :].T
+        weights = S2_k[:k]**2
+        weights /= weights.sum()
+        W_diag = np.diag(np.sqrt(weights))
+        try:
+            # 增加 try-except 块以处理可能的对齐失败
+            Rv, _ = orthogonal_procrustes(V0_k @ W_diag, V2_k @ W_diag)
+            print("    - V 矩阵对齐完成。")
+        except Exception as e:
+            print(f"    - 警告：普氏对齐失败: {e}。将使用单位矩阵作为旋转矩阵。")
+    else:
+        print("[*] 已跳过普氏对齐 (no_procrustes=True)。")
 
-    # --- 5. 构建新的、解耦的混合模型 ---
+    # --- 核心融合逻辑 ---
+    print(f"[*] 进入融合模式: '{mode}'")
+    
+    if mode == 'spectral':
+        # --- FUSION MODE: SPECTRAL (谱融合) ---
+        S2_k = S2[:k]
+        if alpha_val is not None:
+            alpha = alpha_val
+            print(f"    - 使用手动指定的 alpha = {alpha:.4f}")
+        else:
+            alpha = np.linalg.norm(S0_k) / np.linalg.norm(S2_k)
+            print(f"    - 自动计算得到 alpha = {alpha:.4f}")
+            if alpha_clip:
+                alpha_clipped = np.clip(alpha, 0.5, 2.0)
+                if alpha != alpha_clipped:
+                    print(f"    - alpha 已被裁剪至: {alpha_clipped:.4f}")
+                alpha = alpha_clipped
+        
+        V0_k_aligned = V0_k @ Rv
+        W20_k_aligned_comp = U0_k @ np.diag(alpha * S2_k) @ V0_k_aligned.T
+        W_head_mixed = (1 - lam) * W0_k_comp + lam * W20_k_aligned_comp
+        W_head_new = W_head_mixed + W0_tail
+
+    elif mode == 'projection':
+        # --- FUSION MODE: PROJECTION (投影融合) ---
+        print("[*] 正在将 mix20 权重投影到 mix0 的子空间...")
+        C = U0_k.T @ W20 @ V0_k
+        
+        # 可选的尺度控制
+        if alpha_val is not None:
+            scale_factor = alpha_val
+            print(f"    - 使用手动指定的投影尺度因子 = {scale_factor:.4f}")
+        else:
+            scale_factor = np.linalg.norm(np.diag(S0_k)) / np.linalg.norm(C)
+            print(f"    - 自动计算得到投影尺度因子 = {scale_factor:.4f}")
+        
+        C_scaled = C * scale_factor
+        W20_proj_comp = U0_k @ C_scaled @ V0_k.T
+        W_head_mixed = (1 - lam) * W0_k_comp + lam * W20_proj_comp
+        W_head_new = W_head_mixed + W0_tail
+
+    elif mode == 'rotation':
+        # --- FUSION MODE: ROTATION (纯旋转) ---
+        # 在此模式下，lam 被解释为旋转角度 tau
+        tau = lam
+        print(f"[*] 正在执行纯旋转，旋转比例 tau = {tau:.2f}")
+        try:
+            Rv_tau = fractional_matrix_power(Rv, tau)
+            Rv_tau = Rv_tau.real # 确保结果是实数矩阵
+        except Exception as e:
+            print(f"    - 警告：分数次幂计算失败: {e}。将使用线性插值近似。")
+            Rv_tau = (1-tau) * np.eye(k) + tau * Rv
+
+        V_rotated = V0_k @ Rv_tau
+        W_head_new = U0_k @ np.diag(S0_k) @ V_rotated.T + W0_tail
+
+    else:
+        raise ValueError(f"未知的融合模式: {mode}")
+
     print("[*] 正在构建最终的混合模型 checkpoint...")
     ckpt_hybrid = ckpt_0.copy()
     state_hybrid = state_0.copy()
@@ -100,31 +142,36 @@ def create_graft_transplant(path_0, path_20, lam, seed):
 
     output_dir = "hybrid_models"
     os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, f"grafted_advanced_lam{lam:.2f}_seed{seed}.pt")
+    output_path = os.path.join(output_dir, f"grafted_mode-{mode}_k{k}_lam{lam:.2f}_seed{seed}.pt")
     torch.save(ckpt_hybrid, output_path)
     print("-" * 60)
     print(f"✅ 精准嫁接模型已生成！")
-    print(f"   - Lambda (融合比例): {lam}")
-    print(f"   - Seed (随机种子): {seed}")
+    print(f"   - Mode: {mode}, Rank (k): {k}, Lambda/Tau: {lam:.2f}, Seed: {seed}")
     print(f"   - 保存路径: {output_path}")
     print("-" * 60)
     return output_path
 
-# main 函数部分保持不变，无需修改
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="执行解耦的、低秩的、对齐的 lm_head 精准嫁接实验。")
-    parser.add_argument('--seed', type=int, default=42, help='指定实验用的随机种子 (例如: 42)')
-    parser.add_argument('--lam', type=float, default=0.5, help='Σ能谱的融合比例 lambda (0.0 to 1.0)')
+    parser = argparse.ArgumentParser(description="执行多模式、多参数的 lm_head 精准嫁接实验。")
+    parser.add_argument('--seed', type=int, default=42, help='随机种子')
+    parser.add_argument('--k', type=int, required=True, help='指定移植的秩k。')
+    parser.add_argument('--lam', type=float, default=1.0, help='融合比例 lambda (或旋转比例 tau)')
+    parser.add_argument('--mode', type=str, default='spectral', choices=['spectral', 'projection', 'rotation'], help='融合模式')
+    parser.add_argument('--alpha', type=float, default=None, help='手动指定缩放因子 alpha')
+    parser.add_argument('--alpha_clip', action='store_true', help='对自动计算的 alpha 进行 [0.5, 2.0] 的裁剪')
+    parser.add_argument('--no_procrustes', action='store_true', help='关闭普氏对齐，仅做谱/投影融合')
+    
     args = parser.parse_args()
 
-    if not (0.0 <= args.lam <= 1.0):
-        raise ValueError("lambda 参数必须在 0.0 和 1.0 之间")
-
-    print("\n🔬 开始执行 lm_head 精准嫁接手术 🔬\n")
+    print("\n🔬 开始执行 lm_head 精准嫁接手术 (大师版) 🔬\n")
     path_0 = get_final_checkpoint_path(0, args.seed)
     path_20 = get_final_checkpoint_path(20, args.seed)
     
-    generated_file = create_graft_transplant(path_0, path_20, args.lam, args.seed)
+    generated_file = create_graft_transplant(
+        path_0, path_20, args.lam, args.seed, args.k, 
+        args.mode, args.alpha, args.alpha_clip, args.no_procrustes
+    )
     
     print("💡 如何评估？请运行以下命令:")
     print(f"python evaluate_hybrid_model.py --model_path {generated_file} --data_dir data/simple_graph/composition_90\n")
