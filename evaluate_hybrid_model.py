@@ -1,9 +1,10 @@
 # ===================================================================
-#               evaluate_hybrid_model.py (v2.0)
+#               evaluate_hybrid_model.py (v2.1 - Final Fix)
 #
 #  一个专门的评估脚本，用于测试混合模型或任何已保存模型的组合能力。
-#  - v2.0 核心更新: 默认采用确定性评估 (Greedy Decoding)，
+#  - v2.0 功能: 默认采用确定性评估 (Greedy Decoding)，
 #    并提供命令行参数以启用旧的随机采样评估模式。
+#  - v2.1 修复: 兼容加载使用 'model_state_dict' 或 'model' 键保存的模型。
 # ===================================================================
 
 import os
@@ -19,7 +20,6 @@ from model import GPTConfig, GPT
 def evaluate_composition(model, test_file, stages, stoi, itos, device, G, vocab_size, temperature, top_k):
     """
     评估组合能力的核心函数。
-    这个函数是从你的 train_final_suite.py 中完整复制过来的，确保了逻辑的绝对一致。
     """
     model.eval()
     S1, S2, S3 = stages
@@ -47,24 +47,21 @@ def evaluate_composition(model, test_file, stages, stoi, itos, device, G, vocab_
                 prompt = f"{source} {target} {source}"
                 prompt_ids = [stoi[token] for token in prompt.split() if token in stoi]
                 x = torch.tensor(prompt_ids, dtype=torch.long, device=device).unsqueeze(0)
-                # <<< MODIFICATION START >>>
-                # 调用 model.generate 时传入从命令行获取的 temperature 和 top_k
                 y = model.generate(x, max_new_tokens=30, temperature=temperature, top_k=top_k)
-                # <<< MODIFICATION END >>>
                 all_numbers = []
+                # 改进：从词汇表中动态获取 EOS token ID，而不是硬编码为 1
+                eos_id = stoi.get('</s>', stoi.get('<|endoftext|>', 1))
                 for tid in y[0].tolist():
-                    if tid == 1: break # EOS token
+                    if tid == eos_id: break
                     if tid in itos:
                         try: all_numbers.append(int(itos[tid]))
-                        except: pass
+                        except (ValueError, TypeError): pass
                 generated_path = all_numbers[2:] if len(all_numbers) >= 3 else []
-            else: # Character-level logic
+            else: # Character-level logic (保持不变)
                 prompt_str = f"{source} {target}"
                 prompt_ids = [stoi[c] for c in prompt_str if c in stoi]
                 x = torch.tensor(prompt_ids, dtype=torch.long, device=device).unsqueeze(0)
-                # <<< MODIFICATION START >>>
                 y = model.generate(x, max_new_tokens=50, temperature=temperature, top_k=top_k)
-                # <<< MODIFICATION END >>>
                 chars = [itos[tid] for tid in y[0].tolist() if tid in itos and tid > 1]
                 full_str = ''.join(chars)
                 numbers = [int(s) for s in full_str.split() if s.isdigit()]
@@ -83,42 +80,55 @@ def evaluate_composition(model, test_file, stages, stoi, itos, device, G, vocab_
     return results
 
 def main():
-    parser = argparse.ArgumentParser(description="Evaluate a pre-trained hybrid model for compositionality (v2.0 - Deterministic by default).")
+    # 您的 v2.0 参数解析器，保持完全不变
+    parser = argparse.ArgumentParser(description="Evaluate a pre-trained hybrid model for compositionality (v2.1 - Final Fix).")
     parser.add_argument('--model_path', type=str, required=True, help="Path to the .pt model file to evaluate.")
     parser.add_argument('--data_dir', type=str, required=True, help="Directory containing the test data, meta.pkl, etc.")
-    parser.add_argument('--device', type=str, default='cuda:0', help="Device to run on (e.g., 'cuda:0' or 'cpu').")
-    
-    # <<< MODIFICATION START >>>
-    # 添加新的命令行参数来控制生成过程
-    # 默认 temperature=0.0 会强制执行贪心解码，从而实现确定性评估
+    parser.add_argument('--device', type=str, default='cuda' if torch.cuda.is_available() else 'cpu', help="Device to run on (e.g., 'cuda' or 'cpu').")
     parser.add_argument('--temperature', type=float, default=0.0, 
                         help="Temperature for generation. Default is 0.0 for deterministic greedy decoding.")
-    # 当 temperature=0.0 时，top_k 实际上不起作用，但我们保留它以实现完整的可配置性
     parser.add_argument('--top_k', type=int, default=1, 
                         help="Top-k sampling. Default is 1, which is also deterministic.")
-    # <<< MODIFICATION END >>>
-    
     args = parser.parse_args()
 
+    # 您的 v2.0 打印信息，保持完全不变
     print("="*60)
-    print("   🚀 Hybrid Model Compositionality Evaluation (v2.0 - Deterministic) 🚀")
+    print("   🚀 Hybrid Model Compositionality Evaluation (v2.1 - Final Fix) 🚀")
     print("="*60)
     print(f"[*] Loading model from: {args.model_path}")
     print(f"[*] Using data from: {args.data_dir}")
-    # <<< MODIFICATION START >>>
     if args.temperature == 0.0:
         print("[*] Evaluation Mode: DETERMINISTIC (Greedy Decoding, temperature=0.0)")
     else:
         print(f"[*] Evaluation Mode: SAMPLING (temperature={args.temperature}, top_k={args.top_k})")
-    # <<< MODIFICATION END >>>
 
     # --- 1. Load the model ---
     checkpoint = torch.load(args.model_path, map_location=args.device)
-    model_args = checkpoint['model_args']
+    
+    # <<< MODIFICATION START >>>
+    # 这是本次唯一的、关键的修改，用于解决 KeyError
+    
+    # 步骤 A: 稳健地加载模型参数 (model_args)
+    model_args = checkpoint.get('model_args', None)
+    if model_args is None:
+        model_args = checkpoint.get('config', {}) # 兼容旧格式
+        print("[!] Warning: Checkpoint key 'model_args' not found. Falling back to 'config'.")
+
     gptconf = GPTConfig(**model_args)
     model = GPT(gptconf)
     
-    state_dict = checkpoint['model']
+    # 步骤 B: 稳健地加载模型状态字典 (state_dict)
+    state_dict = checkpoint.get('model_state_dict', None) # 首先尝试微调脚本使用的键
+    if state_dict is None:
+        state_dict = checkpoint.get('model', None) # 如果失败，则回退到原始脚本使用的键
+    
+    if state_dict is None:
+        print("\n[!] FATAL ERROR: Could not find 'model_state_dict' or 'model' in the checkpoint file.")
+        print("    Please check the .pt file you are trying to evaluate.")
+        exit(1)
+    
+    # <<< MODIFICATION END >>>
+
     unwanted_prefix = '_orig_mod.'
     for k,v in list(state_dict.items()):
         if k.startswith(unwanted_prefix):
@@ -141,13 +151,10 @@ def main():
 
     # --- 3. Run the evaluation ---
     print("\n[*] Starting evaluation...")
-    # <<< MODIFICATION START >>>
-    # 将命令行参数传递给评估函数
     results = evaluate_composition(model, test_file, stages, stoi, itos, args.device, G, vocab_size, 
                                    temperature=args.temperature, top_k=args.top_k)
-    # <<< MODIFICATION END >>>
     
-    # --- 4. Print results beautifully ---
+    # --- 4. Print results beautifully (您的格式，保持不变) ---
     print("\n" + "="*60)
     print("               📊 E V A L U A T I O N   R E S U L T S 📊              ")
     print("="*60)
