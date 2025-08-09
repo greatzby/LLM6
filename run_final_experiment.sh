@@ -1,12 +1,10 @@
 #!/bin/bash
 #
 # =================================================================
-#           run_final_experiment.sh (最终版)
+#           run_final_experiment.sh (v2.1 - 最终修复版)
 #
-#   一键式执行最终实验的完整流程：
-#   1. 准备纯净的 S1->S3 数据集 (如果不存在)
-#   2. 对指定的4个模型进行专项 lm_head 微调
-#   3. 对微调后的4个模型进行评估
+#   一键式执行最终实验的完整流程。
+#   v2.1 修复: 将 PURE_DATA_DIR 的路径修正为与数据生成脚本完全一致。
 # =================================================================
 
 # 如果任何命令失败，则立即退出
@@ -24,32 +22,31 @@ SOURCE_MODELS=(
 # 2. 定义目录
 HYBRID_DIR="hybrid_models"
 FINETUNED_DIR="finetuned_specialized_models"
-PURE_DATA_DIR="data/simple_graph/composition_90_pure"
-# !! 关键 !!: 评估时必须使用包含原始 test.txt 的数据目录
+
+# <<< 核心修复：将此处的目录名与您成功创建的目录名保持一致 >>>
+PURE_DATA_DIR="data/simple_graph/composition_pure_90" 
+
+# 评估时必须使用包含原始 test.txt 的数据目录
 EVAL_DATA_DIR="data/simple_graph/composition_90" 
 
 # 3. 定义脚本名称
 FINETUNE_SCRIPT="finetune_specialized_v2.py"
-EVAL_SCRIPT="evaluate_hybrid_model.py" # 使用您自己的评估脚本
+EVAL_SCRIPT="evaluate_hybrid_model.py"
 
 # =================================================================
-#   阶段 1: 准备纯净的 S1->S3 数据集
+#   阶段 1: 检查纯净的 S1->S3 数据集
 # =================================================================
 echo "====================================================="
-echo "✅ 阶段 1: 准备纯净数据集"
+echo "✅ 阶段 1: 检查纯净数据集"
 echo "====================================================="
 
-if [ -f "$PURE_DATA_DIR/train.bin" ] && [ -f "$PURE_DATA_DIR/val.bin" ]; then
-    echo "[*] 纯净数据集 '$PURE_DATA_DIR' 已存在，跳过数据生成。"
+if [ -d "$PURE_DATA_DIR" ] && [ -f "$PURE_DATA_DIR/train.bin" ]; then
+    echo "[*] 纯净数据集 '$PURE_DATA_DIR' 已找到，准备进行微调。"
 else
-    echo "[*] 未找到纯净数据集，现在开始创建..."
-    # (此处省略数据创建脚本，假设您已通过之前步骤创建)
-    # 如果需要，请先运行 `create_pure_s1s3_dataset.py` 和 `prepare_composition.py`
-    # 来生成 $PURE_DATA_DIR 目录及其中的 .bin 文件。
-    echo "[!] 警告: 纯净数据集未找到。请手动创建或取消此检查。"
-    # exit 1 # 如果希望在没有数据时强制停止，请取消此行的注释
+    echo "[!] 致命错误: 在 '$PURE_DATA_DIR' 中未找到纯净数据集。"
+    echo "[!] 请先成功运行 'run_prepare_pure_data.sh' 脚本。"
+    exit 1
 fi
-
 
 # =================================================================
 #   阶段 2: 对4个模型进行专项微调
