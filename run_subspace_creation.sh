@@ -1,13 +1,15 @@
 #!/bin/bash
+set -e
 
-# --- 配置 ---
+# --- 请务必在此处核对您的模型路径！ ---
 HOST_MODEL="out_d92/composition_mix0_seed42_20250801_054758/ckpt_mix0_seed42_iter50000.pt"
-DONOR_MODEL="out_d92/composition_mix20_seed42_20250801_054758/ckpt_mix20_seed42_iter50000.pt"
+DONOR_MODEL="out_d92/composition_mix20_seed42_20250801_064928/ckpt_mix20_seed42_iter50000.pt" # 假设这是您正确的donor模型路径
+# --- 路径核对结束 ---
+
 DATA_DIR="data/simple_graph"
 OUTPUT_DIR="hybrid_models"
 SEED=42
 
-# --- 网格搜索参数 ---
 # 围绕我们已知的甜点 k=5 进行搜索
 RANKS=(4 5 6 7 8) 
 # 测试几个数量级的正则化强度
