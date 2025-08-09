@@ -1,25 +1,32 @@
 #!/bin/bash
 #
 # =================================================================
-#           run_prepare_pure_data.sh
+#           run_prepare_pure_data.sh (v1.1 - 已修复路径问题)
 #
 #   一键式脚本，用于生成并预处理纯 S1->S3 组合数据集。
+#   v1.1 修复: 正确调用 prepare_composition.py，避免路径拼接错误。
 # =================================================================
 
 # 如果任何命令失败，则立即退出
 set -e
 
 # --- 配置 ---
-PURE_DATA_DIR="data/simple_graph/composition_90_pure"
+# (修复) 我们将基础名称和最终目录名分开定义
+BASE_NAME="composition_pure"
+NODE_COUNT=90
+FULL_EXP_NAME="${BASE_NAME}_${NODE_COUNT}" # 这将是 "composition_pure_90"
+
+PURE_DATA_DIR="data/simple_graph/${FULL_EXP_NAME}"
 PREPARE_SCRIPT="data/simple_graph/prepare_composition.py"
 
 echo "====================================================="
-echo "🚀 开始执行纯净数据集创建与预处理流程..."
+echo "🚀 开始执行纯净数据集创建与预处理流程 (v1.1)..."
 echo "====================================================="
 
 # --- 步骤 1: 生成纯 S1->S3 路径的 .txt 文件 ---
 echo -e "\n[1/2] 正在生成纯 S1->S3 .txt 文件..."
-python create_pure_s1s3_dataset.py --experiment_name "composition_90_pure"
+# (修复) 我们告诉创建脚本使用新的、正确的目录名
+python create_pure_s1s3_dataset.py --experiment_name "$FULL_EXP_NAME"
 
 # --- 步骤 2: 将 .txt 文件转换为 .bin 和 meta.pkl ---
 echo -e "\n[2/2] 正在将 .txt 转换为 .bin 格式..."
@@ -29,18 +36,18 @@ echo -e "\n[2/2] 正在将 .txt 转换为 .bin 格式..."
 mv "$PURE_DATA_DIR/train_pure.txt" "$PURE_DATA_DIR/train_10.txt"
 mv "$PURE_DATA_DIR/val_pure.txt" "$PURE_DATA_DIR/test.txt"
 
-# 调用您已有的预处理脚本，让它在我们新目录上工作
-# 我们需要告诉它正确的目录名
-BASE_DIR_ARG=$(basename "$PURE_DATA_DIR")
+# (核心修复)
+# 现在我们给 prepare_composition.py 传递它所期望的“基础名称”，
+# 让它自己去拼接 `_90`，这样它就能找到正确的目录了。
+echo "[*] 调用 prepare_composition.py, experiment_name='${BASE_NAME}', total_nodes='${NODE_COUNT}'"
 python "$PREPARE_SCRIPT" \
-    --experiment_name "$BASE_DIR_ARG" \
-    --total_nodes 90 \
-    --train_paths_per_pair 10 # 这个参数现在只用于构成文件名，无实际意义
+    --experiment_name "$BASE_NAME" \
+    --total_nodes "$NODE_COUNT" \
+    --train_paths_per_pair 10
 
-# 将生成的文件重命名为标准的 train.bin 和 val.bin
+# 将生成的文件重命名为标准的 train.bin
+# 注意：您的 prepare_composition.py 会在正确的目录直接生成 train_10.bin 和 val.bin
 mv "$PURE_DATA_DIR/train_10.bin" "$PURE_DATA_DIR/train.bin"
-# 注意：您的 prepare_composition.py 将验证集输出为 val.bin，所以这里不需要移动
-# mv "$PURE_DATA_DIR/test.bin" "$PURE_DATA_DIR/val.bin" # 如果您的脚本输出 test.bin 则需要这行
 
 # 清理临时的 .txt 文件
 rm "$PURE_DATA_DIR/train_10.txt"
