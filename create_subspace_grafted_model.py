@@ -2,12 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 create_subspace_grafted_model.py
-在 by_energy 子空间上做子空间岭回归，仅修改宿主模型的 lm_head：
-    W* = W0 + Δ,  Δ = S U^T,  S = RZ^T (ZZ^T + λI)^{-1}
-其中：
-    H0: 宿主 ln_f 后最后一步隐状态 (d, N)
-    Yt: 教师最终 logits (V, N)
-    U: 子空间基 (d, r) 列正交；Z = U^T H0；R = Yt − W0 H0
+(最终修正版 - 接受完整数据路径)
 """
 
 import os
@@ -16,13 +11,9 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-# 关键修正：直接从您的标准模型定义文件导入，确保结构一致
 from model import GPT, GPTConfig
 
 def load_model_from_path(model_path, device):
-    """
-    正确的模型加载函数，处理checkpoint格式。
-    """
     print(f"[*] Loading model: {model_path}")
     ckpt = torch.load(model_path, map_location=device)
     gptconf = GPTConfig(**ckpt['model_args'])
@@ -40,9 +31,6 @@ def load_model_from_path(model_path, device):
 
 @torch.no_grad()
 def get_batch(memmap, block_size, batch_size, device):
-    """
-    从内存映射文件中获取数据批次。
-    """
     max_i = len(memmap) - block_size - 1
     ix = torch.randint(0, max_i, (batch_size,))
     x = torch.stack([torch.from_numpy(memmap[i:i+block_size].astype(np.int64)) for i in ix])
@@ -50,9 +38,6 @@ def get_batch(memmap, block_size, batch_size, device):
     return x.to(device), y.to(device)
 
 class LNfHook:
-    """
-    关键修正：使用 forward hook 来无侵入地捕获 transformer.ln_f 的输出。
-    """
     def __init__(self, model):
         self.model = model
         self.buf = []
@@ -68,9 +53,6 @@ class LNfHook:
         self.buf.clear()
 
 def build_energy_subspace(W_donor, W_host, rank, device):
-    """
-    根据能量差异构建子空间。
-    """
     dW = (W_donor - W_host)
     energies = (dW.pow(2)).sum(dim=0)
     topk = torch.topk(energies, k=rank, largest=True).indices
@@ -82,11 +64,8 @@ def build_energy_subspace(W_donor, W_host, rank, device):
 
 @torch.no_grad()
 def last_hidden(model, x):
-    """
-    辅助函数，使用hook来获取最后一个隐状态。
-    """
     with LNfHook(model) as cap:
-        _ = model(x)  # 正常前向, logits被忽略
+        _ = model(x)
         assert cap.buf, "LN_f hook did not capture output"
         h = cap.buf[-1]
     return h[:, -1, :]
@@ -95,7 +74,8 @@ def main():
     ap = argparse.ArgumentParser(description="Subspace Ridge Grafting")
     ap.add_argument('--host_model_path', required=True)
     ap.add_argument('--donor_model_path', required=True)
-    ap.add_argument('--data_dir', default='data/simple_graph')
+    # --- 关键修正：从 --data_dir 改为 --data_path，接受完整文件路径 ---
+    ap.add_argument('--data_path', required=True, help="Full path to the .bin file for statistics collection (e.g., data/simple_graph/composition_90/train_10.bin)")
     ap.add_argument('--output_dir', default='hybrid_models')
     ap.add_argument('--rank', type=int, default=5)
     ap.add_argument('--lam', type=float, default=0.1)
@@ -121,10 +101,12 @@ def main():
         U = build_energy_subspace(Wt, W0, args.rank, device)
     print(f"[*] Subspace U created with shape: {U.shape}")
 
-    train_bin = os.path.join(args.data_dir, 'train.bin')
-    if not os.path.exists(train_bin):
-        raise FileNotFoundError(f"train.bin not found at {train_bin}")
-    mem = np.memmap(train_bin, dtype=np.uint16, mode='r')
+    # --- 关键修正：直接使用 --data_path ---
+    train_bin_path = args.data_path
+    if not os.path.exists(train_bin_path):
+        raise FileNotFoundError(f"Data file not found at the specified path: {train_bin_path}")
+    print(f"[*] Loading statistics data from: {train_bin_path}")
+    mem = np.memmap(train_bin_path, dtype=np.uint16, mode='r')
 
     V, d, r = host.config.vocab_size, host.config.n_embd, args.rank
     ZZt = torch.zeros(r, r, device=device, dtype=torch.float32)
@@ -160,8 +142,6 @@ def main():
     host.lm_head.weight.data.copy_(W_star)
 
     os.makedirs(args.output_dir, exist_ok=True)
-    
-    # 关键修正：保存时强制关闭权重绑定，避免下次加载时被覆盖
     host_args['tie_weights'] = False
     
     out_name = f"subspace_ridge_r{args.rank}_lam{lam}_seed{args.seed}.pt"

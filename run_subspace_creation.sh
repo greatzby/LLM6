@@ -1,12 +1,14 @@
 #!/bin/bash
 set -e
 
-# --- 请务必在此处核对您的模型路径！ ---
+# --- 配置区 ---
+# 请务必在此处核对您的模型路径！
 HOST_MODEL="out_d92/composition_mix0_seed42_20250801_054758/ckpt_mix0_seed42_iter50000.pt"
-DONOR_MODEL="out_d92/composition_mix20_seed42_20250801_064928/ckpt_mix20_seed42_iter50000.pt" # 假设这是您正确的donor模型路径
-# --- 路径核对结束 ---
+DONOR_MODEL="out_d92/composition_mix20_seed42_20250801_064928/ckpt_mix20_seed42_iter50000.pt"
 
-DATA_DIR="data/simple_graph"
+# --- 关键修正：在这里明确指定完整的数据文件路径 ---
+DATA_PATH="data/simple_graph/composition_90/train_10.bin"
+
 OUTPUT_DIR="hybrid_models"
 SEED=42
 
@@ -19,15 +21,23 @@ echo "======================================================="
 echo "🚀 开始通过子空间岭回归批量生成混合模型..."
 echo "======================================================="
 
+# 检查数据文件是否存在
+if [ ! -f "$DATA_PATH" ]; then
+    echo "错误: 数据文件未找到于 '$DATA_PATH'"
+    echo "请在脚本中设置正确的 DATA_PATH 变量。"
+    exit 1
+fi
+
 for r in "${RANKS[@]}"; do
   for l in "${LAMBDAS[@]}"; do
     echo ""
     echo "--- 正在生成模型: Rank(r)=$r, Lambda(λ)=$l ---"
     
+    # --- 关键修正：使用 --data_path 传递完整路径 ---
     python create_subspace_grafted_model.py \
       --host_model_path "$HOST_MODEL" \
       --donor_model_path "$DONOR_MODEL" \
-      --data_dir "$DATA_DIR" \
+      --data_path "$DATA_PATH" \
       --output_dir "$OUTPUT_DIR" \
       --rank "$r" \
       --lam "$l" \
