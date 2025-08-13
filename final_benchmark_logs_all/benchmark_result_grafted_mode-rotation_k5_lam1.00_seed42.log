@@ -1,0 +1,23 @@
+============================================================
+   🚀 Hybrid Model Compositionality Evaluation (v2.0 - Deterministic) 🚀
+============================================================
+[*] Loading model from: hybrid_models/grafted_mode-rotation_k5_lam1.00_seed42.pt
+[*] Using data from: data/simple_graph/composition_90
+[*] Evaluation Mode: DETERMINISTIC (Greedy Decoding, temperature=0.0)
+[*] Model loaded successfully: 0.12M parameters
+[*] Loading evaluation data...
+[*] Data loaded.
+
+[*] Starting evaluation...
+
+============================================================
+               📊 E V A L U A T I O N   R E S U L T S 📊              
+============================================================
+Model File: grafted_mode-rotation_k5_lam1.00_seed42.pt
+------------------------------------------------------------
+  - S1->S2 : 78.00% accuracy (39/50)
+  - S2->S3 : 90.00% accuracy (45/50)
+  - S1->S3 : 2.00% accuracy (1/50)
+------------------------------------------------------------
+  Overall Accuracy: 56.67%
+============================================================

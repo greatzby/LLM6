@@ -1,0 +1,23 @@
+============================================================
+   🚀 Hybrid Model Compositionality Evaluation (v2.0 - Deterministic) 🚀
+============================================================
+[*] Loading model from: hybrid_models/grafted_mode-projection_k3_lam0.50_seed42.pt
+[*] Using data from: data/simple_graph/composition_90
+[*] Evaluation Mode: DETERMINISTIC (Greedy Decoding, temperature=0.0)
+[*] Model loaded successfully: 0.12M parameters
+[*] Loading evaluation data...
+[*] Data loaded.
+
+[*] Starting evaluation...
+
+============================================================
+               📊 E V A L U A T I O N   R E S U L T S 📊              
+============================================================
+Model File: grafted_mode-projection_k3_lam0.50_seed42.pt
+------------------------------------------------------------
+  - S1->S2 : 100.00% accuracy (50/50)
+  - S2->S3 : 100.00% accuracy (50/50)
+  - S1->S3 : 70.00% accuracy (35/50)
+------------------------------------------------------------
+  Overall Accuracy: 90.00%
+============================================================

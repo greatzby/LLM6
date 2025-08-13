@@ -1,0 +1,23 @@
+============================================================
+   🚀 Hybrid Model Compositionality Evaluation (v2.0 - Deterministic) 🚀
+============================================================
+[*] Loading model from: hybrid_models_mapping_v2/map_v2_lowrank_r7_lam1.0_seed42_train_10.pt
+[*] Using data from: data/simple_graph/composition_90
+[*] Evaluation Mode: DETERMINISTIC (Greedy Decoding, temperature=0.0)
+[*] Model loaded successfully: 0.12M parameters
+[*] Loading evaluation data...
+[*] Data loaded.
+
+[*] Starting evaluation...
+
+============================================================
+               📊 E V A L U A T I O N   R E S U L T S 📊              
+============================================================
+Model File: map_v2_lowrank_r7_lam1.0_seed42_train_10.pt
+------------------------------------------------------------
+  - S1->S2 : 78.00% accuracy (39/50)
+  - S2->S3 : 54.00% accuracy (27/50)
+  - S1->S3 : 16.00% accuracy (8/50)
+------------------------------------------------------------
+  Overall Accuracy: 49.33%
+============================================================
