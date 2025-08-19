@@ -354,7 +354,9 @@ Effective Rank (90%):
         return save_path
     
     def save_results(self, results: Dict, layer_name: str):
-        """保存分析结果"""
+        """保存分析结果（修复JSON序列化问题）"""
+        import numpy as np
+        
         save_dir = "checkpoint_evolution"
         os.makedirs(save_dir, exist_ok=True)
         
@@ -363,14 +365,31 @@ Effective Rank (90%):
         results['per_dimension_analysis'].to_csv(csv_path, index=False)
         print(f"✅ CSV已保存: {csv_path}")
         
-        # 2. 保存JSON摘要
+        # 2. 保存JSON摘要（转换numpy类型）
+        def convert_to_native(obj):
+            """递归转换numpy类型为Python原生类型"""
+            if isinstance(obj, np.integer):
+                return int(obj)
+            elif isinstance(obj, np.floating):
+                return float(obj)
+            elif isinstance(obj, np.ndarray):
+                return obj.tolist()
+            elif isinstance(obj, dict):
+                return {key: convert_to_native(value) for key, value in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_to_native(item) for item in obj]
+            elif isinstance(obj, pd.Series):
+                return convert_to_native(obj.to_dict())
+            else:
+                return obj
+        
         json_results = {
             'layer_name': results['layer_name'],
             'shape': list(results['shape']),
-            'similarity_before': {k: float(v) for k, v in results['similarity_before'].items()},
-            'similarity_after': {k: float(v) for k, v in results['similarity_after'].items()},
-            'status_counts': results['status_counts'],
-            'effective_ranks': results['effective_ranks']
+            'similarity_before': convert_to_native(results['similarity_before']),
+            'similarity_after': convert_to_native(results['similarity_after']),
+            'status_counts': convert_to_native(results['status_counts']),
+            'effective_ranks': convert_to_native(results['effective_ranks'])
         }
         
         json_path = os.path.join(save_dir, f'mlp_{layer_name}_summary_{self.timestamp}.json')
