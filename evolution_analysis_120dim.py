@@ -558,7 +558,9 @@ CONCLUSION:
         return fig
     
     def save_results(self, results: Dict, save_dir: str = "checkpoint_evolution"):
-        """保存分析结果"""
+        """保存分析结果（修复JSON序列化问题）"""
+        import numpy as np
+        
         os.makedirs(save_dir, exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
@@ -567,13 +569,28 @@ CONCLUSION:
         results['per_dimension_analysis'].to_csv(csv_path, index=False)
         print(f"✅ CSV已保存: {csv_path}")
         
-        # 2. 保存JSON摘要
+        # 2. 保存JSON摘要（转换numpy类型为Python原生类型）
+        def convert_to_json_serializable(obj):
+            """递归转换numpy类型为Python原生类型"""
+            if isinstance(obj, np.integer):
+                return int(obj)
+            elif isinstance(obj, np.floating):
+                return float(obj)
+            elif isinstance(obj, np.ndarray):
+                return obj.tolist()
+            elif isinstance(obj, dict):
+                return {key: convert_to_json_serializable(value) for key, value in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_to_json_serializable(item) for item in obj]
+            else:
+                return obj
+        
         json_results = {
             'model_config': results['model_config'],
             'performance': results['performance'],
-            'alignment_quality': results['alignment_quality'],
-            'group_analysis': results['group_analysis'],
-            'effective_ranks': results['effective_ranks']
+            'alignment_quality': convert_to_json_serializable(results['alignment_quality']),
+            'group_analysis': convert_to_json_serializable(results['group_analysis']),
+            'effective_ranks': convert_to_json_serializable(results['effective_ranks'])
         }
         
         json_path = os.path.join(save_dir, f'summary_120dim_{timestamp}.json')
