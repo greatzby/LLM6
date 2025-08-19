@@ -1,0 +1,62 @@
+============================================================
+ALPINE MATRIX ANALYSIS REPORT
+============================================================
+
+Date: 20250820_023922
+Seed: 42
+Model dimension: 92
+Vocabulary size: 92
+
+SIMILARITY METRICS
+----------------------------------------
+
+ADJACENCY Matrix:
+  pearson_correlation: 0.7639
+  spearman_correlation: 0.8104
+  cosine_similarity: 0.8262
+  rmse: 4.2120
+  mean_abs_diff: 3.0090
+
+REACHABILITY Matrix:
+  pearson_correlation: 0.1463
+  spearman_correlation: 0.2882
+  cosine_similarity: 0.1461
+  rmse: 0.2912
+  mean_abs_diff: 0.1547
+
+============================================================
+COMPOSITIONAL ANALYSIS (S1→S3)
+----------------------------------------
+
+Summary:
+  num_paths_analyzed: 25
+
+adjacency:
+  mean_increase: 1.9635
+  std_increase: 3.7405
+  max_increase: 8.1169
+  min_increase: -4.5184
+  significant_increases: 15.0000
+
+reachability:
+  mean_increase: 0.2320
+  std_increase: 1.1108
+  max_increase: 3.1140
+  min_increase: -2.8514
+  significant_increases: 4.0000
+
+============================================================
+KEY DIFFERENCES
+----------------------------------------
+
+Path type statistics:
+
+S1→S1:
+  count: 4.0000
+  mean_change: 37.3026
+  max_change: 51.3591
+
+S3→S1:
+  count: 16.0000
+  mean_change: 26.0556
+  max_change: 27.0281
