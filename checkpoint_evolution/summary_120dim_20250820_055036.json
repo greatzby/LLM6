@@ -1,0 +1,59 @@
+{
+  "model_config": {
+    "dimension": 120,
+    "mix_ratio": 0,
+    "checkpoints": [
+      "20k",
+      "50k"
+    ]
+  },
+  "performance": {
+    "20k": 72,
+    "50k": 32,
+    "drop": -40
+  },
+  "alignment_quality": {
+    "frobenius_before": 10.386811256408691,
+    "frobenius_after": 7.2725725173950195,
+    "cosine_before": 0.943708598613739,
+    "cosine_after": 0.9830348491668701,
+    "pearson_before": 0.9437083150847956,
+    "pearson_after": 0.9830349125976052,
+    "rotation_det": 0.9999990463256836,
+    "rotation_cond": 1.0000025033950806
+  },
+  "group_analysis": {
+    "optimal_dims (1-92)": {
+      "count": 92,
+      "mean_change_%": 15.12133182620517,
+      "std_change_%": 8.22778963460952,
+      "total_energy_20k_%": 100.00000086114535,
+      "total_energy_50k_%": 99.99998732857509,
+      "collapsed_count": 0,
+      "exploded_count": 0,
+      "stable_count": 8
+    },
+    "excess_dims (93-120)": {
+      "count": 0,
+      "mean_change_%": 0,
+      "std_change_%": 0,
+      "total_energy_20k_%": 0,
+      "total_energy_50k_%": 0,
+      "collapsed_count": 0,
+      "exploded_count": 0,
+      "stable_count": 0
+    }
+  },
+  "effective_ranks": {
+    "90%": {
+      "20k": 37,
+      "50k": 32,
+      "change": -5
+    },
+    "99%": {
+      "20k": 69,
+      "50k": 65,
+      "change": -4
+    }
+  }
+}

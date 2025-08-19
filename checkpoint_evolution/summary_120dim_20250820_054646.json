@@ -1,0 +1,16 @@
+{
+  "model_config": {
+    "dimension": 120,
+    "mix_ratio": 0,
+    "checkpoints": [
+      "20k",
+      "50k"
+    ]
+  },
+  "performance": {
+    "20k": 72,
+    "50k": 32,
+    "drop": -40
+  },
+  "alignment_quality": {
+    "frobenius_before": 
