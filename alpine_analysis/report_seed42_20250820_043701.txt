@@ -1,0 +1,83 @@
+============================================================
+ALPINE MATRIX ANALYSIS REPORT
+============================================================
+
+Date: 20250820_043701
+Seed: 42
+Model dimension: 92
+Vocabulary size: 92
+
+SIMILARITY METRICS
+----------------------------------------
+
+ADJACENCY Matrix:
+  pearson_correlation: 0.7639
+  spearman_correlation: 0.8104
+  cosine_similarity: 0.8262
+  rmse: 4.2120
+  mean_abs_diff: 3.0090
+
+REACHABILITY Matrix:
+  pearson_correlation: 0.1463
+  spearman_correlation: 0.2882
+  cosine_similarity: 0.1461
+  rmse: 0.2912
+  mean_abs_diff: 0.1547
+
+============================================================
+COMPOSITIONAL ANALYSIS (S1→S3)
+----------------------------------------
+
+Summary:
+  num_paths_analyzed: 25
+
+adjacency:
+  mean_increase: 1.9635
+  std_increase: 3.7405
+  max_increase: 8.1169
+  min_increase: -4.5184
+  significant_increases: 15.0000
+
+reachability:
+  mean_increase: 0.2320
+  std_increase: 1.1108
+  max_increase: 3.1140
+  min_increase: -2.8514
+  significant_increases: 4.0000
+
+============================================================
+KEY DIFFERENCES
+----------------------------------------
+
+Path type statistics:
+
+S1→S1:
+  count: 4.0000
+  mean_change: 37.3026
+  max_change: 51.3591
+
+S3→S1:
+  count: 16.0000
+  mean_change: 26.0556
+  max_change: 27.0281
+
+============================================================
+ATTENTION PATTERN ANALYSIS
+----------------------------------------
+{ '0%_model': { 'position_0_attention': {'to_pos_0': 1.0},
+                'position_1_attention': { 'to_pos_0': 0.6968252658843994,
+                                          'to_pos_1': 0.3031746745109558},
+                'position_2_attention': { 'to_pos_0': 0.17694641649723053,
+                                          'to_pos_1': 0.3014344871044159,
+                                          'to_pos_2': 0.5216190814971924}},
+  '20%_model': { 'position_0_attention': {'to_pos_0': 1.0},
+                 'position_1_attention': { 'to_pos_0': 0.7165199518203735,
+                                           'to_pos_1': 0.28348013758659363},
+                 'position_2_attention': { 'to_pos_0': 0.1527615636587143,
+                                           'to_pos_1': 0.3138781487941742,
+                                           'to_pos_2': 0.5333604216575623}},
+  'changes': { 'attention_to_first_token_change': -0.0014967223396524787,
+               'max_decrease': -0.024184852838516235,
+               'max_increase': 0.01969468593597412,
+               'mean_change': 3.311369312086754e-08,
+               'self_attention_change': -0.0026510655879974365}}
