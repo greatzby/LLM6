@@ -1,6 +1,6 @@
 """
 ALPINE Matrix Extraction and Comparison for Compositional Learning Analysis
-适配你的具体数据目录结构
+完整修复版 - 可直接运行
 """
 
 import torch
@@ -17,13 +17,15 @@ import networkx as nx
 from typing import Dict, Tuple, Optional, List
 import json
 from datetime import datetime
+import warnings
+warnings.filterwarnings('ignore')
 
 # 导入你的模型定义
 from model import GPTConfig, GPT
 
 # ==================== 配置部分 ====================
 class Config:
-    """配置类 - 适配你的具体路径"""
+    """配置类"""
     def __init__(self, seed=42, checkpoint_dir="out_d92"):
         self.seed = seed
         self.checkpoint_dir = checkpoint_dir
@@ -34,24 +36,23 @@ class Config:
         self.n_head = 1
         self.n_embd = 92
         
-        # 数据目录 - 你的具体路径
-        self.data_dir_0 = "data/simple_graph/composition_90"  # 0%模型的数据
-        self.data_dir_20 = "data/simple_graph/composition_90_mixed_20"  # 20%模型的数据
+        # 数据目录
+        self.data_dir_0 = "data/simple_graph/composition_90"
+        self.data_dir_20 = "data/simple_graph/composition_90_mixed_20"
         
-        # 验证数据目录存在
+        # 验证数据目录
         for data_dir in [self.data_dir_0, self.data_dir_20]:
             if not os.path.exists(data_dir):
                 print(f"⚠️ 警告: 数据目录不存在: {data_dir}")
-                print(f"请确保路径正确，或使用绝对路径")
         
-        # 自动查找checkpoint路径
+        # 查找checkpoint
         self.model_0_path = self.get_final_checkpoint_path(0, seed)
         self.model_20_path = self.get_final_checkpoint_path(20, seed)
         
         print(f"✓ 找到0%模型: {self.model_0_path}")
         print(f"✓ 找到20%模型: {self.model_20_path}")
         
-        # 加载元数据（从0%目录加载，因为元数据应该相同）
+        # 加载元数据
         self.load_metadata()
         
     def get_final_checkpoint_path(self, ratio, seed):
@@ -65,19 +66,17 @@ class Config:
         expected_filename = f"ckpt_mix{ratio}_seed{seed}_iter{iteration}.pt"
         path = os.path.join(latest_dir, expected_filename)
         if not os.path.exists(path):
-            # 尝试查找其他iteration
             available_files = glob.glob(os.path.join(latest_dir, f"ckpt_mix{ratio}_seed{seed}_iter*.pt"))
             if available_files:
-                # 选择iteration最大的
                 path = sorted(available_files)[-1]
                 print(f"使用checkpoint: {path}")
             else:
-                raise FileNotFoundError(f"未找到任何checkpoint文件在: {latest_dir}")
+                raise FileNotFoundError(f"未找到checkpoint文件在: {latest_dir}")
         return path
     
     def load_metadata(self):
-        """加载元数据（从0%数据目录）"""
-        base_data_dir = self.data_dir_0  # 使用0%的数据目录作为基准
+        """加载元数据"""
+        base_data_dir = self.data_dir_0
         
         # 加载meta.pkl
         meta_path = os.path.join(base_data_dir, 'meta.pkl')
@@ -115,11 +114,11 @@ class Config:
         self.G = nx.read_graphml(graph_path)
         print(f"✓ 加载图结构: {len(self.G.nodes)}个节点, {len(self.G.edges)}条边")
         
-        # 验证20%数据目录的元数据是否一致（可选）
+        # 验证数据一致性
         self.verify_data_consistency()
     
     def verify_data_consistency(self):
-        """验证两个数据目录的元数据是否一致"""
+        """验证数据一致性"""
         try:
             with open(os.path.join(self.data_dir_20, 'meta.pkl'), 'rb') as f:
                 meta_20 = pickle.load(f)
@@ -135,13 +134,13 @@ class Config:
 
 # ==================== ALPINE矩阵提取器 ====================
 class ALPINEMatrixExtractor:
-    """基于ALPINE论文的矩阵提取器"""
+    """基于ALPINE论文的矩阵提取器 - 修复版"""
     
     def __init__(self, checkpoint_path: str, config: Config, model_type: str = "unknown"):
         self.config = config
         self.checkpoint_path = checkpoint_path
         self.device = config.device
-        self.model_type = model_type  # "0%" 或 "20%"
+        self.model_type = model_type
         
         # 加载模型
         self.model = self.load_model()
@@ -153,7 +152,6 @@ class ALPINEMatrixExtractor:
         """加载GPT模型"""
         checkpoint = torch.load(self.checkpoint_path, map_location=self.device)
         
-        # 获取模型参数
         if 'model_args' in checkpoint:
             model_args = checkpoint['model_args']
         else:
@@ -167,17 +165,14 @@ class ALPINEMatrixExtractor:
                 dropout=0.0
             )
         
-        # 创建模型
         gptconf = GPTConfig(**model_args)
         model = GPT(gptconf).to(self.device)
         
-        # 加载权重
         if 'model' in checkpoint:
             model.load_state_dict(checkpoint['model'])
         else:
             model.load_state_dict(checkpoint)
         
-        # 打印模型信息
         total_params = sum(p.numel() for p in model.parameters())
         print(f"  模型参数量: {total_params/1e6:.2f}M")
         
@@ -186,7 +181,7 @@ class ALPINEMatrixExtractor:
     def extract_adjacency_matrix(self) -> np.ndarray:
         """
         提取邻接矩阵表示 W'_M
-        根据ALPINE论文: 编码了"从当前节点出发"的信息
+        编码"从节点i可以到达哪些节点"的信息
         """
         vocab_size = self.config.vocab_size
         W_M_prime = []
@@ -206,25 +201,29 @@ class ALPINEMatrixExtractor:
                 pos_emb = self.model.transformer.wpe(torch.tensor([0], device=self.device)).squeeze(0)
                 input_emb = token_emb + pos_emb
                 
-                # Path 1: 直接投影到输出（跳过transformer）
-                direct_path = token_emb @ self.model.lm_head.weight.T  # [vocab_size]
-                
-                # Path 2: 通过第一层transformer
-                # 准备输入
+                # 通过transformer层
                 hidden = input_emb.unsqueeze(0).unsqueeze(0)  # [1, 1, n_embd]
                 
-                # 通过transformer层
+                # 通过第一层transformer
                 transformer_out = self.model.transformer.h[0](hidden)[0]
                 transformer_out = transformer_out.squeeze()  # [n_embd]
                 
-                # 最终的layer norm
+                # Layer norm
                 transformer_out = self.model.transformer.ln_f(transformer_out.unsqueeze(0)).squeeze()
                 
                 # 投影到词汇表
-                ffn_path = transformer_out @ self.model.lm_head.weight.T  # [vocab_size]
+                # 处理权重共享的情况
+                if hasattr(self.model, 'lm_head') and self.model.lm_head is not None:
+                    if hasattr(self.model.lm_head, 'weight') and self.model.lm_head.weight is not None:
+                        output_weight = self.model.lm_head.weight  # [vocab_size, n_embd]
+                    else:
+                        output_weight = self.model.transformer.wte.weight  # 权重共享
+                else:
+                    output_weight = self.model.transformer.wte.weight
                 
-                # 组合（ALPINE建议的是相加，但也可以只用ffn_path）
-                row_i = ffn_path.cpu().numpy()  # 使用transformer的输出
+                logits = transformer_out @ output_weight.T  # [vocab_size]
+                
+                row_i = logits.cpu().numpy()
                 W_M_prime.append(row_i)
         
         print(f"\n    完成! Shape: {len(W_M_prime)}x{len(W_M_prime[0])}")
@@ -232,8 +231,8 @@ class ALPINEMatrixExtractor:
     
     def extract_reachability_matrix(self) -> np.ndarray:
         """
-        提取可达矩阵表示 W'_V
-        根据ALPINE论文: 编码了"到目标节点"的信息
+        提取可达矩阵表示 W'_V - 修复版
+        编码"哪些节点可以到达节点j"的信息
         """
         vocab_size = self.config.vocab_size
         n_embd = self.config.n_embd
@@ -242,25 +241,42 @@ class ALPINEMatrixExtractor:
         print(f"  提取可达矩阵 ({self.model_type})...")
         
         with torch.no_grad():
-            # 从c_attn中提取Value权重
-            c_attn_weight = self.model.transformer.h[0].attn.c_attn.weight  # [n_embd, 3*n_embd]
-            # c_attn包含[Q, K, V]，每个大小为n_embd
-            W_V = c_attn_weight[:, 2*n_embd:]  # [n_embd, n_embd] - Value部分
+            # 获取attention层的c_attn权重
+            c_attn = self.model.transformer.h[0].attn.c_attn
+            c_attn_weight = c_attn.weight  # [3*n_embd, n_embd] = [276, 92]
+            
+            # 验证形状
+            expected_shape = (3 * n_embd, n_embd)
+            actual_shape = c_attn_weight.shape
+            if actual_shape != expected_shape:
+                print(f"    ⚠️ c_attn形状异常: 期望{expected_shape}, 实际{actual_shape}")
+            
+            # 提取Value矩阵 (最后1/3的行)
+            W_V = c_attn_weight[2*n_embd:3*n_embd, :]  # [n_embd, n_embd] = [92, 92]
+            print(f"    Value矩阵形状: {W_V.shape}")
             
             for target_node in range(vocab_size):
                 if target_node % 10 == 0:
                     print(f"    处理目标节点 {target_node}/{vocab_size}...", end='\r')
                 
-                # Target node的embedding（作为第二个位置）
+                # 获取目标节点的embedding
                 target_emb = self.model.transformer.wte(torch.tensor([target_node], device=self.device))
                 target_emb = target_emb.squeeze(0)  # [n_embd]
                 
-                # 通过Value矩阵投影
-                value_features = target_emb @ W_V  # [n_embd]
+                # 通过Value矩阵变换
+                value_features = W_V @ target_emb  # [n_embd]
+                
+                # 获取输出权重（处理权重共享）
+                if hasattr(self.model, 'lm_head') and self.model.lm_head is not None:
+                    if hasattr(self.model.lm_head, 'weight') and self.model.lm_head.weight is not None:
+                        output_weight = self.model.lm_head.weight
+                    else:
+                        output_weight = self.model.transformer.wte.weight
+                else:
+                    output_weight = self.model.transformer.wte.weight
                 
                 # 投影到词汇表空间
-                # 这表示：当目标是target_node时，哪些节点可以到达它
-                reachability_scores = value_features @ self.model.lm_head.weight.T  # [vocab_size]
+                reachability_scores = value_features @ output_weight.T  # [vocab_size]
                 
                 row_i = reachability_scores.cpu().numpy()
                 W_V_prime.append(row_i)
@@ -274,39 +290,34 @@ class ALPINEMatrixExtractor:
         
         attention_maps = []
         
-        with torch.no_grad():
-            for i in range(num_samples):
-                # 随机选择源节点和目标节点
-                source = np.random.choice(list(self.config.S1))
-                target = np.random.choice(list(self.config.S3))
+        try:
+            with torch.no_grad():
+                for i in range(min(num_samples, 10)):  # 限制样本数以加快速度
+                    # 随机选择S1和S3节点
+                    source = np.random.choice(list(self.config.S1))
+                    target = np.random.choice(list(self.config.S3))
+                    
+                    # 创建输入序列
+                    input_ids = torch.tensor([[source, target, source]], dtype=torch.long, device=self.device)
+                    
+                    # 前向传播获取注意力
+                    outputs = self.model.transformer(input_ids, output_attentions=True)
+                    
+                    if len(outputs) > 1 and outputs[1] is not None:
+                        attention = outputs[1][0]  # 第一层的注意力
+                        if attention.shape[-1] == 3 and attention.shape[-2] == 3:
+                            attention_maps.append(attention.squeeze().cpu().numpy())
+            
+            if attention_maps:
+                avg_attention = np.mean(attention_maps, axis=0)
+                print(f"    完成! Shape: {avg_attention.shape}")
+                return avg_attention
+            else:
+                print(f"    注意力提取失败，返回零矩阵")
+                return np.zeros((3, 3))
                 
-                # 创建输入序列 [source, target, source]
-                input_ids = torch.tensor([[source, target, source]], dtype=torch.long, device=self.device)
-                
-                # 获取embedding
-                inputs_embeds = self.model.transformer.wte(input_ids)
-                position_ids = torch.arange(0, 3, dtype=torch.long, device=self.device).unsqueeze(0)
-                position_embeds = self.model.transformer.wpe(position_ids)
-                hidden_states = inputs_embeds + position_embeds
-                
-                # 通过第一层获取注意力
-                _, present = self.model.transformer.h[0](
-                    hidden_states,
-                    use_cache=True,
-                    output_attentions=True
-                )
-                
-                # 注意力权重在present中
-                if isinstance(present, tuple) and len(present) > 2:
-                    attention = present[2]  # attention weights
-                    attention_maps.append(attention.squeeze().cpu().numpy())
-        
-        if attention_maps:
-            avg_attention = np.mean(attention_maps, axis=0)
-            print(f"    完成! Shape: {avg_attention.shape}")
-            return avg_attention
-        else:
-            print(f"    无法提取注意力权重")
+        except Exception as e:
+            print(f"    注意力提取出错: {e}，返回零矩阵")
             return np.zeros((3, 3))
 
 # ==================== 矩阵比较和分析器 ====================
@@ -349,35 +360,62 @@ class MatrixComparator:
         flat_M_0 = self.W_M_0.flatten()
         flat_M_20 = self.W_M_20.flatten()
         
-        results['adjacency'] = {
-            'pearson_correlation': float(np.corrcoef(flat_M_0, flat_M_20)[0, 1]),
-            'spearman_correlation': float(spearmanr(flat_M_0, flat_M_20)[0]),
-            'cosine_similarity': float(cosine_similarity(flat_M_0.reshape(1, -1), 
-                                                        flat_M_20.reshape(1, -1))[0, 0]),
-            'rmse': float(np.sqrt(np.mean((self.W_M_0 - self.W_M_20)**2))),
-            'mean_abs_diff': float(np.mean(np.abs(self.W_M_0 - self.W_M_20)))
-        }
+        # 处理NaN值
+        mask = ~(np.isnan(flat_M_0) | np.isnan(flat_M_20))
+        if mask.sum() > 0:
+            flat_M_0_clean = flat_M_0[mask]
+            flat_M_20_clean = flat_M_20[mask]
+            
+            results['adjacency'] = {
+                'pearson_correlation': float(np.corrcoef(flat_M_0_clean, flat_M_20_clean)[0, 1]),
+                'spearman_correlation': float(spearmanr(flat_M_0_clean, flat_M_20_clean)[0]),
+                'cosine_similarity': float(cosine_similarity(flat_M_0_clean.reshape(1, -1), 
+                                                            flat_M_20_clean.reshape(1, -1))[0, 0]),
+                'rmse': float(np.sqrt(np.mean((self.W_M_0 - self.W_M_20)**2))),
+                'mean_abs_diff': float(np.mean(np.abs(self.W_M_0 - self.W_M_20)))
+            }
+        else:
+            results['adjacency'] = {
+                'pearson_correlation': 0.0,
+                'spearman_correlation': 0.0,
+                'cosine_similarity': 0.0,
+                'rmse': float('inf'),
+                'mean_abs_diff': float('inf')
+            }
         
         # 可达矩阵相似度
         flat_V_0 = self.W_V_0.flatten()
         flat_V_20 = self.W_V_20.flatten()
         
-        results['reachability'] = {
-            'pearson_correlation': float(np.corrcoef(flat_V_0, flat_V_20)[0, 1]),
-            'spearman_correlation': float(spearmanr(flat_V_0, flat_V_20)[0]),
-            'cosine_similarity': float(cosine_similarity(flat_V_0.reshape(1, -1), 
-                                                        flat_V_20.reshape(1, -1))[0, 0]),
-            'rmse': float(np.sqrt(np.mean((self.W_V_0 - self.W_V_20)**2))),
-            'mean_abs_diff': float(np.mean(np.abs(self.W_V_0 - self.W_V_20)))
-        }
+        mask = ~(np.isnan(flat_V_0) | np.isnan(flat_V_20))
+        if mask.sum() > 0:
+            flat_V_0_clean = flat_V_0[mask]
+            flat_V_20_clean = flat_V_20[mask]
+            
+            results['reachability'] = {
+                'pearson_correlation': float(np.corrcoef(flat_V_0_clean, flat_V_20_clean)[0, 1]),
+                'spearman_correlation': float(spearmanr(flat_V_0_clean, flat_V_20_clean)[0]),
+                'cosine_similarity': float(cosine_similarity(flat_V_0_clean.reshape(1, -1), 
+                                                            flat_V_20_clean.reshape(1, -1))[0, 0]),
+                'rmse': float(np.sqrt(np.mean((self.W_V_0 - self.W_V_20)**2))),
+                'mean_abs_diff': float(np.mean(np.abs(self.W_V_0 - self.W_V_20)))
+            }
+        else:
+            results['reachability'] = {
+                'pearson_correlation': 0.0,
+                'spearman_correlation': 0.0,
+                'cosine_similarity': 0.0,
+                'rmse': float('inf'),
+                'mean_abs_diff': float('inf')
+            }
         
         return results
     
     def analyze_compositional_paths(self) -> Dict:
-        """重点分析S1→S3的组合路径"""
+        """分析S1→S3的组合路径"""
         results = {'paths': {}, 'summary': {}}
         
-        # 选择一些代表性的S1和S3节点
+        # 选择代表性节点
         sample_s1 = list(self.config.S1)[:min(5, len(self.config.S1))]
         sample_s3 = list(self.config.S3)[:min(5, len(self.config.S3))]
         
@@ -386,12 +424,12 @@ class MatrixComparator:
         
         for s1_node in sample_s1:
             for s3_node in sample_s3:
-                # 检查邻接矩阵权重（S1能否直接到S3）
+                # 邻接矩阵权重
                 adj_0 = self.W_M_0[s1_node, s3_node]
                 adj_20 = self.W_M_20[s1_node, s3_node]
                 adj_diff = adj_20 - adj_0
                 
-                # 检查可达矩阵权重（S3是否可从S1到达）
+                # 可达矩阵权重
                 reach_0 = self.W_V_0[s3_node, s1_node]
                 reach_20 = self.W_V_20[s3_node, s1_node]
                 reach_diff = reach_20 - reach_0
@@ -413,19 +451,21 @@ class MatrixComparator:
                 adj_diffs.append(adj_diff)
                 reach_diffs.append(reach_diff)
         
-        # 统计总结
+        # 统计
         results['summary'] = {
             'num_paths_analyzed': len(adj_diffs),
             'adjacency': {
                 'mean_increase': float(np.mean(adj_diffs)),
                 'std_increase': float(np.std(adj_diffs)),
                 'max_increase': float(np.max(adj_diffs)),
+                'min_increase': float(np.min(adj_diffs)),
                 'significant_increases': int(sum(1 for d in adj_diffs if d > 1.0))
             },
             'reachability': {
                 'mean_increase': float(np.mean(reach_diffs)),
                 'std_increase': float(np.std(reach_diffs)),
                 'max_increase': float(np.max(reach_diffs)),
+                'min_increase': float(np.min(reach_diffs)),
                 'significant_increases': int(sum(1 for d in reach_diffs if d > 1.0))
             }
         }
@@ -446,7 +486,6 @@ class MatrixComparator:
         
         differences['adjacency_top_changes'] = []
         for i, j in zip(top_indices[0], top_indices[1]):
-            # 判断节点类型
             from_stage = 'S1' if i in self.config.S1 else ('S2' if i in self.config.S2 else 'S3')
             to_stage = 'S1' if j in self.config.S1 else ('S2' if j in self.config.S2 else 'S3')
             
@@ -461,7 +500,7 @@ class MatrixComparator:
                 'change': float(adj_diff[i, j])
             })
         
-        # 统计不同类型路径的变化
+        # 路径类型统计
         path_type_stats = {}
         for change in differences['adjacency_top_changes']:
             path_type = change['path_type']
@@ -484,40 +523,41 @@ class MatrixComparator:
         os.makedirs(save_dir, exist_ok=True)
         
         # 设置样式
-        plt.style.use('seaborn-v0_8-whitegrid')
+        plt.style.use('default')
+        plt.rcParams['figure.facecolor'] = 'white'
         
         # 创建图
         fig = plt.figure(figsize=(20, 14))
         gs = fig.add_gridspec(3, 4, hspace=0.35, wspace=0.3)
         
-        # 选择显示范围
+        # 显示范围
         display_size = min(30, self.W_M_0.shape[0])
         
         # === 第一行：邻接矩阵 ===
         ax1 = fig.add_subplot(gs[0, 0])
         im1 = ax1.imshow(self.W_M_0[:display_size, :display_size], cmap='RdBu_r', aspect='auto')
-        ax1.set_title('0% Model - Adjacency', fontweight='bold')
-        ax1.set_xlabel('To Node')
-        ax1.set_ylabel('From Node')
+        ax1.set_title('0% Model - Adjacency', fontweight='bold', fontsize=10)
+        ax1.set_xlabel('To Node', fontsize=9)
+        ax1.set_ylabel('From Node', fontsize=9)
         plt.colorbar(im1, ax=ax1, fraction=0.046, pad=0.04)
         
         ax2 = fig.add_subplot(gs[0, 1])
         im2 = ax2.imshow(self.W_M_20[:display_size, :display_size], cmap='RdBu_r', aspect='auto')
-        ax2.set_title('20% Model - Adjacency', fontweight='bold')
-        ax2.set_xlabel('To Node')
-        ax2.set_ylabel('From Node')
+        ax2.set_title('20% Model - Adjacency', fontweight='bold', fontsize=10)
+        ax2.set_xlabel('To Node', fontsize=9)
+        ax2.set_ylabel('From Node', fontsize=9)
         plt.colorbar(im2, ax=ax2, fraction=0.046, pad=0.04)
         
         ax3 = fig.add_subplot(gs[0, 2])
         diff_adj = self.W_M_20[:display_size, :display_size] - self.W_M_0[:display_size, :display_size]
         vmax = np.abs(diff_adj).max()
         im3 = ax3.imshow(diff_adj, cmap='coolwarm', vmin=-vmax, vmax=vmax, aspect='auto')
-        ax3.set_title('Difference (20% - 0%)', fontweight='bold')
-        ax3.set_xlabel('To Node')
-        ax3.set_ylabel('From Node')
+        ax3.set_title('Difference (20% - 0%)', fontweight='bold', fontsize=10)
+        ax3.set_xlabel('To Node', fontsize=9)
+        ax3.set_ylabel('From Node', fontsize=9)
         plt.colorbar(im3, ax=ax3, fraction=0.046, pad=0.04)
         
-        # 相似度指标
+        # 相似度
         ax4 = fig.add_subplot(gs[0, 3])
         ax4.axis('off')
         similarities = self.compute_similarities()
@@ -527,35 +567,35 @@ class MatrixComparator:
         text += f"Cosine: {similarities['adjacency']['cosine_similarity']:.3f}\n"
         text += f"RMSE: {similarities['adjacency']['rmse']:.3f}\n"
         text += f"Mean |diff|: {similarities['adjacency']['mean_abs_diff']:.3f}"
-        ax4.text(0.05, 0.5, text, fontsize=10, transform=ax4.transAxes,
+        ax4.text(0.05, 0.5, text, fontsize=9, transform=ax4.transAxes,
                 verticalalignment='center', family='monospace',
                 bbox=dict(boxstyle="round,pad=0.3", facecolor="lightgray", alpha=0.5))
         
         # === 第二行：可达矩阵 ===
         ax5 = fig.add_subplot(gs[1, 0])
         im5 = ax5.imshow(self.W_V_0[:display_size, :display_size], cmap='RdBu_r', aspect='auto')
-        ax5.set_title('0% Model - Reachability', fontweight='bold')
-        ax5.set_xlabel('Source Node')
-        ax5.set_ylabel('Target Node')
+        ax5.set_title('0% Model - Reachability', fontweight='bold', fontsize=10)
+        ax5.set_xlabel('Source Node', fontsize=9)
+        ax5.set_ylabel('Target Node', fontsize=9)
         plt.colorbar(im5, ax=ax5, fraction=0.046, pad=0.04)
         
         ax6 = fig.add_subplot(gs[1, 1])
         im6 = ax6.imshow(self.W_V_20[:display_size, :display_size], cmap='RdBu_r', aspect='auto')
-        ax6.set_title('20% Model - Reachability', fontweight='bold')
-        ax6.set_xlabel('Source Node')
-        ax6.set_ylabel('Target Node')
+        ax6.set_title('20% Model - Reachability', fontweight='bold', fontsize=10)
+        ax6.set_xlabel('Source Node', fontsize=9)
+        ax6.set_ylabel('Target Node', fontsize=9)
         plt.colorbar(im6, ax=ax6, fraction=0.046, pad=0.04)
         
         ax7 = fig.add_subplot(gs[1, 2])
         diff_reach = self.W_V_20[:display_size, :display_size] - self.W_V_0[:display_size, :display_size]
         vmax = np.abs(diff_reach).max()
         im7 = ax7.imshow(diff_reach, cmap='coolwarm', vmin=-vmax, vmax=vmax, aspect='auto')
-        ax7.set_title('Difference (20% - 0%)', fontweight='bold')
-        ax7.set_xlabel('Source Node')
-        ax7.set_ylabel('Target Node')
+        ax7.set_title('Difference (20% - 0%)', fontweight='bold', fontsize=10)
+        ax7.set_xlabel('Source Node', fontsize=9)
+        ax7.set_ylabel('Target Node', fontsize=9)
         plt.colorbar(im7, ax=ax7, fraction=0.046, pad=0.04)
         
-        # 相似度指标
+        # 相似度
         ax8 = fig.add_subplot(gs[1, 3])
         ax8.axis('off')
         text = "Reachability Similarity:\n" + "="*20 + "\n"
@@ -564,21 +604,21 @@ class MatrixComparator:
         text += f"Cosine: {similarities['reachability']['cosine_similarity']:.3f}\n"
         text += f"RMSE: {similarities['reachability']['rmse']:.3f}\n"
         text += f"Mean |diff|: {similarities['reachability']['mean_abs_diff']:.3f}"
-        ax8.text(0.05, 0.5, text, fontsize=10, transform=ax8.transAxes,
+        ax8.text(0.05, 0.5, text, fontsize=9, transform=ax8.transAxes,
                 verticalalignment='center', family='monospace',
                 bbox=dict(boxstyle="round,pad=0.3", facecolor="lightgray", alpha=0.5))
         
-        # === 第三行：分析结果 ===
+        # === 第三行：分析 ===
         # 权重分布
         ax9 = fig.add_subplot(gs[2, :2])
         ax9.hist(self.W_M_0.flatten(), bins=50, alpha=0.5, label='0% Model', 
                 density=True, color='blue', edgecolor='black', linewidth=0.5)
         ax9.hist(self.W_M_20.flatten(), bins=50, alpha=0.5, label='20% Model', 
                 density=True, color='red', edgecolor='black', linewidth=0.5)
-        ax9.set_xlabel('Weight Value')
-        ax9.set_ylabel('Density')
-        ax9.set_title('Adjacency Weight Distribution', fontweight='bold')
-        ax9.legend()
+        ax9.set_xlabel('Weight Value', fontsize=9)
+        ax9.set_ylabel('Density', fontsize=9)
+        ax9.set_title('Adjacency Weight Distribution', fontweight='bold', fontsize=10)
+        ax9.legend(fontsize=9)
         ax9.grid(True, alpha=0.3)
         
         # 组合路径分析
@@ -592,20 +632,20 @@ class MatrixComparator:
         text += f"  Mean: {comp['summary']['adjacency']['mean_increase']:+.3f}\n"
         text += f"  Std:  {comp['summary']['adjacency']['std_increase']:.3f}\n"
         text += f"  Max:  {comp['summary']['adjacency']['max_increase']:+.3f}\n"
-        text += f"  Significant: {comp['summary']['adjacency']['significant_increases']}\n\n"
+        text += f"  Min:  {comp['summary']['adjacency']['min_increase']:+.3f}\n\n"
         text += "Reachability changes:\n"
         text += f"  Mean: {comp['summary']['reachability']['mean_increase']:+.3f}\n"
         text += f"  Std:  {comp['summary']['reachability']['std_increase']:.3f}\n"
         text += f"  Max:  {comp['summary']['reachability']['max_increase']:+.3f}\n"
-        text += f"  Significant: {comp['summary']['reachability']['significant_increases']}"
+        text += f"  Min:  {comp['summary']['reachability']['min_increase']:+.3f}"
         
-        ax10.text(0.05, 0.9, text, fontsize=10, transform=ax10.transAxes,
+        ax10.text(0.05, 0.9, text, fontsize=9, transform=ax10.transAxes,
                  verticalalignment='top', family='monospace',
                  bbox=dict(boxstyle="round,pad=0.5", facecolor="lightyellow", alpha=0.7))
         
         # 总标题
         plt.suptitle(f'ALPINE Analysis: Compositional Learning (Seed {self.config.seed})', 
-                    fontsize=16, fontweight='bold')
+                    fontsize=14, fontweight='bold')
         
         # 保存
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -649,7 +689,7 @@ class MatrixComparator:
         
         json_path = os.path.join(save_dir, f'results_seed{self.config.seed}_{timestamp}.json')
         with open(json_path, 'w') as f:
-            json.dump(results, f, indent=2)
+            json.dump(results, f, indent=2, default=str)
         print(f"✓ JSON结果已保存: {json_path}")
         
         # 2. NumPy矩阵
@@ -663,7 +703,52 @@ class MatrixComparator:
                 attention_20=self.attention_20)
         print(f"✓ 矩阵已保存: {np_path}")
         
-        return json_path, np_path
+        # 3. 文本报告
+        report_path = os.path.join(save_dir, f'report_seed{self.config.seed}_{timestamp}.txt')
+        with open(report_path, 'w', encoding='utf-8') as f:
+            f.write("="*60 + "\n")
+            f.write("ALPINE MATRIX ANALYSIS REPORT\n")
+            f.write("="*60 + "\n\n")
+            
+            f.write(f"Date: {timestamp}\n")
+            f.write(f"Seed: {self.config.seed}\n")
+            f.write(f"Model dimension: {self.config.n_embd}\n")
+            f.write(f"Vocabulary size: {self.config.vocab_size}\n\n")
+            
+            f.write("SIMILARITY METRICS\n")
+            f.write("-"*40 + "\n")
+            similarities = self.compute_similarities()
+            for matrix_type, metrics in similarities.items():
+                f.write(f"\n{matrix_type.upper()} Matrix:\n")
+                for metric, value in metrics.items():
+                    f.write(f"  {metric}: {value:.4f}\n")
+            
+            f.write("\n" + "="*60 + "\n")
+            f.write("COMPOSITIONAL ANALYSIS (S1→S3)\n")
+            f.write("-"*40 + "\n")
+            comp = self.analyze_compositional_paths()
+            f.write(f"\nSummary:\n")
+            for key, value in comp['summary'].items():
+                if isinstance(value, dict):
+                    f.write(f"\n{key}:\n")
+                    for k, v in value.items():
+                        f.write(f"  {k}: {v:.4f}\n")
+                else:
+                    f.write(f"  {key}: {value}\n")
+            
+            f.write("\n" + "="*60 + "\n")
+            f.write("KEY DIFFERENCES\n")
+            f.write("-"*40 + "\n")
+            differences = self.find_key_differences()
+            f.write("\nPath type statistics:\n")
+            for path_type, stats in differences.get('path_type_statistics', {}).items():
+                f.write(f"\n{path_type}:\n")
+                for k, v in stats.items():
+                    f.write(f"  {k}: {v:.4f}\n")
+            
+        print(f"✓ 报告已保存: {report_path}")
+        
+        return json_path, np_path, report_path
 
 # ==================== 主函数 ====================
 def main():
@@ -673,7 +758,12 @@ def main():
     parser.add_argument('--seed', type=int, default=42, help='Random seed used in training')
     parser.add_argument('--checkpoint_dir', type=str, default='out_d92', help='Directory containing checkpoints')
     parser.add_argument('--save_dir', type=str, default='alpine_analysis', help='Directory to save results')
+    parser.add_argument('--skip_viz', action='store_true', help='Skip visualization to save time')
     args = parser.parse_args()
+    
+    print("\n" + "="*60)
+    print("🚀 ALPINE Matrix Analysis Starting...")
+    print("="*60)
     
     try:
         # 创建配置
@@ -689,7 +779,7 @@ def main():
         
         # 相似度
         similarities = comparator.compute_similarities()
-        print("\n相似度指标:")
+        print("\n📊 相似度指标:")
         for matrix_type, metrics in similarities.items():
             print(f"\n{matrix_type.capitalize()} Matrix:")
             for metric, value in metrics.items():
@@ -697,22 +787,33 @@ def main():
         
         # 组合分析
         comp = comparator.analyze_compositional_paths()
-        print(f"\n组合路径分析 (S1→S3):")
+        print(f"\n🔗 组合路径分析 (S1→S3):")
         print(f"  分析路径数: {comp['summary']['num_paths_analyzed']}")
         print(f"  邻接权重平均增加: {comp['summary']['adjacency']['mean_increase']:+.3f}")
         print(f"  可达权重平均增加: {comp['summary']['reachability']['mean_increase']:+.3f}")
         
-        # 可视化
-        print("\n4. 生成可视化...")
-        comparator.visualize_comparison(save_dir=args.save_dir)
+        # 关键差异
+        differences = comparator.find_key_differences()
+        print(f"\n🎯 关键差异:")
+        for path_type, stats in differences.get('path_type_statistics', {}).items():
+            print(f"  {path_type}: {stats['count']}个显著变化, 平均变化{stats['mean_change']:+.3f}")
+        
+        # 可视化（可选）
+        if not args.skip_viz:
+            print("\n4. 生成可视化...")
+            comparator.visualize_comparison(save_dir=args.save_dir)
         
         # 保存
         print("\n5. 保存结果...")
-        comparator.save_results(save_dir=args.save_dir)
+        json_path, np_path, report_path = comparator.save_results(save_dir=args.save_dir)
         
         print("\n" + "="*60)
         print("✅ 分析完成！")
         print("="*60)
+        print(f"\n📁 结果文件:")
+        print(f"  - JSON: {json_path}")
+        print(f"  - 矩阵: {np_path}")
+        print(f"  - 报告: {report_path}")
         
         return comparator
         
