@@ -1,0 +1,23 @@
+{
+  "layer_name": "c_fc",
+  "shape": [
+    480,
+    120
+  ],
+  "similarity_before": {
+    "cosine": 0.6638330221176147,
+    "pearson": 0.6638713860772546,
+    "frobenius_diff": 13.363982200622559
+  },
+  "similarity_after": {
+    "cosine": 0.9185073375701904,
+    "pearson": 0.9186067745769392,
+    "frobenius_diff": 7.188259601593018
+  },
+  "status_counts": {
+    "changed": 119,
+    "stable": 1
+  },
+  "effective_ranks": {
+    "90%": {
+      "20k": 

@@ -1,0 +1,31 @@
+{
+  "layer_name": "c_proj",
+  "shape": [
+    120,
+    480
+  ],
+  "similarity_before": {
+    "cosine": 0.6150025725364685,
+    "pearson": 0.6150039473252961,
+    "frobenius_diff": 17.990835189819336
+  },
+  "similarity_after": {
+    "cosine": 0.6561570763587952,
+    "pearson": 0.6561562694838962,
+    "frobenius_diff": 17.343353271484375
+  },
+  "status_counts": {
+    "changed": 70,
+    "exploded": 50
+  },
+  "effective_ranks": {
+    "90%": {
+      "20k": 39,
+      "50k": 40
+    },
+    "99%": {
+      "20k": 78,
+      "50k": 68
+    }
+  }
+}
