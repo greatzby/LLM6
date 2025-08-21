@@ -1,0 +1,104 @@
+============================================================
+ALPINE MATRIX ANALYSIS REPORT
+============================================================
+
+Date: 20250822_055325
+Seed: 42
+Model dimension: 92
+Vocabulary size: 92
+
+Token Mapping:
+  Special tokens: 0-1 ([PAD], \n)
+  S1 tokens: 2-31 (graph nodes 0-29)
+  S2 tokens: 32-61 (graph nodes 30-59)
+  S3 tokens: 62-91 (graph nodes 60-89)
+
+SIMILARITY METRICS
+----------------------------------------
+
+ADJACENCY Matrix:
+  pearson_correlation: 0.6921
+  spearman_correlation: 0.5983
+  cosine_similarity: 0.6988
+  rmse: 4.3854
+  mean_abs_diff: 3.2023
+
+REACHABILITY Matrix:
+  pearson_correlation: 0.0421
+  spearman_correlation: 0.1870
+  cosine_similarity: 0.0332
+  rmse: 6.2857
+  mean_abs_diff: 3.9901
+
+============================================================
+COMPOSITIONAL ANALYSIS (S1→S3)
+----------------------------------------
+
+Summary:
+  num_paths_analyzed: 25
+
+adjacency:
+  mean_increase: 3.6650
+  std_increase: 3.5125
+  max_increase: 12.1444
+  min_increase: -1.8409
+  significant_increases: 19.0000
+
+reachability:
+  mean_increase: 1.7691
+  std_increase: 6.1589
+  max_increase: 17.7527
+  min_increase: -10.7975
+  significant_increases: 14.0000
+
+============================================================
+KEY DIFFERENCES
+----------------------------------------
+
+Path type statistics:
+
+S1→Special:
+  count: 4.0000
+  mean_change: 11.3275
+  max_change: 30.5470
+
+S2→Special:
+  count: 6.0000
+  mean_change: -25.0728
+  max_change: 30.3298
+
+Special→Special:
+  count: 2.0000
+  mean_change: 25.4098
+  max_change: 28.2776
+
+S1→S1:
+  count: 5.0000
+  mean_change: 23.6951
+  max_change: 24.8474
+
+S3→Special:
+  count: 3.0000
+  mean_change: 22.5889
+  max_change: 23.6956
+
+============================================================
+ATTENTION PATTERN ANALYSIS
+----------------------------------------
+{ '0%_model': { 'position_0_attention': {'to_pos_0': 1.0},
+                'position_1_attention': { 'to_pos_0': 0.7383840680122375,
+                                          'to_pos_1': 0.26161593198776245},
+                'position_2_attention': { 'to_pos_0': 0.15290896594524384,
+                                          'to_pos_1': 0.3175435960292816,
+                                          'to_pos_2': 0.5295473337173462}},
+  '20%_model': { 'position_0_attention': {'to_pos_0': 1.0},
+                 'position_1_attention': { 'to_pos_0': 0.7824356555938721,
+                                           'to_pos_1': 0.21756425499916077},
+                 'position_2_attention': { 'to_pos_0': 0.08994647860527039,
+                                           'to_pos_1': 0.30909284949302673,
+                                           'to_pos_2': 0.6009606719017029}},
+  'changes': { 'attention_to_first_token_change': -0.006303633097559214,
+               'max_decrease': -0.06296248733997345,
+               'max_increase': 0.07141333818435669,
+               'mean_change': 1.6556845894299954e-09,
+               'self_attention_change': 0.009120553731918335}}
