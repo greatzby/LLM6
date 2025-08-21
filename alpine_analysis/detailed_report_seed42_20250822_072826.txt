@@ -1,0 +1,207 @@
+================================================================================
+DETAILED ALPINE ANALYSIS REPORT
+================================================================================
+
+============================================================
+1. SELF-LOOP ANALYSIS (对角线元素)
+============================================================
+
+Special Stage Self-Loops:
+  Nodes analyzed: 2
+  Mean change: +20.712
+  Std change: 1.830
+  Max change: +22.542
+  Min change: +18.881
+  Significant increases (>1.0): 2
+  Significant decreases (<-1.0): 0
+
+S1 Stage Self-Loops:
+  Nodes analyzed: 30
+  Mean change: +12.286
+  Std change: 7.873
+  Max change: +24.847
+  Min change: +0.258
+  Significant increases (>1.0): 27
+  Significant decreases (<-1.0): 0
+
+S2 Stage Self-Loops:
+  Nodes analyzed: 30
+  Mean change: +0.021
+  Std change: 2.275
+  Max change: +3.957
+  Min change: -6.278
+  Significant increases (>1.0): 13
+  Significant decreases (<-1.0): 8
+
+S3 Stage Self-Loops:
+  Nodes analyzed: 30
+  Mean change: +6.142
+  Std change: 4.203
+  Max change: +12.368
+  Min change: -8.076
+  Significant increases (>1.0): 28
+  Significant decreases (<-1.0): 1
+
+Top 10 Self-Loop Increases:
+  S1 Node12: +24.847 (4.77 → 29.62)
+  S1 Node8: +24.537 (5.24 → 29.78)
+  S1 Node5: +23.741 (5.12 → 28.86)
+  S1 Node10: +23.642 (4.61 → 28.26)
+  Special Node0: +22.542 (50.75 → 73.29)
+  S1 Node6: +21.708 (6.92 → 28.63)
+  S1 Node7: +20.792 (8.66 → 29.45)
+  S1 Node0: +20.499 (7.27 → 27.77)
+  S1 Node3: +20.218 (7.09 → 27.31)
+  Special Node1: +18.881 (142.67 → 161.55)
+
+============================================================
+2. COMPLETE S1→S3 CONNECTION ANALYSIS
+============================================================
+
+Total S1→S3 connections: 900
+
+Adjacency Matrix Changes:
+  Mean change: +2.441
+  Std change: 3.020
+  Median change: +2.109
+  Max increase: +12.809
+  Min increase: -6.170
+  Positive changes: 715/900
+  Negative changes: 185/900
+  Significant increases (>1.0): 587
+
+Top 10 S1→S3 Adjacency Increases:
+  Node24→Node63: +12.809 (-6.96 → 5.85)
+  Node4→Node63: +12.144 (-8.10 → 4.05)
+  Node17→Node67: +11.132 (-3.36 → 7.77)
+  Node21→Node63: +10.755 (-1.02 → 9.73)
+  Node11→Node61: +10.280 (-3.42 → 6.86)
+  Node3→Node84: +9.919 (-3.90 → 6.02)
+  Node24→Node84: +9.761 (-5.66 → 4.10)
+  Node8→Node70: +9.731 (-3.55 → 6.18)
+  Node4→Node67: +9.524 (-3.03 → 6.49)
+  Node18→Node63: +9.508 (-2.91 → 6.60)
+
+============================================================
+3. ALL STAGE TRANSITIONS ANALYSIS
+============================================================
+
+Top Stage Transitions by Mean Change:
+
+Special→Special:
+  Connections: 4
+  Mean change: +21.262
+  Std change: 4.783
+  Max change: +28.278
+  Significant increases: 4
+
+S2→Special:
+  Connections: 60
+  Mean change: -11.343
+  Std change: 7.474
+  Max change: +4.746
+  Significant increases: 2
+
+S1→S1:
+  Connections: 900
+  Mean change: +5.766
+  Std change: 4.104
+  Max change: +24.847
+  Significant increases: 800
+
+S3→Special:
+  Connections: 60
+  Mean change: +5.633
+  Std change: 8.844
+  Max change: +23.696
+  Significant increases: 42
+
+Special→S1:
+  Connections: 60
+  Mean change: +4.677
+  Std change: 3.635
+  Max change: +14.101
+  Significant increases: 51
+
+S1→Special:
+  Connections: 60
+  Mean change: +4.601
+  Std change: 10.777
+  Max change: +30.060
+  Significant increases: 41
+
+S2→S1:
+  Connections: 900
+  Mean change: -3.298
+  Std change: 3.162
+  Max change: +6.542
+  Significant increases: 81
+
+S1→S3:
+  Connections: 900
+  Mean change: +2.441
+  Std change: 3.020
+  Max change: +12.809
+  Significant increases: 587
+
+S3→S1:
+  Connections: 900
+  Mean change: +1.881
+  Std change: 4.180
+  Max change: +16.311
+  Significant increases: 511
+
+S2→S3:
+  Connections: 900
+  Mean change: -1.462
+  Std change: 2.900
+  Max change: +6.819
+  Significant increases: 179
+
+============================================================
+4. EXTENDED KEY DIFFERENCES (Top 100)
+============================================================
+
+Total changes analyzed: 100
+Self-loops in top 100: 15
+Non-self-loops in top 100: 85
+
+Path Type Distribution in Top 100:
+
+S1→Special:
+  Total: 16
+  Non-self-loops: 16 (mean: +11.534)
+
+S2→Special:
+  Total: 23
+  Non-self-loops: 23 (mean: -19.107)
+
+Special→Special:
+  Total: 4
+  Self-loops: 2 (mean: +20.712)
+  Non-self-loops: 2 (mean: +21.813)
+
+S1→S1:
+  Total: 27
+  Self-loops: 13 (mean: +20.301)
+  Non-self-loops: 14 (mean: +13.871)
+
+S3→Special:
+  Total: 15
+  Non-self-loops: 15 (mean: +13.555)
+
+S3→S1:
+  Total: 11
+  Non-self-loops: 11 (mean: +14.332)
+
+S2→S3:
+  Total: 1
+  Non-self-loops: 1 (mean: -14.280)
+
+Special→S1:
+  Total: 2
+  Non-self-loops: 2 (mean: +13.558)
+
+S1→S3:
+  Total: 1
+  Non-self-loops: 1 (mean: +12.809)
