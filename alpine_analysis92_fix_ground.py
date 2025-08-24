@@ -1,6 +1,6 @@
 """
 ALPINE Matrix Extraction and Comparison for Compositional Learning Analysis
-完整版 - 包含Ground Truth验证、自循环分析和全面的连接分析
+完整版 - 基于原始稳定方法，包含Ground Truth验证
 """
 import torch
 import torch.nn as nn
@@ -184,25 +184,10 @@ class Config:
         print(f"   ✓ 真实图统计: S1→S2边={np.sum(a_true_90[:30, 30:60]):.0f}, "
               f"S2→S3边={np.sum(a_true_90[30:60, 60:90]):.0f}, "
               f"总边数={np.sum(a_true_90):.0f}")
-        
-    def verify_data_consistency(self):
-        """验证数据一致性"""
-        try:
-            with open(os.path.join(self.data_dir_20, 'meta.pkl'), 'rb') as f:
-                meta_20 = pickle.load(f)
-            
-            if meta_20['vocab_size'] != self.vocab_size:
-                print(f"⚠️ 警告: 20%数据的vocab_size不一致!")
-            if meta_20['block_size'] != self.block_size:
-                print(f"⚠️ 警告: 20%数据的block_size不一致!")
-                
-            print(f"✓ 数据一致性检查通过")
-        except Exception as e:
-            print(f"⚠️ 无法验证20%数据目录: {e}")
 
-# ==================== ALPINE矩阵提取器 ====================
+# ==================== ALPINE矩阵提取器（原始稳定版） ====================
 class ALPINEMatrixExtractor:
-    """基于ALPINE论文的矩阵提取器"""
+    """基于ALPINE论文的矩阵提取器 - 使用原始稳定方法"""
     
     def __init__(self, checkpoint_path: str, config: Config, model_type: str = "unknown"):
         self.config = config
@@ -247,98 +232,107 @@ class ALPINEMatrixExtractor:
         return model
     
     def extract_adjacency_matrix(self) -> np.ndarray:
-        """提取邻接矩阵表示 W'_M (修复版本处理bias=None)"""
+        """提取邻接矩阵表示 W'_M - 原始稳定版本"""
         vocab_size = self.config.vocab_size
+        W_M_prime = []
         
         print(f"  提取邻接矩阵 ({self.model_type})...")
         
         with torch.no_grad():
-            # 提取所需权重
-            wte = self.model.transformer.wte.weight  # (vocab_size, n_embd)
-            ffn_w1 = self.model.transformer.h[0].mlp.c_fc.weight
-            ffn_b1 = self.model.transformer.h[0].mlp.c_fc.bias
-            ffn_w2 = self.model.transformer.h[0].mlp.c_proj.weight
-            ffn_b2 = self.model.transformer.h[0].mlp.c_proj.bias
-            ln_f_w = self.model.transformer.ln_f.weight
-            ln_f_b = self.model.transformer.ln_f.bias
-            lm_head_w = self.model.lm_head.weight if hasattr(self.model, 'lm_head') else wte
-
-            # 批量计算FFN(e_i) - 处理bias可能为None的情况
-            if ffn_b1 is not None:
-                ffn_hidden = nn.functional.gelu(wte @ ffn_w1.T + ffn_b1)
-            else:
-                ffn_hidden = nn.functional.gelu(wte @ ffn_w1.T)
-            
-            if ffn_b2 is not None:
-                ffn_out = ffn_hidden @ ffn_w2.T + ffn_b2
-            else:
-                ffn_out = ffn_hidden @ ffn_w2.T
-            
-            # 组合：FFN(e_i) + e_i
-            combined = ffn_out + wte
-
-            # LayerNorm
-            mean = combined.mean(dim=1, keepdim=True)
-            std = combined.std(dim=1, keepdim=True, unbiased=False)
-            ln_out = ln_f_w * (combined - mean) / (std + 1e-5) + ln_f_b
-            
-            # 投影到词汇表
-            W_M_prime = (ln_out @ lm_head_w.T).cpu().numpy()
-
-        print(f"    完成! Shape: {W_M_prime.shape}")
-        return W_M_prime
+            for node_i in range(vocab_size):
+                if node_i % 10 == 0:
+                    print(f"    处理节点 {node_i}/{vocab_size}...", end='\r')
+                
+                # 获取token embedding
+                token_emb = self.model.transformer.wte(torch.tensor([node_i], device=self.device))
+                token_emb = token_emb.squeeze(0)
+                
+                # 只通过FFN
+                token_emb_expanded = token_emb.unsqueeze(0).unsqueeze(0)
+                ffn_out = self.model.transformer.h[0].mlp(token_emb_expanded)
+                ffn_out = ffn_out.squeeze()
+                
+                # 组合：FFN(emb) + emb
+                combined = ffn_out + token_emb
+                
+                # Layer norm
+                combined = self.model.transformer.ln_f(combined.unsqueeze(0)).squeeze()
+                
+                # 投影到词汇表
+                if hasattr(self.model, 'lm_head') and self.model.lm_head is not None:
+                    if hasattr(self.model.lm_head, 'weight') and self.model.lm_head.weight is not None:
+                        output_weight = self.model.lm_head.weight
+                    else:
+                        output_weight = self.model.transformer.wte.weight
+                else:
+                    output_weight = self.model.transformer.wte.weight
+                
+                logits = combined @ output_weight.T
+                
+                row_i = logits.cpu().numpy()
+                W_M_prime.append(row_i)
+        
+        print(f"\n    完成! Shape: {len(W_M_prime)}x{len(W_M_prime[0])}")
+        return np.array(W_M_prime)
     
     def extract_reachability_matrix(self) -> np.ndarray:
-        """提取可达矩阵表示 W'_V (修复版本处理bias=None)"""
+        """提取可达矩阵表示 W'_V - 原始稳定版本"""
         vocab_size = self.config.vocab_size
         n_embd = self.config.n_embd
+        W_V_prime = []
         
         print(f"  提取可达矩阵 ({self.model_type})...")
         
         with torch.no_grad():
-            wte = self.model.transformer.wte.weight
-            c_attn_weight = self.model.transformer.h[0].attn.c_attn.weight
-            W_V = c_attn_weight[:, 2*n_embd:3*n_embd]  # Value矩阵
+            # 获取attention层的c_attn权重
+            c_attn = self.model.transformer.h[0].attn.c_attn
+            c_attn_weight = c_attn.weight
             
-            ffn_w1 = self.model.transformer.h[0].mlp.c_fc.weight
-            ffn_b1 = self.model.transformer.h[0].mlp.c_fc.bias
-            ffn_w2 = self.model.transformer.h[0].mlp.c_proj.weight
-            ffn_b2 = self.model.transformer.h[0].mlp.c_proj.bias
+            # 提取Value矩阵 - 修正索引
+            W_V = c_attn_weight[:, 2*n_embd:3*n_embd]
+            print(f"    Value矩阵形状: {W_V.shape}")
             
-            ln_f_w = self.model.transformer.ln_f.weight
-            ln_f_b = self.model.transformer.ln_f.bias
-            lm_head_w = self.model.lm_head.weight if hasattr(self.model, 'lm_head') else wte
-
-            # e_j @ W_V
-            value_features = wte @ W_V
-
-            # FFN(e_j @ W_V) - 处理bias可能为None的情况
-            if ffn_b1 is not None:
-                ffn_hidden = nn.functional.gelu(value_features @ ffn_w1.T + ffn_b1)
-            else:
-                ffn_hidden = nn.functional.gelu(value_features @ ffn_w1.T)
-            
-            if ffn_b2 is not None:
-                ffn_out = ffn_hidden @ ffn_w2.T + ffn_b2
-            else:
-                ffn_out = ffn_hidden @ ffn_w2.T
-
-            # 组合
-            combined = value_features + ffn_out
-            
-            # LayerNorm
-            mean = combined.mean(dim=1, keepdim=True)
-            std = combined.std(dim=1, keepdim=True, unbiased=False)
-            ln_out = ln_f_w * (combined - mean) / (std + 1e-5) + ln_f_b
-
-            # 投影
-            W_V_prime = (ln_out @ lm_head_w.T).cpu().numpy()
+            for target_node in range(vocab_size):
+                if target_node % 10 == 0:
+                    print(f"    处理目标节点 {target_node}/{vocab_size}...", end='\r')
+                
+                # 获取目标节点的embedding
+                target_emb = self.model.transformer.wte(torch.tensor([target_node], device=self.device))
+                target_emb = target_emb.squeeze(0)
+                
+                # 通过Value矩阵变换
+                value_features = target_emb @ W_V
+                
+                # 通过FFN
+                value_features_expanded = value_features.unsqueeze(0).unsqueeze(0)
+                ffn_out = self.model.transformer.h[0].mlp(value_features_expanded)
+                ffn_out = ffn_out.squeeze()
+                
+                # 组合
+                combined = value_features + ffn_out
+                
+                # Layer norm
+                combined = self.model.transformer.ln_f(combined.unsqueeze(0)).squeeze()
+                
+                # 投影到词汇表空间
+                if hasattr(self.model, 'lm_head') and self.model.lm_head is not None:
+                    if hasattr(self.model.lm_head, 'weight') and self.model.lm_head.weight is not None:
+                        output_weight = self.model.lm_head.weight
+                    else:
+                        output_weight = self.model.transformer.wte.weight
+                else:
+                    output_weight = self.model.transformer.wte.weight
+                
+                reachability_scores = combined @ output_weight.T
+                
+                row_i = reachability_scores.cpu().numpy()
+                W_V_prime.append(row_i)
         
-        print(f"    完成! Shape: {W_V_prime.shape}")
-        return W_V_prime
+        print(f"\n    完成! Shape: {len(W_V_prime)}x{len(W_V_prime[0])}")
+        return np.array(W_V_prime)
     
     def extract_attention_pattern(self, num_samples: int = 50) -> np.ndarray:
-        """提取注意力模式（保持原有实现）"""
+        """手动提取注意力模式"""
         print(f"  提取注意力模式 ({self.model_type})...")
         
         n_embd = self.config.n_embd
@@ -349,39 +343,50 @@ class ALPINEMatrixExtractor:
         
         try:
             with torch.no_grad():
+                # 获取c_attn权重
                 c_attn = self.model.transformer.h[0].attn.c_attn
                 c_attn_weight = c_attn.weight
                 
+                # 分离Q、K、V投影矩阵
                 W_Q = c_attn_weight[:n_embd, :]
                 W_K = c_attn_weight[n_embd:2*n_embd, :]
                 
                 for i in range(min(num_samples, 50)):
+                    # 使用正确的token索引
                     source = np.random.choice(self.config.token_S1)
                     target = np.random.choice(self.config.token_S3)
                     middle = np.random.choice(self.config.token_S2)
                     
+                    # 构建输入序列
                     input_ids = torch.tensor([source, middle, target], dtype=torch.long, device=self.device)
                     
+                    # 获取embeddings
                     token_emb = self.model.transformer.wte(input_ids)
                     positions = torch.arange(0, 3, dtype=torch.long, device=self.device)
                     pos_emb = self.model.transformer.wpe(positions)
                     
                     hidden = token_emb + pos_emb
                     
+                    # 计算Q和K
                     Q = hidden @ W_Q.T
                     K = hidden @ W_K.T
                     
+                    # Reshape for attention
                     Q = Q.view(3, n_head, head_dim).squeeze(1)
                     K = K.view(3, n_head, head_dim).squeeze(1)
                     
+                    # 计算注意力分数
                     attn_scores = torch.matmul(Q, K.transpose(-2, -1))
                     attn_scores = attn_scores / math.sqrt(head_dim)
                     
+                    # 应用因果掩码
                     seq_len = 3
                     mask = torch.tril(torch.ones(seq_len, seq_len, device=self.device))
                     attn_scores = attn_scores.masked_fill(mask == 0, float('-inf'))
                     
+                    # Softmax
                     attn_weights = torch.softmax(attn_scores, dim=-1)
+                    
                     attention_maps.append(attn_weights.cpu().numpy())
             
             if attention_maps:
@@ -498,7 +503,7 @@ class MatrixComparator:
         results['adjacency']['improvement'] = {
             'cosine': results['adjacency']['20%_vs_True']['cosine'] - results['adjacency']['0%_vs_True']['cosine'],
             'pearson': results['adjacency']['20%_vs_True']['pearson'] - results['adjacency']['0%_vs_True']['pearson'],
-            'rmse': results['adjacency']['0%_vs_True']['rmse'] - results['adjacency']['20%_vs_True']['rmse']  # RMSE降低是好的
+            'rmse': results['adjacency']['0%_vs_True']['rmse'] - results['adjacency']['20%_vs_True']['rmse']
         }
         
         # 2. 可达性矩阵验证
