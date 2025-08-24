@@ -19,7 +19,7 @@ from datetime import datetime
 import math
 import warnings
 warnings.filterwarnings('ignore')
-
+import argparse
 # 导入你的模型定义
 try:
     from model import GPTConfig, GPT
