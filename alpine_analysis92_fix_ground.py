@@ -289,7 +289,7 @@ class ALPINEMatrixExtractor:
             c_attn_weight = c_attn.weight
             
             # 提取Value矩阵 - 修正索引
-            W_V = c_attn_weight[:, 2*n_embd:3*n_embd]
+            W_V = c_attn_weight[2*n_embd:3*n_embd, :]
             print(f"    Value矩阵形状: {W_V.shape}")
             
             for target_node in range(vocab_size):
