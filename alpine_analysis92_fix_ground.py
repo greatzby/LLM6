@@ -247,7 +247,7 @@ class ALPINEMatrixExtractor:
         return model
     
     def extract_adjacency_matrix(self) -> np.ndarray:
-        """提取邻接矩阵表示 W'_M (优化版本)"""
+        """提取邻接矩阵表示 W'_M (修复版本处理bias=None)"""
         vocab_size = self.config.vocab_size
         
         print(f"  提取邻接矩阵 ({self.model_type})...")
@@ -263,8 +263,16 @@ class ALPINEMatrixExtractor:
             ln_f_b = self.model.transformer.ln_f.bias
             lm_head_w = self.model.lm_head.weight if hasattr(self.model, 'lm_head') else wte
 
-            # 批量计算FFN(e_i)
-            ffn_out = nn.functional.gelu(wte @ ffn_w1.T + ffn_b1) @ ffn_w2.T + ffn_b2
+            # 批量计算FFN(e_i) - 处理bias可能为None的情况
+            if ffn_b1 is not None:
+                ffn_hidden = nn.functional.gelu(wte @ ffn_w1.T + ffn_b1)
+            else:
+                ffn_hidden = nn.functional.gelu(wte @ ffn_w1.T)
+            
+            if ffn_b2 is not None:
+                ffn_out = ffn_hidden @ ffn_w2.T + ffn_b2
+            else:
+                ffn_out = ffn_hidden @ ffn_w2.T
             
             # 组合：FFN(e_i) + e_i
             combined = ffn_out + wte
@@ -281,7 +289,7 @@ class ALPINEMatrixExtractor:
         return W_M_prime
     
     def extract_reachability_matrix(self) -> np.ndarray:
-        """提取可达矩阵表示 W'_V (优化版本)"""
+        """提取可达矩阵表示 W'_V (修复版本处理bias=None)"""
         vocab_size = self.config.vocab_size
         n_embd = self.config.n_embd
         
@@ -304,8 +312,16 @@ class ALPINEMatrixExtractor:
             # e_j @ W_V
             value_features = wte @ W_V
 
-            # FFN(e_j @ W_V)
-            ffn_out = nn.functional.gelu(value_features @ ffn_w1.T + ffn_b1) @ ffn_w2.T + ffn_b2
+            # FFN(e_j @ W_V) - 处理bias可能为None的情况
+            if ffn_b1 is not None:
+                ffn_hidden = nn.functional.gelu(value_features @ ffn_w1.T + ffn_b1)
+            else:
+                ffn_hidden = nn.functional.gelu(value_features @ ffn_w1.T)
+            
+            if ffn_b2 is not None:
+                ffn_out = ffn_hidden @ ffn_w2.T + ffn_b2
+            else:
+                ffn_out = ffn_hidden @ ffn_w2.T
 
             # 组合
             combined = value_features + ffn_out
