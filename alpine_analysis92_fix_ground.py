@@ -1,6 +1,6 @@
 """
 ALPINE Matrix Extraction and Comparison for Compositional Learning Analysis
-完整版 - 基于原始稳定方法，包含Ground Truth验证
+完整版 - 包含Ground Truth验证、自循环分析和全面的连接分析
 """
 import torch
 import torch.nn as nn
@@ -185,9 +185,9 @@ class Config:
               f"S2→S3边={np.sum(a_true_90[30:60, 60:90]):.0f}, "
               f"总边数={np.sum(a_true_90):.0f}")
 
-# ==================== ALPINE矩阵提取器（原始稳定版） ====================
+# ==================== ALPINE矩阵提取器（完全按原始代码） ====================
 class ALPINEMatrixExtractor:
-    """基于ALPINE论文的矩阵提取器 - 使用原始稳定方法"""
+    """基于ALPINE论文的矩阵提取器 - 完全按原始代码实现"""
     
     def __init__(self, checkpoint_path: str, config: Config, model_type: str = "unknown"):
         self.config = config
@@ -232,7 +232,7 @@ class ALPINEMatrixExtractor:
         return model
     
     def extract_adjacency_matrix(self) -> np.ndarray:
-        """提取邻接矩阵表示 W'_M - 原始稳定版本"""
+        """提取邻接矩阵表示 W'_M - 完全按原始代码"""
         vocab_size = self.config.vocab_size
         W_M_prime = []
         
@@ -276,7 +276,7 @@ class ALPINEMatrixExtractor:
         return np.array(W_M_prime)
     
     def extract_reachability_matrix(self) -> np.ndarray:
-        """提取可达矩阵表示 W'_V - 原始稳定版本"""
+        """提取可达矩阵表示 W'_V - 完全按原始代码"""
         vocab_size = self.config.vocab_size
         n_embd = self.config.n_embd
         W_V_prime = []
@@ -288,8 +288,8 @@ class ALPINEMatrixExtractor:
             c_attn = self.model.transformer.h[0].attn.c_attn
             c_attn_weight = c_attn.weight
             
-            # 提取Value矩阵 - 修正索引
-            W_V = c_attn_weight[2*n_embd:3*n_embd, :]
+            # 提取Value矩阵 - 按原始代码：提取行而不是列！
+            W_V = c_attn_weight[2*n_embd:3*n_embd, :]  # 这是正确的！
             print(f"    Value矩阵形状: {W_V.shape}")
             
             for target_node in range(vocab_size):
@@ -301,7 +301,7 @@ class ALPINEMatrixExtractor:
                 target_emb = target_emb.squeeze(0)
                 
                 # 通过Value矩阵变换
-                value_features = target_emb @ W_V
+                value_features = target_emb @ W_V.T
                 
                 # 通过FFN
                 value_features_expanded = value_features.unsqueeze(0).unsqueeze(0)
@@ -332,7 +332,7 @@ class ALPINEMatrixExtractor:
         return np.array(W_V_prime)
     
     def extract_attention_pattern(self, num_samples: int = 50) -> np.ndarray:
-        """手动提取注意力模式"""
+        """手动提取注意力模式 - 按原始代码"""
         print(f"  提取注意力模式 ({self.model_type})...")
         
         n_embd = self.config.n_embd
@@ -372,10 +372,13 @@ class ALPINEMatrixExtractor:
                     K = hidden @ W_K.T
                     
                     # Reshape for attention
-                    Q = Q.view(3, n_head, head_dim).squeeze(1)
-                    K = K.view(3, n_head, head_dim).squeeze(1)
+                    Q = Q.view(3, n_head, head_dim)
+                    K = K.view(3, n_head, head_dim)
                     
                     # 计算注意力分数
+                    Q = Q.squeeze(1)
+                    K = K.squeeze(1)
+                    
                     attn_scores = torch.matmul(Q, K.transpose(-2, -1))
                     attn_scores = attn_scores / math.sqrt(head_dim)
                     
