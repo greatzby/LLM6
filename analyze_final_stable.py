@@ -1,6 +1,6 @@
 """
 ALPINE Matrix Extraction and Comparison for Compositional Learning Analysis
-最终稳定版 - 使用循环提取矩阵，并包含鲁棒的Ground Truth验证（权重差距法）
+最终稳定版 (已修复W_V切片错误) - 使用循环提取矩阵，并包含鲁棒的Ground Truth验证
 """
 import torch
 import torch.nn as nn
@@ -18,8 +18,10 @@ import json
 from datetime import datetime
 import math
 import warnings
-warnings.filterwarnings('ignore')
 import argparse
+
+warnings.filterwarnings('ignore')
+
 # 导入你的模型定义
 try:
     from model import GPTConfig, GPT
@@ -27,7 +29,7 @@ except ImportError:
     print("错误：无法导入'model.py'。请确保该文件与此脚本在同一目录下。")
     exit()
 
-# ==================== 配置部分 (与之前相同) ====================
+# ==================== 配置部分 ====================
 class Config:
     def __init__(self, seed=42, checkpoint_dir="out_d92"):
         self.seed = seed
@@ -98,7 +100,7 @@ class Config:
         print(f"   ✓ A_true (真实邻接矩阵) 计算完成，形状: {self.A_true.shape}")
         print(f"   ✓ R_true (真实可达性矩阵) 计算完成，形状: {self.R_true.shape}")
 
-# ==================== ALPINE矩阵提取器 (恢复为您的原始稳定版本) ====================
+# ==================== ALPINE矩阵提取器 (已修复) ====================
 class ALPINEMatrixExtractor:
     def __init__(self, checkpoint_path: str, config: Config, model_type: str = "unknown"):
         self.config = config
@@ -111,10 +113,14 @@ class ALPINEMatrixExtractor:
 
     def load_model(self):
         checkpoint = torch.load(self.checkpoint_path, map_location=self.device)
-        model_args = checkpoint.get('model_args', {
-            'n_layer': self.config.n_layer, 'n_head': self.config.n_head, 'n_embd': self.config.n_embd,
-            'block_size': 32, 'bias': False, 'vocab_size': self.config.vocab_size, 'dropout': 0.0
-        })
+        model_args = checkpoint.get('model_args', {})
+        model_args.setdefault('block_size', 32)
+        required_keys = ['n_layer', 'n_head', 'n_embd', 'bias', 'vocab_size', 'dropout']
+        for key in required_keys:
+            if key not in model_args:
+                model_args[key] = getattr(self.config, key, None)
+                if key == 'bias': model_args[key] = False
+                if key == 'dropout': model_args[key] = 0.0
         gptconf = GPTConfig(**model_args)
         model = GPT(gptconf).to(self.device)
         model.load_state_dict(checkpoint['model'])
@@ -146,12 +152,19 @@ class ALPINEMatrixExtractor:
         print(f"  提取可达矩阵 ({self.model_type})...")
         with torch.no_grad():
             c_attn_weight = self.model.transformer.h[0].attn.c_attn.weight
-            W_V = c_attn_weight[:, 2*n_embd:3*n_embd]
+            
+            # --- THIS IS THE FIX ---
+            # 正确的切片方式，在第一个维度上切片
+            W_V = c_attn_weight[2*n_embd:3*n_embd, :]
+            
             for target_node in range(vocab_size):
                 if target_node % 10 == 0:
                     print(f"    处理目标节点 {target_node}/{vocab_size}...", end='\r')
                 target_emb = self.model.transformer.wte(torch.tensor([target_node], device=self.device)).squeeze(0)
-                value_features = target_emb @ W_V
+                
+                # 现在这里的矩阵乘法是正确的: (1, 92) @ (92, 92)
+                value_features = target_emb @ W_V.T
+                
                 value_features_expanded = value_features.unsqueeze(0).unsqueeze(0)
                 ffn_out = self.model.transformer.h[0].mlp(value_features_expanded).squeeze()
                 combined = value_features + ffn_out
@@ -225,13 +238,13 @@ class MatrixComparator:
 
 # ==================== 主函数 ====================
 def main():
-    parser = argparse.ArgumentParser(description="ALPINE Matrix Analysis - Final Stable Version")
+    parser = argparse.ArgumentParser(description="ALPINE Matrix Analysis - Final Stable Version (Fix 2)")
     parser.add_argument('--seed', type=int, default=42, help='Random seed')
     parser.add_argument('--checkpoint_dir', type=str, default='out_d92', help='Checkpoints directory')
     args = parser.parse_args()
     
     print("\n" + "="*80)
-    print("🚀 ALPINE Matrix Analysis - Final Stable Version")
+    print("🚀 ALPINE Matrix Analysis - Final Stable Version (Fix 2)")
     print("="*80)
     
     try:
