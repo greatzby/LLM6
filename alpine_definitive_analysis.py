@@ -1,5 +1,6 @@
 """
-Definitive Analysis Script for Compositional Generalization
+Definitive Analysis Script for Compositional Generalization (v1.1 - Corrected)
+- Fixes the initialization order bug in the Config class.
 - Implements expert peer-review suggestions for top-tier publication.
 - Separates analysis into: Adjacency Recovery, Compositional Mapping, and Reachability Recovery.
 - Uses robust metrics (AUROC, Average Precision) with bootstrapping for significance.
@@ -29,7 +30,7 @@ except ImportError:
     print("❌ 错误：无法导入'model.py'。请确保该文件与此脚本在同一目录下。")
     exit()
 
-# ==================== 1. 配置与Ground Truth生成 ====================
+# ==================== 1. 配置与Ground Truth生成 (已修正) ====================
 class Config:
     """
     配置类，负责加载所有资源并生成精确的Ground Truth矩阵。
@@ -55,10 +56,9 @@ class Config:
         print(f"✓  0% Model Path: {self.model_0_path}")
         print(f"✓ 20% Model Path: {self.model_20_path}")
         
-        # 加载元数据和图
-        self.load_metadata_and_graph()
-        
-        # 定义Token区间和切片，方便后续使用
+        # ##################################################################
+        # ## 修正：将Token和Slice的定义移到使用它们的方法之前 ##
+        # ##################################################################
         self.S1_tokens = list(range(2, 32))
         self.S2_tokens = list(range(32, 62))
         self.S3_tokens = list(range(62, 92))
@@ -66,7 +66,10 @@ class Config:
         self.S2_slice = np.s_[32:62]
         self.S3_slice = np.s_[62:92]
         print(f"✓ Token Slices Defined: S1→({self.S1_slice}), S2→({self.S2_slice}), S3→({self.S3_slice})")
-
+        
+        # 现在可以安全地加载图和计算矩阵了
+        self.load_metadata_and_graph()
+        
     def get_final_checkpoint_path(self, ratio, seed):
         pattern = f"{self.checkpoint_dir}/composition_mix{ratio}_seed{seed}_*"
         dirs = glob.glob(pattern)
@@ -196,8 +199,9 @@ class AnalysisSuite:
         """
         bootstrapped_scores = []
         n_samples = len(y_true)
+        rng = np.random.default_rng(seed=self.config.seed) # for reproducibility
         for _ in range(n_bootstraps):
-            indices = np.random.choice(n_samples, n_samples, replace=True)
+            indices = rng.choice(n_samples, n_samples, replace=True)
             if len(np.unique(y_true[indices])) < 2: continue # Skip if only one class in sample
             score = metric_func(y_true[indices], y_pred[indices])
             bootstrapped_scores.append(score)
