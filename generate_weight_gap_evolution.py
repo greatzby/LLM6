@@ -13,6 +13,7 @@ import glob
 import networkx as nx
 import argparse
 from tqdm import tqdm
+import json
 
 # 确保模型定义文件存在
 try:
@@ -179,7 +180,7 @@ def collect_evolution_data(config, mix_ratios=[0, 20], iterations=None):
     
     return evolution_data, iterations
 
-def plot_evolution(evolution_data, iterations, save_dir,config):
+def plot_evolution(evolution_data, iterations, save_dir, config):
     """绘制权重差距演化图。"""
     # 创建3x3的子图（3个路径类型 x 3个指标）
     fig, axes = plt.subplots(3, 3, figsize=(18, 12))
@@ -199,7 +200,8 @@ def plot_evolution(evolution_data, iterations, save_dir,config):
         ax.set_ylabel(f'{path_type}\nAverage Weight', fontsize=11)
         ax.set_title('Average Edge Weight' if i == 0 else '', fontsize=12)
         ax.grid(True, alpha=0.3)
-        ax.legend(loc='best')
+        if path_type != 'S1->S3':  # S1->S3没有边，不显示legend
+            ax.legend(loc='best')
         
         # 第2列：平均非边权重
         ax = axes[i, 1]
@@ -215,12 +217,13 @@ def plot_evolution(evolution_data, iterations, save_dir,config):
         ax = axes[i, 2]
         for model_name, model_data in evolution_data.items():
             gaps = model_data[path_type]['gap']
-            if not all(np.isnan(gaps)):  # 只在有数据时绘制
+            if path_type != 'S1->S3' and not all(np.isnan(gaps)):  # S1->S3没有gap
                 ax.plot(iterations, gaps, marker='^', label=model_name,
                        color=colors[model_name], linewidth=2, markersize=6)
         ax.set_title('Weight Gap (Edge - Non-Edge)' if i == 0 else '', fontsize=12)
         ax.grid(True, alpha=0.3)
-        ax.legend(loc='best')
+        if path_type != 'S1->S3':
+            ax.legend(loc='best')
         ax.axhline(y=0, color='gray', linestyle='--', alpha=0.5)
         
         # 对S1->S3添加注释
@@ -313,35 +316,123 @@ def main():
     parser.add_argument('--checkpoint_dir', type=str, default='out_d92', help='Directory containing model checkpoints')
     parser.add_argument('--save_dir', type=str, default='evolution_analysis', help='Directory to save analysis results')
     parser.add_argument('--include_s1s3', action='store_true', help='Include S1->S3 analysis in plots')
+    parser.add_argument('--verbose', action='store_true', help='Print detailed results for all checkpoints')
     args = parser.parse_args()
 
     os.makedirs(args.save_dir, exist_ok=True)
 
     # 初始化配置
     config = Config(seed=args.seed, checkpoint_dir=args.checkpoint_dir)
-    config.seed = args.seed  # 确保seed被正确设置
+    config.seed = args.seed
     
     # 收集演化数据
     print("\n" + "="*80)
     print("📈 COLLECTING WEIGHT GAP EVOLUTION DATA...")
     print("="*80)
     
-    iterations = list(range(5000, 55000, 5000))  # 从5k到50k
+    iterations = list(range(5000, 55000, 5000))
     evolution_data, iterations = collect_evolution_data(config, mix_ratios=[0, 20], iterations=iterations)
+    
+    # 打印详细的演化数据
+    print("\n" + "="*80)
+    print("📋 DETAILED EVOLUTION DATA:")
+    print("="*80)
+    
+    for model_name, model_data in evolution_data.items():
+        print(f"\n{'='*40}")
+        print(f"{model_name}")
+        print(f"{'='*40}")
+        
+        # 创建表格
+        print("\nS1->S2 Evolution:")
+        print(f"{'Steps':<10} {'Edge Weight':<12} {'Non-Edge':<12} {'Gap':<10}")
+        print("-" * 46)
+        for i, iter_val in enumerate(iterations):
+            edge = model_data['S1->S2']['edge'][i]
+            non_edge = model_data['S1->S2']['non_edge'][i]
+            gap = model_data['S1->S2']['gap'][i]
+            if not np.isnan(gap):
+                print(f"{iter_val:<10} {edge:>11.4f} {non_edge:>11.4f} {gap:>9.4f}")
+        
+        print("\nS2->S3 Evolution:")
+        print(f"{'Steps':<10} {'Edge Weight':<12} {'Non-Edge':<12} {'Gap':<10}")
+        print("-" * 46)
+        for i, iter_val in enumerate(iterations):
+            edge = model_data['S2->S3']['edge'][i]
+            non_edge = model_data['S2->S3']['non_edge'][i]
+            gap = model_data['S2->S3']['gap'][i]
+            if not np.isnan(gap):
+                print(f"{iter_val:<10} {edge:>11.4f} {non_edge:>11.4f} {gap:>9.4f}")
+        
+        print("\nS1->S3 Evolution (No true edges):")
+        print(f"{'Steps':<10} {'Avg Weight':<12}")
+        print("-" * 22)
+        for i, iter_val in enumerate(iterations):
+            avg_weight = model_data['S1->S3']['non_edge'][i]
+            if not np.isnan(avg_weight):
+                print(f"{iter_val:<10} {avg_weight:>11.4f}")
+    
+    # 生成对比表格
+    print("\n" + "="*80)
+    print("📊 WEIGHT GAP COMPARISON TABLE:")
+    print("="*80)
+    
+    print("\n┌─────────┬─────────────────────────┬─────────────────────────┐")
+    print("│  Steps  │      0% Model Gap       │      20% Model Gap      │")
+    print("│         │   S1→S2   │   S2→S3    │   S1→S2   │   S2→S3    │")
+    print("├─────────┼───────────┼────────────┼───────────┼────────────┤")
+    
+    for i, iter_val in enumerate(iterations):
+        gap_0_s12 = evolution_data['0% Model']['S1->S2']['gap'][i]
+        gap_0_s23 = evolution_data['0% Model']['S2->S3']['gap'][i]
+        gap_20_s12 = evolution_data['20% Model']['S1->S2']['gap'][i]
+        gap_20_s23 = evolution_data['20% Model']['S2->S3']['gap'][i]
+        
+        if not any(np.isnan([gap_0_s12, gap_0_s23, gap_20_s12, gap_20_s23])):
+            print(f"│ {iter_val:>7} │ {gap_0_s12:>9.4f} │ {gap_0_s23:>10.4f} │ {gap_20_s12:>9.4f} │ {gap_20_s23:>10.4f} │")
+    
+    print("└─────────┴───────────┴────────────┴───────────┴────────────┘")
+    
+    # 计算并显示趋势
+    print("\n" + "="*80)
+    print("📈 TREND ANALYSIS:")
+    print("="*80)
+    
+    for path_type in ['S1->S2', 'S2->S3']:
+        print(f"\n{path_type} Gap Evolution:")
+        for model_name in ['0% Model', '20% Model']:
+            gaps = evolution_data[model_name][path_type]['gap']
+            valid_gaps = [g for g in gaps if not np.isnan(g)]
+            if len(valid_gaps) >= 2:
+                initial_gap = valid_gaps[0]
+                final_gap = valid_gaps[-1]
+                change = final_gap - initial_gap
+                change_pct = (change / initial_gap * 100) if initial_gap != 0 else 0
+                print(f"  {model_name}: {initial_gap:.4f} → {final_gap:.4f} (Change: {change:+.4f}, {change_pct:+.1f}%)")
+    
+    print("\nS1->S3 Average Weight Evolution (No true edges):")
+    for model_name in ['0% Model', '20% Model']:
+        weights = evolution_data[model_name]['S1->S3']['non_edge']
+        valid_weights = [w for w in weights if not np.isnan(w)]
+        if len(valid_weights) >= 2:
+            initial_weight = valid_weights[0]
+            final_weight = valid_weights[-1]
+            change = final_weight - initial_weight
+            print(f"  {model_name}: {initial_weight:.4f} → {final_weight:.4f} (Change: {change:+.4f})")
     
     # 生成图表
     print("\n" + "="*80)
     print("📊 GENERATING PLOTS...")
     print("="*80)
     
-    # 生成简化版图表（教授要求的）
+    # 生成简化版图表
     plot_simplified_evolution(evolution_data, iterations, args.save_dir, config)
     
-    # 如果需要，也生成包含S1->S3的完整版
+    # 如果需要，生成完整版
     if args.include_s1s3:
         plot_evolution(evolution_data, iterations, args.save_dir, config)
     
-    # 打印最终结果总结
+    # 最终总结
     print("\n" + "="*80)
     print("📋 FINAL RESULTS SUMMARY (at 50k steps):")
     print("="*80)
@@ -357,6 +448,24 @@ def main():
                 print(f"  {path_type}: No true edges, Avg weight = {final_non_edge:.3f}")
             else:
                 print(f"  {path_type}: Gap = {final_gap:.3f} (Edge: {final_edge:.3f}, Non-edge: {final_non_edge:.3f})")
+    
+    # 保存数据到文件
+    # 转换数据为可序列化格式
+    save_data = {}
+    for model_name, model_data in evolution_data.items():
+        save_data[model_name] = {}
+        for path_type, path_data in model_data.items():
+            save_data[model_name][path_type] = {
+                'iterations': iterations,
+                'edge': [float(x) if not np.isnan(x) else None for x in path_data['edge']],
+                'non_edge': [float(x) if not np.isnan(x) else None for x in path_data['non_edge']],
+                'gap': [float(x) if not np.isnan(x) else None for x in path_data['gap']]
+            }
+    
+    json_path = os.path.join(args.save_dir, f'evolution_data_seed{config.seed}.json')
+    with open(json_path, 'w') as f:
+        json.dump(save_data, f, indent=2)
+    print(f"\n💾 Data saved to: {json_path}")
     
     print("\n" + "="*80)
     print("✅ ANALYSIS COMPLETE!")
