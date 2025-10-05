@@ -37,7 +37,7 @@ class ModelConfig:
         self.vocab_size = 92
         
         # 使用标准图路径
-        self.graph_base_dir = 'data/simple_graph/standardized_alpine_90_seed42'
+        self.graph_base_dir = 'data/simple_graph/composition_90_alpine_strict'
         
         # 加载节点分组和图结构
         self.load_stage_info()
