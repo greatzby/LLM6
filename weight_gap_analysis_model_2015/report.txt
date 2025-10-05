@@ -1,0 +1,21 @@
+Weight Gap Analysis Report
+============================================================
+Model: model_2015
+Checkpoint dir: out/composition_20251005_201525
+Generated: 2025-10-05 21:20:21
+
+
+S1->S2:
+  Final gap: 0.2869
+  Min gap:   0.0797
+  Max gap:   0.2869
+
+S2->S3:
+  Final gap: 0.2314
+  Min gap:   0.0655
+  Max gap:   0.2314
+
+S1->S3:
+  Final gap: 0.2678
+  Min gap:   0.0566
+  Max gap:   0.2678
