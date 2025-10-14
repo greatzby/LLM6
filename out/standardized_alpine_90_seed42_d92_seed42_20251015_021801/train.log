@@ -1,0 +1,11 @@
+[2025-10-15 02:18:01,603][INFO] ============================================================
+[2025-10-15 02:18:01,603][INFO] Composition Training - Graph Repair Experiment
+[2025-10-15 02:18:01,603][INFO] Experiment: standardized_alpine_90_seed42
+[2025-10-15 02:18:01,603][INFO] Model: 1L-1H-92D
+[2025-10-15 02:18:01,603][INFO] Data: data/simple_graph/standardized_alpine_90_seed42
+[2025-10-15 02:18:01,603][INFO] Train file: train_0.bin
+[2025-10-15 02:18:01,603][INFO] Output dir: out/standardized_alpine_90_seed42_d92_seed42_20251015_021801
+[2025-10-15 02:18:01,603][INFO] ============================================================
+[2025-10-15 02:18:01,610][INFO] Vocab size: 92, Block size: 32
+[2025-10-15 02:18:02,353][INFO] Model initialized: 0.11M parameters
+[2025-10-15 02:18:02,354][INFO] Starting training...
