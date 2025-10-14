@@ -1,0 +1,74 @@
+[2025-10-15 00:23:20,859][INFO] ============================================================
+[2025-10-15 00:23:20,859][INFO] Composition Training - Graph Repair Experiment
+[2025-10-15 00:23:20,859][INFO] Experiment: standardized_alpine_90_seed42
+[2025-10-15 00:23:20,859][INFO] Model: 1L-1H-92D
+[2025-10-15 00:23:20,859][INFO] Data: data/simple_graph/standardized_alpine_90_seed42
+[2025-10-15 00:23:20,859][INFO] Train file: train_20.bin
+[2025-10-15 00:23:20,859][INFO] Output dir: out/standardized_alpine_90_seed42_d92_seed42_20251015_002320
+[2025-10-15 00:23:20,859][INFO] ============================================================
+[2025-10-15 00:23:20,867][INFO] Vocab size: 92, Block size: 32
+[2025-10-15 00:23:21,631][INFO] Model initialized: 0.11M parameters
+[2025-10-15 00:23:21,631][INFO] Starting training...
+[2025-10-15 00:23:24,552][INFO] Iter     0 | Loss: train=nan, val=4.5427 | Acc: S1->S2=0.0%, S2->S3=0.0%, S1->S3=0.0%
+[2025-10-15 00:23:31,556][INFO] Iter  1000 | Loss: train=2.8114, val=1.3874 | Acc: S1->S2=84.0%, S2->S3=88.0%, S1->S3=90.0%
+[2025-10-15 00:23:38,530][INFO] Iter  2000 | Loss: train=1.1734, val=1.1345 | Acc: S1->S2=98.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:23:45,494][INFO] Iter  3000 | Loss: train=1.0590, val=1.1002 | Acc: S1->S2=100.0%, S2->S3=96.0%, S1->S3=96.0%
+[2025-10-15 00:23:52,465][INFO] Iter  4000 | Loss: train=1.0243, val=1.0940 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:23:59,448][INFO] Iter  5000 | Loss: train=0.9998, val=1.0704 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:23:59,453][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_5000.pt
+[2025-10-15 00:24:06,429][INFO] Iter  6000 | Loss: train=0.9778, val=1.0718 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:24:13,414][INFO] Iter  7000 | Loss: train=0.9582, val=1.1015 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:24:20,389][INFO] Iter  8000 | Loss: train=0.9391, val=1.1081 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:24:27,423][INFO] Iter  9000 | Loss: train=0.9211, val=1.1098 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:24:34,334][INFO] Iter 10000 | Loss: train=0.9037, val=1.1408 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:24:34,339][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_10000.pt
+[2025-10-15 00:24:41,246][INFO] Iter 11000 | Loss: train=0.8891, val=1.1286 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:24:48,326][INFO] Iter 12000 | Loss: train=0.8762, val=1.1867 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:24:55,281][INFO] Iter 13000 | Loss: train=0.8638, val=1.1692 | Acc: S1->S2=98.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:25:02,234][INFO] Iter 14000 | Loss: train=0.8534, val=1.1733 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:25:09,196][INFO] Iter 15000 | Loss: train=0.8447, val=1.1687 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:25:09,201][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_15000.pt
+[2025-10-15 00:25:16,158][INFO] Iter 16000 | Loss: train=0.8380, val=1.1986 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:25:23,156][INFO] Iter 17000 | Loss: train=0.8320, val=1.1942 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=98.0%
+[2025-10-15 00:25:30,195][INFO] Iter 18000 | Loss: train=0.8265, val=1.2639 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:25:37,158][INFO] Iter 19000 | Loss: train=0.8208, val=1.1991 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:25:44,099][INFO] Iter 20000 | Loss: train=0.8178, val=1.1496 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:25:44,103][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_20000.pt
+[2025-10-15 00:25:50,991][INFO] Iter 21000 | Loss: train=0.8151, val=1.2106 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:25:57,888][INFO] Iter 22000 | Loss: train=0.8121, val=1.1744 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:04,789][INFO] Iter 23000 | Loss: train=0.8090, val=1.2188 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:11,796][INFO] Iter 24000 | Loss: train=0.8071, val=1.2197 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:18,705][INFO] Iter 25000 | Loss: train=0.8057, val=1.2113 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:18,709][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_25000.pt
+[2025-10-15 00:26:25,643][INFO] Iter 26000 | Loss: train=0.8034, val=1.2663 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:32,569][INFO] Iter 27000 | Loss: train=0.8022, val=1.1838 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:39,470][INFO] Iter 28000 | Loss: train=0.8015, val=1.3008 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:46,366][INFO] Iter 29000 | Loss: train=0.7999, val=1.2447 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:53,266][INFO] Iter 30000 | Loss: train=0.7990, val=1.2168 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:26:53,271][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_30000.pt
+[2025-10-15 00:27:00,179][INFO] Iter 31000 | Loss: train=0.7990, val=1.1994 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:27:07,087][INFO] Iter 32000 | Loss: train=0.7982, val=1.2387 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:27:13,988][INFO] Iter 33000 | Loss: train=0.7975, val=1.2750 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:27:20,896][INFO] Iter 34000 | Loss: train=0.7963, val=1.2739 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:27:27,863][INFO] Iter 35000 | Loss: train=0.7955, val=1.2544 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:27:27,868][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_35000.pt
+[2025-10-15 00:27:34,782][INFO] Iter 36000 | Loss: train=0.7945, val=1.2490 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:27:41,776][INFO] Iter 37000 | Loss: train=0.7944, val=1.2495 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:27:48,843][INFO] Iter 38000 | Loss: train=0.7941, val=1.2569 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:27:55,834][INFO] Iter 39000 | Loss: train=0.7931, val=1.2645 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:02,774][INFO] Iter 40000 | Loss: train=0.7932, val=1.2219 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:02,779][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_40000.pt
+[2025-10-15 00:28:09,738][INFO] Iter 41000 | Loss: train=0.7929, val=1.2300 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:16,684][INFO] Iter 42000 | Loss: train=0.7927, val=1.2692 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:23,625][INFO] Iter 43000 | Loss: train=0.7917, val=1.2606 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:30,584][INFO] Iter 44000 | Loss: train=0.7916, val=1.2346 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:37,522][INFO] Iter 45000 | Loss: train=0.7917, val=1.2147 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:37,527][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_45000.pt
+[2025-10-15 00:28:44,472][INFO] Iter 46000 | Loss: train=0.7914, val=1.2195 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:51,485][INFO] Iter 47000 | Loss: train=0.7905, val=1.2753 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:28:58,390][INFO] Iter 48000 | Loss: train=0.7907, val=1.2426 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:29:05,378][INFO] Iter 49000 | Loss: train=0.7904, val=1.2526 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:29:12,281][INFO] Iter 50000 | Loss: train=0.7885, val=1.3559 | Acc: S1->S2=100.0%, S2->S3=100.0%, S1->S3=100.0%
+[2025-10-15 00:29:12,286][INFO] Checkpoint saved to out/standardized_alpine_90_seed42_d92_seed42_20251015_002320/ckpt_50000.pt
+[2025-10-15 00:29:12,286][INFO] 
+Training finished! Results are in: out/standardized_alpine_90_seed42_d92_seed42_20251015_002320
